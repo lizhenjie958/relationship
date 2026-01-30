@@ -1,7 +1,7 @@
 package com.mcf.relationship.base;
 
-import com.mcf.relationship.exception.BizExceptionEnum;
-import com.mcf.relationship.exception.ExceptionInterface;
+import com.mcf.relationship.enums.SystemExceptionEnum;
+import com.mcf.relationship.exception.CommonException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,10 +41,18 @@ public class McfResult<T> implements Serializable {
         return new McfResult<>(200, "处理成功", data);
     }
 
-    public static <T> McfResult<T> fail(ExceptionInterface exception) {
-        if (exception instanceof BizExceptionEnum) {
+    public static <T> McfResult<T> fail(CommonException exception) {
+        if (CommonException.isBizException(exception)) {
             return new McfResult<>(exception.getCode(), exception.getMsg(), null);
         }
-        return new McfResult<>(exception.getCode(), "系统异常", null);
+        return new McfResult<>(exception.getCode(), "服务器繁忙，请稍后重试", null);
+    }
+
+    public static <T> McfResult<T> error() {
+        return new McfResult<>(SystemExceptionEnum.SYSTEM_ERROR.getCode(), "系统异常，请联系客服人员处理", null);
+    }
+
+    public static <T> McfResult<T> signError() {
+        return new McfResult<>(SystemExceptionEnum.SING_ERROR.getCode(), SystemExceptionEnum.SING_ERROR.getMsg(), null);
     }
 }

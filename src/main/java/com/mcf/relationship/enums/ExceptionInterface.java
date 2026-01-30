@@ -1,4 +1,4 @@
-package com.mcf.relationship.exception;
+package com.mcf.relationship.enums;
 
 /**
  * @Author ZhuPo
