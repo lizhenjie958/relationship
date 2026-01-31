@@ -1,4 +1,4 @@
-package com.mcf.relationship.bo;
+package com.mcf.relationship.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

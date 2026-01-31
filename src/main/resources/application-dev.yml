@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    username: platform
+    password: FYTIUfuytftyu5r4R^
+    url: jdbc:mysql://rm-bp1843l8qlcjejn2aio.mysql.rds.aliyuncs.com/config?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+        initial-size: 10
+        min-idle: 10
+        max-active: 50
+        max-wait: 60000
+
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

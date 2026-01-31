@@ -1,7 +1,7 @@
 package com.mcf.relationship.util;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.mcf.relationship.bo.UserTokenBO;
+import com.mcf.relationship.domain.entity.UserTokenBO;
 
 /**
  * @author lizhenjie

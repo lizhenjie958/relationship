@@ -1,6 +1,6 @@
 package com.mcf.relationship.filter;
 
-import com.mcf.relationship.base.McfResult;
+import com.mcf.relationship.common.McfResult;
 import com.mcf.relationship.exception.BizException;
 import com.mcf.relationship.exception.CommonException;
 import lombok.extern.slf4j.Slf4j;

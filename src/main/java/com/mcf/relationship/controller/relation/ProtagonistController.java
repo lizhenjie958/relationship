@@ -1,14 +1,15 @@
 package com.mcf.relationship.controller.relation;
 
-import com.mcf.relationship.base.McfResult;
-import com.mcf.relationship.base.PageRequest;
-import com.mcf.relationship.base.PageResponse;
+import com.mcf.relationship.common.McfResult;
+import com.mcf.relationship.common.PageRequest;
+import com.mcf.relationship.common.PageResponse;
 import com.mcf.relationship.controller.relation.vo.ProtagonistVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,4 +44,5 @@ public class ProtagonistController {
         PageResponse<ProtagonistVO> pageResponse = new PageResponse<>(list.size(), list.subList(request.getPageNo() - 1, i));
         return McfResult.success(pageResponse);
     }
+
 }
