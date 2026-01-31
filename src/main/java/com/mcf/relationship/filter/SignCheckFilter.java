@@ -2,9 +2,9 @@ package com.mcf.relationship.filter;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
-import com.mcf.relationship.common.McfResult;
-import com.mcf.relationship.consts.SystemConst;
-import com.mcf.relationship.util.SignUtil;
+import com.mcf.relationship.common.protocol.McfResult;
+import com.mcf.relationship.common.consts.SystemConst;
+import com.mcf.relationship.common.util.SignUtil;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

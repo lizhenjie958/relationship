@@ -1,4 +1,4 @@
-package com.mcf.relationship.util;
+package com.mcf.relationship.common.util;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;

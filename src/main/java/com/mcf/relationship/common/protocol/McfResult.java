@@ -1,7 +1,7 @@
-package com.mcf.relationship.common;
+package com.mcf.relationship.common.protocol;
 
-import com.mcf.relationship.enums.SystemExceptionEnum;
-import com.mcf.relationship.exception.CommonException;
+import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.exception.CommonException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

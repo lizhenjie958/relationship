@@ -1,4 +1,4 @@
-package com.mcf.relationship.consts;
+package com.mcf.relationship.common.consts;
 
 /**
  * 符号常量

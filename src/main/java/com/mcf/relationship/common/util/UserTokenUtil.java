@@ -1,4 +1,4 @@
-package com.mcf.relationship.util;
+package com.mcf.relationship.common.util;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.mcf.relationship.domain.entity.UserTokenBO;

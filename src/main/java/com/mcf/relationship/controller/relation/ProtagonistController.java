@@ -1,8 +1,8 @@
 package com.mcf.relationship.controller.relation;
 
-import com.mcf.relationship.common.McfResult;
-import com.mcf.relationship.common.PageRequest;
-import com.mcf.relationship.common.PageResponse;
+import com.mcf.relationship.common.protocol.McfResult;
+import com.mcf.relationship.common.protocol.PageRequest;
+import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.controller.relation.vo.ProtagonistVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;

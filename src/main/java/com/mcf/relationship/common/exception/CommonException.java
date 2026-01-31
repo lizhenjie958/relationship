@@ -1,6 +1,6 @@
-package com.mcf.relationship.exception;
+package com.mcf.relationship.common.exception;
 
-import com.mcf.relationship.enums.ExceptionInterface;
+import com.mcf.relationship.common.enums.ExceptionInterface;
 import lombok.Getter;
 
 import java.text.MessageFormat;

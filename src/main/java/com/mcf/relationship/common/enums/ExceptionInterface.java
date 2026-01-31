@@ -1,4 +1,4 @@
-package com.mcf.relationship.enums;
+package com.mcf.relationship.common.enums;
 
 /**
  * @Author ZhuPo

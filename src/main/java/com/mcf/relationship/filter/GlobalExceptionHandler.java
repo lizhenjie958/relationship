@@ -1,8 +1,8 @@
 package com.mcf.relationship.filter;
 
-import com.mcf.relationship.common.McfResult;
-import com.mcf.relationship.exception.BizException;
-import com.mcf.relationship.exception.CommonException;
+import com.mcf.relationship.common.protocol.McfResult;
+import com.mcf.relationship.common.exception.BizException;
+import com.mcf.relationship.common.exception.CommonException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

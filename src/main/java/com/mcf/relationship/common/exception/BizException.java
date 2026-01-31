@@ -1,6 +1,6 @@
-package com.mcf.relationship.exception;
+package com.mcf.relationship.common.exception;
 
-import com.mcf.relationship.enums.BizExceptionEnum;
+import com.mcf.relationship.common.enums.BizExceptionEnum;
 
 import java.io.Serial;
 

@@ -1,4 +1,4 @@
-package com.mcf.relationship.common;
+package com.mcf.relationship.common.protocol;
 
 import lombok.Data;
 

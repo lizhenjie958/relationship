@@ -1,6 +1,6 @@
-package com.mcf.relationship.util;
+package com.mcf.relationship.common.util;
 
-import com.mcf.relationship.consts.CharConst;
+import com.mcf.relationship.common.consts.CharConst;
 import org.apache.commons.lang3.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

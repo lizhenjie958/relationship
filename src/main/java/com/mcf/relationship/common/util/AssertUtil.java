@@ -1,7 +1,7 @@
-package com.mcf.relationship.util;
+package com.mcf.relationship.common.util;
 
-import com.mcf.relationship.enums.SystemExceptionEnum;
-import com.mcf.relationship.exception.SysException;
+import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.exception.SysException;
 import io.micrometer.common.util.StringUtils;
 import java.util.Collection;
 import java.util.Map;
