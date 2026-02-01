@@ -1,4 +1,4 @@
-package com.mcf.relationship.config;
+package com.mcf.relationship.config.web;
 
 import com.mcf.relationship.filter.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;

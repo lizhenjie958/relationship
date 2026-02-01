@@ -19,4 +19,11 @@ memcached:
   enable-heartbeat: true   # 心跳检测
 
 
+tos:
+  region: tos-cn-beijing
+  endpoint: tos-cn-beijing.volces.com
+  access-key: AKLTMjAyMGNlMDdhM2I3NDNlOTk5NDVlNmExN2U2MjUxZDE
+  secret-key: T1RZMk9XVTNZakE1WXpnNU5EVTBaamczT0RBNU1EVTBaR0kwTVRjNVptVQ==
+  bucket: zz-mxj-material
+
 

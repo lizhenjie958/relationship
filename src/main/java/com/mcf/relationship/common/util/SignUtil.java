@@ -3,17 +3,14 @@ package com.mcf.relationship.common.util;
 import com.mcf.relationship.common.consts.CharConst;
 import org.apache.commons.lang3.StringUtils;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author ZhuPo
  * @date 2026/1/30 14:22
  */
-public class SignUtil {
+public final class SignUtil {
+    private static final String PREFIX = "relationship=8905e6ee&";
     /**
      * 签名
      * @param map
@@ -30,7 +27,8 @@ public class SignUtil {
             }
         }
         AssertUtil.checkCollectionNotEmpty(signPair,"签名数据对");
-        String signRaw = StringUtils.join(signPair, CharConst.AMP);
+        String secondSignRaw = StringUtils.join(signPair, CharConst.AMP);
+        String signRaw = PREFIX + secondSignRaw;
         String sign = MD5Util.md5Hex(Base64.getEncoder().encodeToString(signRaw.getBytes(StandardCharsets.UTF_8)));
         return sign;
     }

@@ -1,4 +1,4 @@
-package com.mcf.relationship.config;
+package com.mcf.relationship.config.memcached;
 
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.MemcachedClientBuilder;

@@ -3,7 +3,13 @@ spring:
     username: platform
     password: FYTIUfuytftyu5r4R^
     url: jdbc:mysql://mysql-81c187e1e9a8-public.rds.volces.com/config?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
-    driver-class-name: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 60000
 
 mybatis-plus:
   mapper-locations: classpath*:com/data/mapper/**/*Mapper.xml
@@ -11,3 +17,6 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+tos:
+  basePath: 10000/13860/picture/

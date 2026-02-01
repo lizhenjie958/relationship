@@ -16,3 +16,6 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+tos:
+  basePath: 10000/13849/picture/

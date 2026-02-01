@@ -1,4 +1,4 @@
-package com.mcf.relationship.config;
+package com.mcf.relationship.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
