@@ -74,13 +74,19 @@
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-      <version>3.5.9</version>
+      <version>3.5.5</version>
     </dependency>
 
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-generator</artifactId>
-      <version>3.5.9</version>
+      <version>3.5.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-extension</artifactId>
+      <version>3.5.5</version>
     </dependency>
 
     <!-- Druid 连接池 -->

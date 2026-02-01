@@ -23,7 +23,11 @@ public class CommonException extends RuntimeException {
     /**
      * 传入的参数，主要用于格式化msg，不需要被序列化
      */
-    private final transient Object[] args;
+    private transient Object[] args;
+
+    public CommonException() {
+        super();
+    }
 
     public CommonException(ExceptionInterface result, Object... args) {
         super(format(result, args));

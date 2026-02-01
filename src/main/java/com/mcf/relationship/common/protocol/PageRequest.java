@@ -1,8 +1,11 @@
 package com.mcf.relationship.common.protocol;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class PageRequest extends BaseRequest {
 
@@ -18,4 +21,8 @@ public class PageRequest extends BaseRequest {
      */
     private Integer pageSize = 10;
 
+
+    public <T> Page<T> page() {
+        return Page.of(pageNo, pageSize);
+    }
 }

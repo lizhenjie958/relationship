@@ -1,8 +1,7 @@
 package com.mcf.relationship.filter;
 
-import com.mcf.relationship.common.protocol.McfResult;
-import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.exception.CommonException;
+import com.mcf.relationship.common.protocol.McfResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +14,12 @@ import org.springframework.web.context.request.WebRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CommonException.class)
-    public ResponseEntity<Object> handleBaseException(BizException ex, WebRequest request) {
+    public ResponseEntity<Object> handleBaseException(CommonException ex, WebRequest request) {
         log.error("commonException",ex);
         return new ResponseEntity<>(McfResult.fail(ex), HttpStatus.OK);
     }
 
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGlobalException(Exception ex, WebRequest request) {
         log.error("unknownException",ex);
         return new ResponseEntity<>(McfResult.error(), HttpStatus.OK);

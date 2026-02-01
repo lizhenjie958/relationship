@@ -19,4 +19,8 @@ public class SysException extends CommonException {
     public SysException(SystemExceptionEnum result, Object... args) {
         super(result, args);
     }
+
+    public SysException(){
+        super();
+    }
 }

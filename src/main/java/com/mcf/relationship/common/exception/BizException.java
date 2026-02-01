@@ -21,8 +21,7 @@ public class BizException extends CommonException {
         super(result, args);
     }
 
-    public static Boolean isBizException(Throwable th) {
-        return th instanceof BizException;
+    public BizException() {
+        super();
     }
-
 }

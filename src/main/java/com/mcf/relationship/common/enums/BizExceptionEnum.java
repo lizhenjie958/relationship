@@ -16,6 +16,17 @@ public enum BizExceptionEnum implements ExceptionInterface {
      */
     NEED_LOGIN(1001,"用户未登录"),
     LOGIN_EXPIRED(1002, "登录已过期"),
+
+    /**
+     * 用户相关异常
+     * 1101-1200
+     */
+
+    /**
+     * 关系相关异常
+     * 1201-1300
+     */
+    PROTAGONIST_EXIST(1201, "该主角已存在"),
     ;
     private final Integer code;
     private final String msg;

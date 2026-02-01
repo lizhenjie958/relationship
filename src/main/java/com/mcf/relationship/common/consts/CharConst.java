@@ -122,4 +122,8 @@ public interface CharConst {
      */
     String QUESTION = "?";
 
+    /**
+     * 百分号
+     */
+    String PERCENT = "%";
 }
