@@ -3,10 +3,13 @@ package com.mcf.relationship.infra.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -20,8 +23,10 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("r_user")
-public class UserDO {
+public class UserDO implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 478252771986542206L;
     /**
      * 主键
      */

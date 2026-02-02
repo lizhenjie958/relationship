@@ -52,7 +52,7 @@ public class MybatisPlus {
                 .strategyConfig((scanner, builder) -> {
                     builder.addInclude(scanner.apply("请输入表名"))
                             .addTablePrefix("r_")
-                            .entityBuilder().enableChainModel().enableLombok().disableSerialVersionUID().formatFileName("%sDO")
+                            .entityBuilder().enableChainModel().enableLombok().formatFileName("%sDO")
                             .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImp");
                 })
                 .execute();

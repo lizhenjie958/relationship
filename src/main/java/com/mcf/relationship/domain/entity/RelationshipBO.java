@@ -1,12 +1,12 @@
 package com.mcf.relationship.domain.entity;
 
-import com.mcf.relationship.common.consts.OptionConst;
+import com.mcf.relationship.common.dto.OptionDTO;
+import com.mcf.relationship.common.dto.QuestionDTO;
+import com.mcf.relationship.common.dto.RelationDTO;
 import com.mcf.relationship.common.enums.QuestionTemplateEnum;
 import com.mcf.relationship.infra.model.RelationshipDO;
 import lombok.Data;
-
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @date 2026/2/2 17:04
  */
 @Data
-public class RelationshipBO extends RelationshipDO implements Serializable {
+public class RelationshipBO extends RelationshipDO {
     @Serial
     private static final long serialVersionUID = 1344787020586634503L;
 
@@ -25,11 +25,11 @@ public class RelationshipBO extends RelationshipDO implements Serializable {
      * 关系列表转化对象
      * 转化对象必须携带类型BO
      */
-    private List<RelationBO> relationBOList;
+    private List<RelationDTO> relationDTOList;
 
 
     public List<String> parseRelationNameList(){
-        return this.getRelationBOList().stream().map(RelationBO::getRelation).distinct().toList();
+        return this.getRelationDTOList().stream().map(RelationDTO::getRelationName).distinct().toList();
     }
 
 
@@ -42,38 +42,38 @@ public class RelationshipBO extends RelationshipDO implements Serializable {
      * -- 题目答题有效期一小时
      * -- 试卷有效期一星期
      * -- 试卷生成后，不允许修改和删除
-     * @param relationshipBO
      * @return
      */
-    public List<QuestionBO> generateQuestions(RelationshipBO relationshipBO) {
-        List<RelationBO> relationList = relationshipBO.getRelationBOList();
-        List<String> relationNameList = relationshipBO.parseRelationNameList();
-        List<QuestionBO> questionList = new ArrayList<>(relationList.size());
+    public List<QuestionDTO> generateQuestions() {
+        List<RelationDTO> relationList = this.getRelationDTOList();
+        List<String> relationNameList = this.parseRelationNameList();
+        List<QuestionDTO> questionList = new ArrayList<>(relationList.size());
         for (int i = 1; i <= relationList.size(); i++) {
-            RelationBO relationBO = relationList.get(i - 1);
+            RelationDTO relationDTO = relationList.get(i - 1);
 
-            QuestionBO questionBO = new QuestionBO();
-            questionBO.setQuestionNo(i);
-            questionBO.setPicUrl(relationBO.getPicUrl());
-            questionBO.setTemplateKey(QuestionTemplateEnum.GUESS_RELATION.getKey());
+            QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setQuestionNo(i);
+            questionDTO.setPicUrl(relationDTO.getPicUrl());
+            questionDTO.setTemplateKey(QuestionTemplateEnum.GUESS_RELATION.getKey());
             // 选项构造
-            List<OptionBO> optionList = this.parseOptionList(relationNameList, relationBO.getRelation());
+            List<OptionDTO> optionList = this.parseOptionList(relationNameList, relationDTO.getRelationName());
 
             // 找到正确答案选项并标记
             optionList.stream()
-                    .filter(optionBO -> optionBO.getValue().equals(relationBO.getRelation()))
+                    .filter(optionDTO -> optionDTO.getValue().equals(relationDTO.getRelationName()))
                     .findFirst()
                     .ifPresent(correctOption -> {
-                        questionBO.setCorrectOptionList(Collections.singletonList(correctOption.getKey()));
+                        questionDTO.setCorrectOptionList(Collections.singletonList(correctOption.getKey()));
                     });
-            questionBO.setOptionList(optionList);
+            questionDTO.setOptionList(optionList);
+            questionList.add(questionDTO);
         }
         return questionList;
     }
 
 
 
-    private List<OptionBO> parseOptionList(List<String> relationNameList, String relationName) {
+    private List<OptionDTO> parseOptionList(List<String> relationNameList, String relationName) {
         List<String> filteredList = relationNameList.stream()
                 .filter(name -> !name.equals(relationName))
                 .collect(Collectors.toList());
@@ -87,10 +87,11 @@ public class RelationshipBO extends RelationshipDO implements Serializable {
     }
 
 
-    private List<OptionBO> doGetOptionList(List<String> optionNameList) {
-        List<OptionBO> resultList = new ArrayList<>(4);
-        for (int i = 1; i <= optionNameList.size(); i++) {
-            resultList.add(new OptionBO(OptionConst.NO_CHAR_MAP.get(i), optionNameList.get(i - 1)));
+    private List<OptionDTO> doGetOptionList(List<String> optionNameList) {
+        List<OptionDTO> resultList = new ArrayList<>(4);
+        char c = 'A';
+        for (int i = 1; i <= optionNameList.size(); i++, c++) {
+            resultList.add(new OptionDTO(String.valueOf(c), optionNameList.get(i - 1)));
         }
         return resultList;
     }

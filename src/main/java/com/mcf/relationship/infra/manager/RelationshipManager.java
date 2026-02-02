@@ -8,7 +8,7 @@ import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
 import com.mcf.relationship.controller.relationship.request.RelationshipQueryRequest;
-import com.mcf.relationship.domain.RelationshipConverter;
+import com.mcf.relationship.domain.convert.RelationshipConverter;
 import com.mcf.relationship.domain.entity.RelationshipBO;
 import com.mcf.relationship.infra.mapper.RelationshipMapper;
 import com.mcf.relationship.infra.model.RelationshipDO;
@@ -40,7 +40,7 @@ public class RelationshipManager {
         AssertUtil.checkStringNotBlank(relationshipBO.getProtagonist(), "请输入主角名称");
         AssertUtil.checkStringNotBlank(relationshipBO.getPicUrl(), "请上传图片");
         AssertUtil.checkStringNotBlank(relationshipBO.getRemark(), "请输入主角描述");
-        AssertUtil.checkCollectionNotEmpty(relationshipBO.getRelationBOList(), "请添加关系");
+        AssertUtil.checkCollectionNotEmpty(relationshipBO.getRelationDTOList(), "请添加关系");
         RelationshipDO relationshipDO = RelationshipConverter.bo2do(relationshipBO);
         relationshipMapper.insert(relationshipDO);
         return Boolean.TRUE;

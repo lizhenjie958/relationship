@@ -1,4 +1,4 @@
-package com.mcf.relationship.domain.entity;
+package com.mcf.relationship.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionBO implements Serializable {
+public class OptionDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 4918605846099569394L;
     private String key;

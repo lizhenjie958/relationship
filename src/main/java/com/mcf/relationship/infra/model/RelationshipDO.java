@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -21,8 +23,10 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 @TableName("r_relationship")
-public class RelationshipDO {
+public class RelationshipDO implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -3408758017318203814L;
     /**
      * 主键
      */
@@ -33,6 +37,11 @@ public class RelationshipDO {
      * 用户ID
      */
     private Long userId;
+
+    /**
+     * 用户名
+     */
+    private String username;
 
     /**
      * 主角

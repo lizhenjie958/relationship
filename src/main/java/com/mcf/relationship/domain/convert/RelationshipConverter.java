@@ -1,9 +1,9 @@
-package com.mcf.relationship.domain;
+package com.mcf.relationship.domain.convert;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
 import com.mcf.relationship.common.util.BeanCopyUtil;
-import com.mcf.relationship.domain.entity.RelationBO;
+import com.mcf.relationship.common.dto.RelationDTO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
 import com.mcf.relationship.infra.model.RelationshipDO;
 
@@ -20,8 +20,8 @@ public final class RelationshipConverter {
             return null;
         }
         RelationshipBO relationshipBO = BeanCopyUtil.copyForNew(relationshipDO, new RelationshipBO());
-        List<RelationBO> relationBOList =  JSONObject.parseObject(relationshipBO.getRelations(),new TypeReference<>(){});
-        relationshipBO.setRelationBOList(relationBOList);
+        List<RelationDTO> relationDTOList =  JSONObject.parseObject(relationshipBO.getRelations(),new TypeReference<List<RelationDTO>>(){});
+        relationshipBO.setRelationDTOList(relationDTOList);
         return relationshipBO;
     }
 
@@ -30,7 +30,7 @@ public final class RelationshipConverter {
             return null;
         }
         RelationshipDO relationshipDO = BeanCopyUtil.copyForNew(relationshipBO, new RelationshipDO());
-        relationshipDO.setRelations(JSONObject.toJSONString(relationshipDO));
+        relationshipDO.setRelations(JSONObject.toJSONString(relationshipBO.getRelationDTOList()));
         return relationshipDO;
     }
 }

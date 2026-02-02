@@ -1,4 +1,4 @@
-package com.mcf.relationship.domain.entity;
+package com.mcf.relationship.common.dto;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2026/2/2 12:54
  */
 @Data
-public class QuestionBO implements Serializable {
+public class QuestionDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -487199550917722903L;
     /**
@@ -29,7 +29,7 @@ public class QuestionBO implements Serializable {
     /**
      * 问题选项
      */
-    private List<OptionBO> optionList;
+    private List<OptionDTO> optionList;
     /**
      * 正确选项
      */

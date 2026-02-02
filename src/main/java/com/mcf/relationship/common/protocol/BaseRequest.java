@@ -14,5 +14,8 @@ public class BaseRequest implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -7008411545266286296L;
+    /**
+     * 默认为当前用户ID
+     */
     private Long userId;
 }

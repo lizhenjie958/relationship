@@ -3,10 +3,13 @@ package com.mcf.relationship.infra.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -20,8 +23,10 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("r_exam_paper")
-public class ExamPaperDO {
+public class ExamPaperDO implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 435267287616641613L;
     /**
      * 主键
      */
@@ -56,7 +61,7 @@ public class ExamPaperDO {
     /**
      * 试题列表
      */
-    private String questionList;
+    private String questions;
 
     /**
      * 创建时间

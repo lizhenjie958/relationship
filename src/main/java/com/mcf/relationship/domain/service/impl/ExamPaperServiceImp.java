@@ -1,16 +1,19 @@
 package com.mcf.relationship.domain.service.impl;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
+import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
+import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
-import com.mcf.relationship.domain.entity.ProtagonistInfoBO;
-import com.mcf.relationship.domain.entity.RelationBO;
+import com.mcf.relationship.domain.convert.ExamPaperConverter;
+import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
 import com.mcf.relationship.domain.service.ExamPaperService;
+import com.mcf.relationship.infra.manager.ExamPaperManager;
 import com.mcf.relationship.infra.manager.RelationshipManager;
 import com.mcf.relationship.infra.mapper.ExamPaperMapper;
 import com.mcf.relationship.infra.model.ExamPaperDO;
@@ -34,6 +37,9 @@ public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperD
     @Resource
     private RelationshipManager relationshipManager;
 
+    @Resource
+    private ExamPaperManager examPaperManager;
+
     /**
      * 生成试卷
      * @param request
@@ -48,21 +54,31 @@ public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperD
         if(CollectionUtils.isEmpty(relationList) || relationList.size() < 4){
             throw new BizException(BizExceptionEnum.RELATION_NOT_ENOUGH_CHARACTERS,4);
         }
-
-
-        return null;
+        ExamPaperBO examPaperBO = buildExamPaperDO(request, relationshipBO);
+        Long save = examPaperManager.save(examPaperBO);
+        GenerateExamPaperResponse response = new GenerateExamPaperResponse();
+        response.setId(save);
+        return response;
     }
 
-    private ExamPaperDO buildExamPaperDO(GenerateExamPaperRequest request, RelationshipBO relationshipBO) {
-        ExamPaperDO examPaperDO = new ExamPaperDO();
-        examPaperDO.setName(request.getExamPaperName());
-        examPaperDO.setRelationshipId(request.getRelationshipId());
-        examPaperDO.setProtagonistInfo(relationshipBO.getProtagonist());
+    @Override
+    public ExamPaperDetailResponse queryDetail(Long id) {
+        ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
+        return ExamPaperConverter.bo2Resp(examPaperBO);
+    }
 
-        ProtagonistInfoBO protagonistInfoBO = new ProtagonistInfoBO().setProtagonist(relationshipBO.getProtagonist()).setPicUrl(relationshipBO.getPicUrl());
-        examPaperDO.setProtagonistInfo(JSONObject.toJSONString(protagonistInfoBO));
-        List<RelationBO> relationBOList = relationshipBO.getRelationBOList();
-        return examPaperDO;
+    private ExamPaperBO buildExamPaperDO(GenerateExamPaperRequest request, RelationshipBO relationshipBO) {
+        ExamPaperBO examPaperBO = new ExamPaperBO();
+        examPaperBO.setName(request.getExamPaperName());
+        examPaperBO.setRelationshipId(request.getRelationshipId());
+        // 设置主角信息
+        examPaperBO.setProtagonistInfoDTO(new ProtagonistInfoDTO().setProtagonist(relationshipBO.getProtagonist()).setPicUrl(relationshipBO.getPicUrl()));
+        // 生成问题
+        List<QuestionDTO> questionDTOS = relationshipBO.generateQuestions();
+        examPaperBO.setExaminerId(relationshipBO.getUserId());
+        examPaperBO.setExaminerName(relationshipBO.getUsername());
+        examPaperBO.setQuestionDTOList(questionDTOS);
+        return examPaperBO;
     }
 
 }
