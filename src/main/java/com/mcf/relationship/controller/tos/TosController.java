@@ -33,7 +33,6 @@ public class TosController {
     @PostMapping("/credential")
     public McfResult<PreSignedPostSignatureOutput> getFileUploadCredential(@RequestBody TosRreSignRequest request) {
         LocalDate now = LocalDate.now();
-
         PreSignedPostSignatureOutput output = tosManager.generatePreSignedPostSignature(tosProperties.getBasePath() + now + "/" +request.getFileName());
         return McfResult.success(output);
     }

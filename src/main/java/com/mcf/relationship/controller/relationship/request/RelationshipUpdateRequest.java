@@ -1,7 +1,7 @@
 package com.mcf.relationship.controller.relationship.request;
 
 import com.mcf.relationship.common.protocol.BaseRequest;
-import com.mcf.relationship.controller.relationship.vo.RelationVO;
+import com.mcf.relationship.domain.entity.RelationBO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,5 +21,5 @@ public class RelationshipUpdateRequest extends BaseRequest {
     private String protagonist;
     private String picUrl;
     private String remark;
-    private List<RelationVO> relationList;
+    private List<RelationBO> relationList;
 }

@@ -20,10 +20,15 @@ public final class PageConvertUtil {
 
     public static <IN,OUT> PageResponse<OUT> convertPage(Page<IN> page, Function<IN, OUT> convert){
         List<OUT> outList = page.getRecords().stream().map(convert).collect(Collectors.toList());
-        return new PageResponse<OUT>(page.getTotal(), outList);
+        return new PageResponse<>(page.getTotal(), outList);
     }
 
     public static <IN> PageResponse<IN> convertPage(Page<IN> page){
         return new PageResponse<>(page.getTotal(), page.getRecords());
+    }
+
+    public static <IN, OUT> PageResponse<OUT> convertResponse(PageResponse<IN> page, Function<IN, OUT> convert) {
+        List<OUT> outList = page.getList().stream().map(convert).collect(Collectors.toList());
+        return new PageResponse<>(page.getTotal(), outList);
     }
 }

@@ -1,7 +1,7 @@
 package com.mcf.relationship.controller.relationship.response;
 
 import com.mcf.relationship.common.protocol.BaseResponse;
-import com.mcf.relationship.controller.relationship.vo.RelationVO;
+import com.mcf.relationship.domain.entity.RelationBO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,5 +20,5 @@ public class RelationshipDetailResponse extends BaseResponse {
     private String protagonist;
     private String picUrl;
     private String remark;
-    private List<RelationVO> relationList;
+    private List<RelationBO> relationList;
 }

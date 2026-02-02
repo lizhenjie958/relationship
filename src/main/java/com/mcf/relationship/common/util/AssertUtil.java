@@ -33,7 +33,6 @@ public class AssertUtil {
     public static void checkCollectionNotEmpty(Collection<?> coll, String msg) {
         if (coll == null || coll.isEmpty()) {
             throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
-
         }
     }
 
@@ -82,7 +81,6 @@ public class AssertUtil {
     public static void checkStringNotBlank(String str, String msg) {
         if (StringUtils.isBlank(str)) {
             throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
-
         }
     }
 
@@ -108,6 +106,32 @@ public class AssertUtil {
     public static void checkStringMaxSize(String str, String msg, int max) {
         checkStringNotBlank(str, msg);
         if (str.length() > max) {
+            throw new SysException(SystemExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
+        }
+    }
+
+    /**
+     * 断言集合最小长度
+     *
+     * @param collection
+     * @param msg
+     */
+    public static void checkCollectionMinSize(Collection<?> collection, String msg, int min) {
+        checkCollectionNotEmpty(collection, msg);
+        if (collection.size() < min) {
+            throw new SysException(SystemExceptionEnum.PARAM_LESS_THAN_MIX_VALUE, msg, min);
+        }
+    }
+
+    /**
+     * 断言集合最大长度
+     *
+     * @param collection
+     * @param msg
+     */
+    public static void checkCollectionMaxSize(Collection<?> collection, String msg, int max) {
+        checkCollectionNotEmpty(collection, msg);
+        if (collection.size() > max) {
             throw new SysException(SystemExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
         }
     }

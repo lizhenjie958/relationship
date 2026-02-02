@@ -14,4 +14,5 @@ public class BaseRequest implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -7008411545266286296L;
+    private Long userId;
 }

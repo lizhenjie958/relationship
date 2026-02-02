@@ -3,25 +3,24 @@ package com.mcf.relationship.infra.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
- * 关系表
+ * 试卷
  * </p>
  *
  * @author baomidou
- * @since 2026-02-01
+ * @since 2026-02-02
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("r_relationship")
-public class RelationshipDO {
+@TableName("r_exam_paper")
+public class ExamPaperDO {
 
     /**
      * 主键
@@ -30,29 +29,34 @@ public class RelationshipDO {
     private Long id;
 
     /**
-     * 用户ID
+     * 试卷名称
      */
-    private Long userId;
+    private String name;
 
     /**
-     * 主角
+     * 关系ID
      */
-    private String protagonist;
+    private Long relationshipId;
 
     /**
-     * 主角头像
+     * 主角信息
      */
-    private String picUrl;
+    private String protagonistInfo;
 
     /**
-     * 备注
+     * 出题人ID
      */
-    private String remark;
+    private Long examinerId;
 
     /**
-     * 关系列表
+     * 出题人姓名
      */
-    private String relations;
+    private String examinerName;
+
+    /**
+     * 试题列表
+     */
+    private String questionList;
 
     /**
      * 创建时间
@@ -60,7 +64,7 @@ public class RelationshipDO {
     private LocalDateTime createTime;
 
     /**
-     * 修改时间
+     * 更新时间
      */
     private LocalDateTime updateTime;
 }

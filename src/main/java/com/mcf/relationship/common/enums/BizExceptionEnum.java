@@ -27,6 +27,12 @@ public enum BizExceptionEnum implements ExceptionInterface {
      * 1201-1300
      */
     PROTAGONIST_EXIST(1201, "该主角已存在"),
+
+    /**
+     * 试卷相关异常
+     * 1301-1400
+     */
+    RELATION_NOT_ENOUGH_CHARACTERS(1301, "关系种类数量不足{0}个");
     ;
     private final Integer code;
     private final String msg;

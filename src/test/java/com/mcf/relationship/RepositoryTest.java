@@ -2,7 +2,7 @@ package com.mcf.relationship;
 
 import com.mcf.relationship.domain.service.UserService;
 import com.mcf.relationship.infra.model.UserDO;
-import com.mcf.relationship.infra.repository.MemcachedManager;
+import com.mcf.relationship.infra.manager.MemcachedManager;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

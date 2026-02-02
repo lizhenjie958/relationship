@@ -1,4 +1,4 @@
-package com.mcf.relationship.controller.relationship.vo;
+package com.mcf.relationship.domain.entity;
 
 import lombok.Data;
 
@@ -10,9 +10,9 @@ import java.io.Serializable;
  * @date 2026/2/1 16:40
  */
 @Data
-public class RelationVO implements Serializable {
+public class RelationBO implements Serializable {
     @Serial
     private static final long serialVersionUID = -7188498588395181556L;
-    private String relationName;
+    private String relation;
     private String picUrl;
 }

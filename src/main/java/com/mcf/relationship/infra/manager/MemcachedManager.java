@@ -1,4 +1,4 @@
-package com.mcf.relationship.infra.repository;
+package com.mcf.relationship.infra.manager;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
