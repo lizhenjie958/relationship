@@ -20,6 +20,6 @@ public class ExamPaperDetailResponse extends BaseResponse {
     private String name;
     private ProtagonistInfoDTO protagonistInfoDTO;
     private List<QuestionDTO> questionDTOList;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createTime;
 }

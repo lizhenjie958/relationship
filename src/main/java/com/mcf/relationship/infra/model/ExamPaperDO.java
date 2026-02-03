@@ -72,4 +72,9 @@ public class ExamPaperDO implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 删除标识
+     */
+    private Integer deleted;
 }

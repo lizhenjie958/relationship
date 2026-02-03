@@ -2,11 +2,12 @@ package com.mcf.relationship.domain.convert;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
+import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.util.BeanCopyUtil;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
+import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
-import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.infra.model.ExamPaperDO;
 
 import java.util.List;
@@ -43,5 +44,12 @@ public final class ExamPaperConverter {
         }
         ExamPaperDetailResponse examPaperDetailResponse = BeanCopyUtil.copyForNew(examPaperBO, new ExamPaperDetailResponse());
         return examPaperDetailResponse;
+    }
+
+    public static SimpleExamPaperVO bo2SimpleResp(ExamPaperBO response) {
+        if (Objects.isNull(response)){
+            return null;
+        }
+        return BeanCopyUtil.copyForNew(response, new SimpleExamPaperVO());
     }
 }

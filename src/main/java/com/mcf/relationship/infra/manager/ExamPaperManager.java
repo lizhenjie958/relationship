@@ -1,6 +1,13 @@
 package com.mcf.relationship.infra.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mcf.relationship.common.enums.YNTypeEnum;
+import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
+import com.mcf.relationship.common.util.PageConvertUtil;
+import com.mcf.relationship.common.util.UserLoginContextUtil;
+import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.domain.convert.ExamPaperConverter;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.infra.mapper.ExamPaperMapper;
@@ -33,5 +40,24 @@ public class ExamPaperManager {
         ExamPaperDO examPaperDO = examPaperMapper.selectById(id);
         AssertUtil.checkDataExist(examPaperDO,"试卷");
         return ExamPaperConverter.do2bo(examPaperDO);
+    }
+
+    public PageResponse<ExamPaperBO> queryList(ExamPaperQueryRequest request) {
+        LambdaQueryWrapper<ExamPaperDO> queryWrapper = new LambdaQueryWrapper<>();
+        if(request.getExaminerId() != null){
+            queryWrapper.eq(ExamPaperDO::getExaminerId,request.getExaminerId());
+        }
+        queryWrapper.eq(ExamPaperDO::getDeleted, YNTypeEnum.NO.getCode());
+        Page<ExamPaperDO> examPaperDOPage = examPaperMapper.selectPage(request.page(), queryWrapper);
+        return PageConvertUtil.convertPage(examPaperDOPage, ExamPaperConverter::do2bo);
+    }
+
+    public void delete(Long id) {
+        AssertUtil.checkObjectNotNull(id,"试卷ID");
+        LambdaQueryWrapper<ExamPaperDO> queryWrapper = new LambdaQueryWrapper<ExamPaperDO>()
+                .eq(ExamPaperDO::getId, id)
+                .eq(ExamPaperDO::getExaminerId, UserLoginContextUtil.getUserId())
+                .eq(ExamPaperDO::getDeleted, YNTypeEnum.NO.getCode());
+        examPaperMapper.update(new ExamPaperDO().setDeleted(YNTypeEnum.YES.getCode()), queryWrapper);
     }
 }

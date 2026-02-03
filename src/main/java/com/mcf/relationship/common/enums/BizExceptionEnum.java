@@ -32,7 +32,16 @@ public enum BizExceptionEnum implements ExceptionInterface {
      * 试卷相关异常
      * 1301-1400
      */
-    RELATION_NOT_ENOUGH_CHARACTERS(1301, "关系种类数量不足{0}个");
+    RELATION_NOT_ENOUGH_CHARACTERS(1301, "关系种类数量不足{0}个"),
+
+    /**
+     * 分享相关异常
+     * 1401-1500
+     */
+    SHARE_FAIL(1401, "分享失败,请稍后重试"),
+    SHARE_NOT_EXIST(1402, "分享不存在"),
+    SHARE_DISABLED(1403, "分享已停用"),
+    SHARE_EXPIRED(1404, "分享已过期"),
     ;
     private final Integer code;
     private final String msg;

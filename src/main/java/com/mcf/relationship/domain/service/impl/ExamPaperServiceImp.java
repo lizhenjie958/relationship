@@ -5,10 +5,15 @@ import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.exception.BizException;
+import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
+import com.mcf.relationship.common.util.PageConvertUtil;
+import com.mcf.relationship.common.util.UserLoginContextUtil;
+import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
+import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
 import com.mcf.relationship.domain.convert.ExamPaperConverter;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
@@ -65,6 +70,18 @@ public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperD
     public ExamPaperDetailResponse queryDetail(Long id) {
         ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
         return ExamPaperConverter.bo2Resp(examPaperBO);
+    }
+
+    @Override
+    public PageResponse<SimpleExamPaperVO> queryList(ExamPaperQueryRequest request) {
+        request.setExaminerId(UserLoginContextUtil.getUserId());
+        PageResponse<ExamPaperBO> response = examPaperManager.queryList(request);
+        return PageConvertUtil.convertResponse(response, ExamPaperConverter::bo2SimpleResp);
+    }
+
+    @Override
+    public void delete(Long id) {
+        examPaperManager.delete(id);
     }
 
     private ExamPaperBO buildExamPaperDO(GenerateExamPaperRequest request, RelationshipBO relationshipBO) {

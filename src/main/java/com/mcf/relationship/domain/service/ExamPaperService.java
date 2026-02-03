@@ -1,8 +1,11 @@
 package com.mcf.relationship.domain.service;
 
+import com.mcf.relationship.common.protocol.PageResponse;
+import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
+import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
 import com.mcf.relationship.infra.model.ExamPaperDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -31,4 +34,19 @@ public interface ExamPaperService extends IService<ExamPaperDO> {
      * @return
      */
     ExamPaperDetailResponse queryDetail(Long id);
+
+    /**
+     * 查询列表
+     *
+     * @param request
+     * @return
+     */
+    PageResponse<SimpleExamPaperVO> queryList(ExamPaperQueryRequest request);
+
+    /**
+     * 删除
+     *
+     * @param id
+     */
+    void delete(Long id);
 }
