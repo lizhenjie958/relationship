@@ -3,12 +3,10 @@ package com.mcf.relationship.domain.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.enums.EnableStatusEnum;
-import com.mcf.relationship.common.enums.ShareStatusEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
-import com.mcf.relationship.controller.sharerecord.request.CompleteShareRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRecordQueryRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRequest;
 import com.mcf.relationship.controller.sharerecord.vo.ShareRecordVO;
@@ -43,11 +41,11 @@ public class ShareRecordServiceImp extends ServiceImpl<ShareRecordMapper, ShareR
     private ShareRecordManager shareRecordManager;
 
     @Override
-    public String readyShare(ShareRequest request) {
+    public String addRecord(ShareRequest request) {
         AssertUtil.checkCollectionNotEmpty(shareAbilityList, "分享能力");
         for (ShareAbility shareAbility : shareAbilityList) {
             if (shareAbility.match(request.getSourceType())) {
-                return shareAbility.readyShare(request);
+                return shareAbility.addRecord(request);
             }
         }
         throw new BizException(BizExceptionEnum.SHARE_FAIL);
@@ -69,14 +67,5 @@ public class ShareRecordServiceImp extends ServiceImpl<ShareRecordMapper, ShareR
             throw new BizException(BizExceptionEnum.SHARE_EXPIRED);
         }
         return shareRecordBO.getTargetPath();
-    }
-
-    @Override
-    public void completeShare(CompleteShareRequest request) {
-        ShareRecordBO shareRecordBO = new ShareRecordBO();
-        shareRecordBO.setShareCode(request.getShareCode());
-        shareRecordBO.setShareCompleteTime(LocalDateTime.now());
-        shareRecordBO.setShareStatus(ShareStatusEnum.COMPLETE.getStatus());
-        shareRecordManager.updateByShareCode(shareRecordBO);
     }
 }

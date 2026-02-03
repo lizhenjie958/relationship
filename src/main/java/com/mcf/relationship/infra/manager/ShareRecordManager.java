@@ -60,13 +60,6 @@ public class ShareRecordManager {
         return PageConvertUtil.convertPage(shareRecordDOPage, ShareRecordConverter::do2bo);
     }
 
-
-    public void updateByShareCode(ShareRecordBO shareRecordBO){
-        LambdaQueryWrapper<ShareRecordDO> queryWrapper = buildQueryWrapper(shareRecordBO.getShareCode());
-        shareRecordMapper.update(shareRecordBO, queryWrapper);
-    }
-
-
     private LambdaQueryWrapper<ShareRecordDO> buildQueryWrapper(String shareCode){
         AssertUtil.checkStringNotBlank(shareCode, "分享码");
         LambdaQueryWrapper<ShareRecordDO> queryWrapper = new LambdaQueryWrapper<>();

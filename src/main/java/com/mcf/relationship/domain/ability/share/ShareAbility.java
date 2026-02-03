@@ -21,9 +21,10 @@ public abstract class ShareAbility {
     public void checkParams(ShareRequest request){
         AssertUtil.checkObjectNotNull(request.getSourceId(),"分享源ID");
         AssertUtil.checkObjectNotNull(request.getSourceType(),"分享源");
+        AssertUtil.checkObjectNotNull(request.getShareCode(),"分享码");
     }
 
-    public String readyShare(ShareRequest shareRequest){
+    public String addRecord(ShareRequest shareRequest){
         checkParams(shareRequest);
         ShareRecordBO shareRecordBO = buildBase(shareRequest);
         buildShareRecordBO(shareRequest, shareRecordBO);
@@ -34,7 +35,6 @@ public abstract class ShareAbility {
     private ShareRecordBO buildBase(ShareRequest request){
         LocalDateTime now = LocalDateTime.now();
         ShareRecordBO shareRecordBO = new ShareRecordBO();
-        shareRecordBO.generateShareCode();
         shareRecordBO.setSourceId(request.getSourceId());
         shareRecordBO.setSourceType(request.getSourceType());
         shareRecordBO.setShareUserId(request.getUserId());

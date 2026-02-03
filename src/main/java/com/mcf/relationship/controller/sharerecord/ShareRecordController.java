@@ -2,7 +2,6 @@ package com.mcf.relationship.controller.sharerecord;
 
 import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.protocol.PageResponse;
-import com.mcf.relationship.controller.sharerecord.request.CompleteShareRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRecordQueryRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRequest;
 import com.mcf.relationship.controller.sharerecord.vo.ShareRecordVO;
@@ -29,16 +28,10 @@ public class ShareRecordController {
     @Resource
     private ShareRecordService shareRecordService;
 
-    @PostMapping("/readyShare")
-    public McfResult<String> readyShare(@RequestBody ShareRequest request){
-        String shareCode = shareRecordService.readyShare(request);
+    @PostMapping("/addRecord")
+    public McfResult<String> addRecord(@RequestBody ShareRequest request){
+        String shareCode = shareRecordService.addRecord(request);
         return McfResult.success(shareCode);
-    }
-
-    @PostMapping("/completeShare")
-    public McfResult<Void> completeShare(@RequestBody CompleteShareRequest request){
-        shareRecordService.completeShare(request);
-        return McfResult.success();
     }
 
     @PostMapping("/queryList")

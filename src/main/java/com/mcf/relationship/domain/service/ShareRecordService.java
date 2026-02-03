@@ -2,7 +2,6 @@ package com.mcf.relationship.domain.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mcf.relationship.common.protocol.PageResponse;
-import com.mcf.relationship.controller.sharerecord.request.CompleteShareRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRecordQueryRequest;
 import com.mcf.relationship.controller.sharerecord.request.ShareRequest;
 import com.mcf.relationship.controller.sharerecord.vo.ShareRecordVO;
@@ -23,7 +22,7 @@ public interface ShareRecordService extends IService<ShareRecordDO> {
      * @param request
      * @return
      */
-    String readyShare(ShareRequest request);
+    String addRecord(ShareRequest request);
 
     /**
      * 查询列表
@@ -38,10 +37,4 @@ public interface ShareRecordService extends IService<ShareRecordDO> {
      * @return
      */
     String queryTargetPath(String shareCode);
-
-    /**
-     * 完成分享
-     * @param request
-     */
-    void completeShare(CompleteShareRequest request);
 }

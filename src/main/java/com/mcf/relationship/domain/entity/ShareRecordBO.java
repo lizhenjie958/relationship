@@ -1,6 +1,5 @@
 package com.mcf.relationship.domain.entity;
 
-import com.mcf.relationship.common.util.RandomUtil;
 import com.mcf.relationship.infra.model.ShareRecordDO;
 import lombok.Data;
 
@@ -14,8 +13,4 @@ import java.io.Serial;
 public class ShareRecordBO extends ShareRecordDO {
     @Serial
     private static final long serialVersionUID = -3702237951794551918L;
-
-    public void generateShareCode(){
-        this.setShareCode(RandomUtil.generateStr(8));
-    }
 }

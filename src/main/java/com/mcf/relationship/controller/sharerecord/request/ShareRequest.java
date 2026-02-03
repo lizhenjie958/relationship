@@ -23,4 +23,9 @@ public class ShareRequest extends BaseRequest {
      * 为简化设计，当前仅仅使用主键ID来控制
      */
     private Long sourceId;
+
+    /**
+     * 分享码
+     */
+    private String shareCode;
 }
