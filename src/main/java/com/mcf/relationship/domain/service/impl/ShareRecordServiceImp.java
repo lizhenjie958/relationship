@@ -41,11 +41,11 @@ public class ShareRecordServiceImp extends ServiceImpl<ShareRecordMapper, ShareR
     private ShareRecordManager shareRecordManager;
 
     @Override
-    public String addRecord(ShareRequest request) {
+    public void addRecord(ShareRequest request) {
         AssertUtil.checkCollectionNotEmpty(shareAbilityList, "分享能力");
         for (ShareAbility shareAbility : shareAbilityList) {
             if (shareAbility.match(request.getSourceType())) {
-                return shareAbility.addRecord(request);
+                 shareAbility.addRecord(request);
             }
         }
         throw new BizException(BizExceptionEnum.SHARE_FAIL);

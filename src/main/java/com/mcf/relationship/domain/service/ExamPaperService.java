@@ -49,4 +49,12 @@ public interface ExamPaperService extends IService<ExamPaperDO> {
      * @param id
      */
     void delete(Long id);
+
+    /**
+     * 认领
+     * 返回答卷ID
+     *
+     * @param id
+     */
+    Long claim(Long id);
 }

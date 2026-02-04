@@ -2,8 +2,8 @@ package com.mcf.relationship.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MybatisPlusConfig {
 
-//    @Bean
+    @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 
@@ -24,10 +24,6 @@ public class MybatisPlusConfig {
         paginationInterceptor.setMaxLimit(100L); // 单页最大记录数
 
         interceptor.addInnerInterceptor(paginationInterceptor);
-
-        // 乐观锁插件（可选）
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-
         return interceptor;
     }
 }

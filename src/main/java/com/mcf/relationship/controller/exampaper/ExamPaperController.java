@@ -46,4 +46,10 @@ public class ExamPaperController {
         examPaperService.delete(request.getId());
         return McfResult.success();
     }
+
+    @PostMapping("claim")
+    public McfResult<Long> claim(@RequestBody IdRequest request) {
+        Long answerPaperId = examPaperService.claim(request.getId());
+        return McfResult.success(answerPaperId);
+    }
 }

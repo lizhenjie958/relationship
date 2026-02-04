@@ -24,12 +24,11 @@ public abstract class ShareAbility {
         AssertUtil.checkObjectNotNull(request.getShareCode(),"分享码");
     }
 
-    public String addRecord(ShareRequest shareRequest){
+    public void addRecord(ShareRequest shareRequest){
         checkParams(shareRequest);
         ShareRecordBO shareRecordBO = buildBase(shareRequest);
         buildShareRecordBO(shareRequest, shareRecordBO);
         shareRecordManager.insert(shareRecordBO);
-        return shareRecordBO.getShareCode();
     }
 
     private ShareRecordBO buildBase(ShareRequest request){
@@ -41,6 +40,7 @@ public abstract class ShareAbility {
         shareRecordBO.setEnableStatus(EnableStatusEnum.ENABLE.getStatus());
         shareRecordBO.setEnableTime(now);
         shareRecordBO.setExpireTime(now.plusDays(7));
+        shareRecordBO.setShareCode(request.getShareCode());
         return shareRecordBO;
     }
 

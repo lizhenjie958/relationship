@@ -1,0 +1,75 @@
+package com.mcf.relationship.infra.manager;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mcf.relationship.common.protocol.PageResponse;
+import com.mcf.relationship.common.util.AssertUtil;
+import com.mcf.relationship.common.util.PageConvertUtil;
+import com.mcf.relationship.controller.answerpaper.request.AnswerPaperQueryRequest;
+import com.mcf.relationship.domain.convert.AnswerPaperConverter;
+import com.mcf.relationship.domain.entity.AnswerPaperBO;
+import com.mcf.relationship.infra.mapper.AnswerPaperMapper;
+import com.mcf.relationship.infra.model.AnswerPaperDO;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+
+/**
+ * @author ZhuPo
+ * @date 2026/2/4 14:01
+ */
+@Component
+public class AnswerPaperManager {
+
+    @Resource
+    private AnswerPaperMapper answerPaperMapper;
+
+    /**
+     * 保存
+     * @param answerPaperBO
+     */
+    public Long save(AnswerPaperBO answerPaperBO){
+        AnswerPaperDO answerPaperDO = AnswerPaperConverter.boToDo(answerPaperBO);
+        answerPaperMapper.insert(answerPaperDO);
+        return answerPaperDO.getId();
+    }
+
+    /**
+     * 查询详情
+     * @param id
+     * @return
+     */
+    public AnswerPaperBO queryDetail(Long id){
+        AssertUtil.checkObjectNotNull(id, "答卷ID");
+        AnswerPaperDO answerPaperDO = answerPaperMapper.selectById(id);
+        AssertUtil.checkDataExist(answerPaperDO, "答卷");
+        return AnswerPaperConverter.doToBo(answerPaperDO);
+    }
+
+    /**
+     * 查询列表
+     * @param request
+     * @return
+     */
+    public PageResponse<AnswerPaperBO> queryList(AnswerPaperQueryRequest request){
+        LambdaQueryWrapper<AnswerPaperDO> queryWrapper = new LambdaQueryWrapper<>();
+        if(request.getUserId() != null){
+            queryWrapper.eq(AnswerPaperDO::getAnswerId, request.getUserId());
+        }
+        if (request.getAnswerStatus() != null){
+            queryWrapper.eq(AnswerPaperDO::getAnswerStatus, request.getAnswerStatus());
+        }
+        Page<AnswerPaperDO> answerPaperDOPage = answerPaperMapper.selectPage(request.page(), queryWrapper);
+        return PageConvertUtil.convertPage(answerPaperDOPage, AnswerPaperConverter::doToBo);
+    }
+
+    /**
+     * 更新
+     * @param answerPaperBO
+     */
+    public void updateById(AnswerPaperBO answerPaperBO){
+        AnswerPaperDO answerPaperDO = AnswerPaperConverter.boToDo(answerPaperBO);
+        answerPaperMapper.updateById(answerPaperDO);
+    }
+
+}

@@ -15,9 +15,11 @@ import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailRespons
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
 import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
 import com.mcf.relationship.domain.convert.ExamPaperConverter;
+import com.mcf.relationship.domain.entity.AnswerPaperBO;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
 import com.mcf.relationship.domain.service.ExamPaperService;
+import com.mcf.relationship.infra.manager.AnswerPaperManager;
 import com.mcf.relationship.infra.manager.ExamPaperManager;
 import com.mcf.relationship.infra.manager.RelationshipManager;
 import com.mcf.relationship.infra.mapper.ExamPaperMapper;
@@ -44,6 +46,9 @@ public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperD
 
     @Resource
     private ExamPaperManager examPaperManager;
+
+    @Resource
+    private AnswerPaperManager answerPaperManager;
 
     /**
      * 生成试卷
@@ -82,6 +87,14 @@ public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperD
     @Override
     public void delete(Long id) {
         examPaperManager.delete(id);
+    }
+
+    @Override
+    public Long claim(Long id) {
+        AssertUtil.checkObjectNotNull(id,"试卷ID");
+        ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
+        AnswerPaperBO answerPaperBO = AnswerPaperBO.init(examPaperBO);
+        return answerPaperManager.save(answerPaperBO);
     }
 
     private ExamPaperBO buildExamPaperDO(GenerateExamPaperRequest request, RelationshipBO relationshipBO) {

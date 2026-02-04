@@ -22,7 +22,7 @@ public interface ShareRecordService extends IService<ShareRecordDO> {
      * @param request
      * @return
      */
-    String addRecord(ShareRequest request);
+    void addRecord(ShareRequest request);
 
     /**
      * 查询列表

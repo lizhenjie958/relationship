@@ -42,7 +42,14 @@ public enum BizExceptionEnum implements ExceptionInterface {
     SHARE_NOT_EXIST(1402, "分享不存在"),
     SHARE_DISABLED(1403, "分享已停用"),
     SHARE_EXPIRED(1404, "分享已过期"),
+
+    /**
+     * 答题相关异常
+     * 1501-1600
+     */
+    ANSWER_PAPER_STATUS_ERROR(1501, "答卷当前处于｛0｝状态，｛1｝"),
     ;
+
     private final Integer code;
     private final String msg;
 }

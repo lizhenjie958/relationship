@@ -29,9 +29,9 @@ public class ShareRecordController {
     private ShareRecordService shareRecordService;
 
     @PostMapping("/addRecord")
-    public McfResult<String> addRecord(@RequestBody ShareRequest request){
-        String shareCode = shareRecordService.addRecord(request);
-        return McfResult.success(shareCode);
+    public McfResult<Void> addRecord(@RequestBody ShareRequest request){
+        shareRecordService.addRecord(request);
+        return McfResult.success();
     }
 
     @PostMapping("/queryList")
