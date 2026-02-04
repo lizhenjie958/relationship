@@ -26,4 +26,7 @@ tos:
   secret-key: T1RZMk9XVTNZakE1WXpnNU5EVTBaamczT0RBNU1EVTBaR0kwTVRjNVptVQ==
   bucket: zz-mxj-material
 
+wx:
+  appid: wxef1d09d7dba79064
+  appSecret: e9a11006b3f81d6b8febab98d283c50c
 

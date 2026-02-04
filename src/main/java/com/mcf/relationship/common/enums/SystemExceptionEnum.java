@@ -20,6 +20,8 @@ public enum SystemExceptionEnum implements ExceptionInterface {
     PARAM_ILLEGAL(9007, "{0}参数不合法"),
     PARAM_GREATER_THAN_MAX_VALUE(9008, "{0}大于最大值,最大值为:{1}"),
     PARAM_LESS_THAN_MIX_VALUE(9009, "{0}小于最小值,最小值为:{1}"),
+    HTTP_REQUEST_ERROR(9010, "HTTP请求错误"),
+    HTTP_REQUEST_UNKNOWN_ERROR(9011, "HTTP请求未知错误:{0}"),
     ;
     private final Integer code;
     private final String msg;

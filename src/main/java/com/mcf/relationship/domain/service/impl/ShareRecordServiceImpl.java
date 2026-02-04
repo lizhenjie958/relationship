@@ -32,7 +32,7 @@ import java.util.List;
  * @since 2026-02-03
  */
 @Service
-public class ShareRecordServiceImp extends ServiceImpl<ShareRecordMapper, ShareRecordDO> implements ShareRecordService {
+public class ShareRecordServiceImpl extends ServiceImpl<ShareRecordMapper, ShareRecordDO> implements ShareRecordService {
 
     @Resource
     private List<ShareAbility> shareAbilityList;

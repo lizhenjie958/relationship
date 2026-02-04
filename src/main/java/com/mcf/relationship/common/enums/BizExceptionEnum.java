@@ -16,6 +16,9 @@ public enum BizExceptionEnum implements ExceptionInterface {
      */
     NEED_LOGIN(1001,"用户未登录"),
     LOGIN_EXPIRED(1002, "登录已过期"),
+    WX_AUTH_ERROR(1003, "微信授权失败"),
+    USER_ROLL_UP_FAILED(1004, "用户注册失败"),
+    USER_NOT_EXIST(1005, "用户不存在"),
 
     /**
      * 用户相关异常

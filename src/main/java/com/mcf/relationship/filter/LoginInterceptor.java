@@ -21,10 +21,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
             String token = request.getHeader(SystemConst.TOKEN);
-            if(StringUtils.equals("123456",token)){
-                UserLoginContextUtil.setUserToken(new UserTokenBO(System.currentTimeMillis(), 1L, "123456"));
-                return true;
-            }
             if(StringUtils.isBlank(token)){
                 throw new BizException(BizExceptionEnum.NEED_LOGIN);
             }
@@ -32,6 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             if(userTokenBO == null || userTokenBO.getUserId() == null){
                 throw new BizException(BizExceptionEnum.NEED_LOGIN);
             }
+            UserLoginContextUtil.setUserToken(userTokenBO);
         }catch (Exception ignored){
             throw new BizException(BizExceptionEnum.NEED_LOGIN);
         }

@@ -32,7 +32,7 @@ import java.util.Objects;
  * @since 2026-02-01
  */
 @Service
-public class RelationshipServiceImp extends ServiceImpl<RelationshipMapper, RelationshipDO> implements RelationshipService {
+public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, RelationshipDO> implements RelationshipService {
 
     @Resource
     private RelationshipManager relationshipManager;

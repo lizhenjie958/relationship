@@ -53,7 +53,7 @@ public class MybatisPlus {
                     builder.addInclude(scanner.apply("请输入表名"))
                             .addTablePrefix("r_")
                             .entityBuilder().enableChainModel().enableLombok().formatFileName("%sDO")
-                            .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImp");
+                            .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImpl");
                 })
                 .execute();
     }

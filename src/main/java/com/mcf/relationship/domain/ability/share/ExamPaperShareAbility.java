@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Component
 public class ExamPaperShareAbility extends ShareAbility{
-    private static final String PATH_PREFIX = "/pages/exam-paper-detail/exam-paper-detail?share=1&id=";
+    private static final String PATH_PREFIX = "/pages/exam-paper-detail/exam-paper-detail?id=";
 
     @Resource
     private ExamPaperManager examPaperManager;

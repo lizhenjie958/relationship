@@ -39,6 +39,11 @@ public class UserDO implements Serializable {
     private String username;
 
     /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 微信用户ID
      */
     private String wxOpenId;

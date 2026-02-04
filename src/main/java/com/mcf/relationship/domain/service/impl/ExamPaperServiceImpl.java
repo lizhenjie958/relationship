@@ -39,7 +39,7 @@ import java.util.List;
  * @since 2026-02-02
  */
 @Service
-public class ExamPaperServiceImp extends ServiceImpl<ExamPaperMapper, ExamPaperDO> implements ExamPaperService {
+public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaperDO> implements ExamPaperService {
 
     @Resource
     private RelationshipManager relationshipManager;

@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
  * @since 2026-02-04
  */
 @Service
-public class AnswerPaperServiceImp extends ServiceImpl<AnswerPaperMapper, AnswerPaperDO> implements AnswerPaperService {
+public class AnswerPaperServiceImpl extends ServiceImpl<AnswerPaperMapper, AnswerPaperDO> implements AnswerPaperService {
 
     @Resource
     private AnswerPaperManager answerPaperManager;
