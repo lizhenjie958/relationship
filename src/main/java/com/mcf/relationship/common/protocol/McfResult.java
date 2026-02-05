@@ -1,6 +1,6 @@
 package com.mcf.relationship.common.protocol;
 
-import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.enums.SysExceptionEnum;
 import com.mcf.relationship.common.exception.CommonException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,10 +49,10 @@ public class McfResult<T> implements Serializable {
     }
 
     public static <T> McfResult<T> error() {
-        return new McfResult<>(SystemExceptionEnum.SYSTEM_ERROR.getCode(), "系统异常，请联系客服人员处理", null);
+        return new McfResult<>(SysExceptionEnum.SYSTEM_ERROR.getCode(), "系统异常，请联系客服人员处理", null);
     }
 
     public static <T> McfResult<T> signError() {
-        return new McfResult<>(SystemExceptionEnum.SING_ERROR.getCode(), SystemExceptionEnum.SING_ERROR.getMsg(), null);
+        return new McfResult<>(SysExceptionEnum.SING_ERROR.getCode(), SysExceptionEnum.SING_ERROR.getMsg(), null);
     }
 }

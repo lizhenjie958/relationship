@@ -7,10 +7,13 @@ import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
+import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.answerpaper.request.AnswerPaperQueryRequest;
 import com.mcf.relationship.controller.answerpaper.request.CompleteAnswerPaperRequest;
+import com.mcf.relationship.controller.answerpaper.request.QueryLatestAnsweringRequest;
 import com.mcf.relationship.controller.answerpaper.response.AnswerPaperDetailResponse;
-import com.mcf.relationship.controller.answerpaper.vo.SimpleAnswerPaperVO;
+import com.mcf.relationship.controller.answerpaper.response.SimpleAnswerPaperResponse;
+import com.mcf.relationship.controller.answerpaper.vo.AnswerPaperVO;
 import com.mcf.relationship.domain.convert.AnswerPaperConverter;
 import com.mcf.relationship.domain.entity.AnswerPaperBO;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
@@ -42,7 +45,7 @@ public class AnswerPaperServiceImpl extends ServiceImpl<AnswerPaperMapper, Answe
     private ExamPaperManager examPaperManager;
 
     @Override
-    public PageResponse<SimpleAnswerPaperVO> queryList(AnswerPaperQueryRequest request) {
+    public PageResponse<AnswerPaperVO> queryList(AnswerPaperQueryRequest request) {
         PageResponse<AnswerPaperBO> response = answerPaperManager.queryList(request);
         return PageConvertUtil.convertResponse(response, AnswerPaperConverter::bo2vo);
     }
@@ -82,5 +85,12 @@ public class AnswerPaperServiceImpl extends ServiceImpl<AnswerPaperMapper, Answe
             throw new BizException(BizExceptionEnum.ANSWER_PAPER_STATUS_ERROR,AnswerStatusEnum.getDesc(answerPaperBO.getAnswerStatus()),"不可放弃");
         }
         answerPaperManager.updateById(answerPaperBO.giveUpAnswerPaper());
+    }
+
+    @Override
+    public SimpleAnswerPaperResponse queryLatestAnswering(QueryLatestAnsweringRequest request) {
+        AnswerPaperBO answerPaperBO = answerPaperManager.queryLatestAnswering(UserLoginContextUtil.getUserId());
+        SimpleAnswerPaperResponse response =AnswerPaperConverter.bo2LatestAnswering(answerPaperBO);
+        return response;
     }
 }

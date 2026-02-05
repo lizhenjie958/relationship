@@ -2,6 +2,7 @@ package com.mcf.relationship.infra.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mcf.relationship.common.enums.AnswerStatusEnum;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
@@ -13,6 +14,7 @@ import com.mcf.relationship.infra.model.AnswerPaperDO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 /**
  * @author ZhuPo
@@ -52,6 +54,43 @@ public class AnswerPaperManager {
      * @return
      */
     public PageResponse<AnswerPaperBO> queryList(AnswerPaperQueryRequest request){
+        LambdaQueryWrapper<AnswerPaperDO> queryWrapper = this.buildQuery(request);
+        Page<AnswerPaperDO> answerPaperDOPage = answerPaperMapper.selectPage(request.page(), queryWrapper);
+        return PageConvertUtil.convertPage(answerPaperDOPage, AnswerPaperConverter::doToBo);
+    }
+
+    /**
+     * 修改
+     * @param answerPaperBO
+     */
+    public void updateById(AnswerPaperBO answerPaperBO){
+        AnswerPaperDO answerPaperDO = AnswerPaperConverter.boToDo(answerPaperBO);
+        answerPaperMapper.updateById(answerPaperDO);
+    }
+
+    /**
+     * 查询最近一次正在进行的答卷，按照过期时间倒叙排列
+     * @return
+     */
+    public AnswerPaperBO queryLatestAnswering(Long answerId){
+        AssertUtil.checkObjectNotNull(answerId, "答题用户ID");
+        LambdaQueryWrapper<AnswerPaperDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AnswerPaperDO::getAnswerId, answerId);
+        queryWrapper.eq(AnswerPaperDO::getAnswerStatus, AnswerStatusEnum.ANSWERING.getStatus());
+        queryWrapper.gt(AnswerPaperDO::getTimeoutTime, LocalDateTime.now());
+        queryWrapper.orderByDesc(AnswerPaperDO::getTimeoutTime);
+        AnswerPaperDO answerPaperDO = answerPaperMapper.selectOne(queryWrapper, false);
+        return AnswerPaperConverter.doToBo(answerPaperDO);
+    }
+
+
+    public Long count(AnswerPaperQueryRequest request){
+        LambdaQueryWrapper<AnswerPaperDO> queryWrapper = this.buildQuery(request);
+        return answerPaperMapper.selectCount(queryWrapper);
+    }
+
+
+    private LambdaQueryWrapper<AnswerPaperDO> buildQuery(AnswerPaperQueryRequest request) {
         LambdaQueryWrapper<AnswerPaperDO> queryWrapper = new LambdaQueryWrapper<>();
         if(request.getUserId() != null){
             queryWrapper.eq(AnswerPaperDO::getAnswerId, request.getUserId());
@@ -59,17 +98,18 @@ public class AnswerPaperManager {
         if (request.getAnswerStatus() != null){
             queryWrapper.eq(AnswerPaperDO::getAnswerStatus, request.getAnswerStatus());
         }
-        Page<AnswerPaperDO> answerPaperDOPage = answerPaperMapper.selectPage(request.page(), queryWrapper);
-        return PageConvertUtil.convertPage(answerPaperDOPage, AnswerPaperConverter::doToBo);
+        if(request.getStartTime() != null){
+            queryWrapper.ge(AnswerPaperDO::getCreateTime, request.getStartTime());
+        }
+        if(request.getEndTime() != null){
+            queryWrapper.le(AnswerPaperDO::getCreateTime, request.getEndTime());
+        }
+        if(request.getExaminerId() != null){
+            queryWrapper.eq(AnswerPaperDO::getExaminerId, request.getExaminerId());
+        }
+        return queryWrapper;
     }
 
-    /**
-     * 更新
-     * @param answerPaperBO
-     */
-    public void updateById(AnswerPaperBO answerPaperBO){
-        AnswerPaperDO answerPaperDO = AnswerPaperConverter.boToDo(answerPaperBO);
-        answerPaperMapper.updateById(answerPaperDO);
-    }
+
 
 }

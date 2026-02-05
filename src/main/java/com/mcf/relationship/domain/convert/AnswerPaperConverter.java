@@ -6,7 +6,8 @@ import com.mcf.relationship.common.dto.AnswerQuestionDTO;
 import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.common.util.BeanCopyUtil;
 import com.mcf.relationship.controller.answerpaper.response.AnswerPaperDetailResponse;
-import com.mcf.relationship.controller.answerpaper.vo.SimpleAnswerPaperVO;
+import com.mcf.relationship.controller.answerpaper.response.SimpleAnswerPaperResponse;
+import com.mcf.relationship.controller.answerpaper.vo.AnswerPaperVO;
 import com.mcf.relationship.domain.entity.AnswerPaperBO;
 import com.mcf.relationship.infra.model.AnswerPaperDO;
 
@@ -61,12 +62,12 @@ public final class AnswerPaperConverter {
      * @param answerPaperBO
      * @return
      */
-    public static SimpleAnswerPaperVO bo2vo(AnswerPaperBO answerPaperBO){
+    public static AnswerPaperVO bo2vo(AnswerPaperBO answerPaperBO){
         if (answerPaperBO == null){
             return null;
         }
-        SimpleAnswerPaperVO simpleAnswerPaperVO = BeanCopyUtil.copyForNew(answerPaperBO, new SimpleAnswerPaperVO());
-        return simpleAnswerPaperVO;
+        AnswerPaperVO answerPaperVO = BeanCopyUtil.copyForNew(answerPaperBO, new AnswerPaperVO());
+        return answerPaperVO;
     }
 
 
@@ -75,5 +76,12 @@ public final class AnswerPaperConverter {
             return null;
         }
         return BeanCopyUtil.copyForNew(answerPaperBO, new AnswerPaperDetailResponse());
+    }
+
+    public static SimpleAnswerPaperResponse bo2LatestAnswering(AnswerPaperBO answerPaperBO) {
+        if (answerPaperBO == null){
+            return null;
+        }
+        return BeanCopyUtil.copyForNew(answerPaperBO, new SimpleAnswerPaperResponse());
     }
 }

@@ -1,6 +1,6 @@
 package com.mcf.relationship.common.util;
 
-import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.enums.SysExceptionEnum;
 import com.mcf.relationship.common.exception.SysException;
 
 import javax.crypto.Cipher;
@@ -40,7 +40,7 @@ public final class EncryptUtil {
             byte[] cipherText = cipher.doFinal(plainText.getBytes(DEFAULT_CHARSET));
             return Base64.getEncoder().encodeToString(cipherText);
         } catch (Exception e) {
-            throw new SysException(SystemExceptionEnum.ENCRYPT_FAILED, desc);
+            throw new SysException(SysExceptionEnum.ENCRYPT_FAILED, desc);
         }
     }
 
@@ -57,7 +57,7 @@ public final class EncryptUtil {
             byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
             return new String(plainText, DEFAULT_CHARSET);
         } catch (Exception e) {
-            throw new SysException(SystemExceptionEnum.DECRYPT_FAILED, desc);
+            throw new SysException(SysExceptionEnum.DECRYPT_FAILED, desc);
         }
     }
 

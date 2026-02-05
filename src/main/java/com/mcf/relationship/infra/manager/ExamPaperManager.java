@@ -52,6 +52,7 @@ public class ExamPaperManager {
         return PageConvertUtil.convertPage(examPaperDOPage, ExamPaperConverter::do2bo);
     }
 
+
     public void delete(Long id) {
         AssertUtil.checkObjectNotNull(id,"试卷ID");
         LambdaQueryWrapper<ExamPaperDO> queryWrapper = new LambdaQueryWrapper<ExamPaperDO>()

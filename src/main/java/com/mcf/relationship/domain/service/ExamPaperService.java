@@ -5,7 +5,7 @@ import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
-import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
+import com.mcf.relationship.controller.exampaper.vo.ExamPaperVO;
 import com.mcf.relationship.infra.model.ExamPaperDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -41,7 +41,7 @@ public interface ExamPaperService extends IService<ExamPaperDO> {
      * @param request
      * @return
      */
-    PageResponse<SimpleExamPaperVO> queryList(ExamPaperQueryRequest request);
+    PageResponse<ExamPaperVO> queryList(ExamPaperQueryRequest request);
 
     /**
      * 删除

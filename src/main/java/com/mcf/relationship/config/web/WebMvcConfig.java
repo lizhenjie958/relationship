@@ -1,6 +1,6 @@
 package com.mcf.relationship.config.web;
 
-import com.mcf.relationship.filter.LoginInterceptor;
+import com.mcf.relationship.advice.handler.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

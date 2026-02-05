@@ -1,6 +1,5 @@
 package com.mcf.relationship.controller.exampaper.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import lombok.Data;
 
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
  * @date 2026/2/3 10:50
  */
 @Data
-public class SimpleExamPaperVO implements Serializable {
+public class ExamPaperVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2375989169307399914L;

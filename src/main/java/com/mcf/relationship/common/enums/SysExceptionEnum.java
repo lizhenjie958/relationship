@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum SystemExceptionEnum implements ExceptionInterface {
+public enum SysExceptionEnum implements ExceptionInterface {
     SYSTEM_ERROR(9000, "系统异常"),
     SING_ERROR(9001,"签名错误"),
     ENCRYPT_FAILED(9002, "{0}加密失败"),
@@ -22,6 +22,7 @@ public enum SystemExceptionEnum implements ExceptionInterface {
     PARAM_LESS_THAN_MIX_VALUE(9009, "{0}小于最小值,最小值为:{1}"),
     HTTP_REQUEST_ERROR(9010, "HTTP请求错误"),
     HTTP_REQUEST_UNKNOWN_ERROR(9011, "HTTP请求未知错误:{0}"),
+    GET_DISTRIBUTED_LOCK_ERROR(9012, "获取分布式锁异常:{0}"),
     ;
     private final Integer code;
     private final String msg;

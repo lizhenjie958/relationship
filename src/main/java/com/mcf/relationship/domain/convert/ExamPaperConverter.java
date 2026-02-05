@@ -6,7 +6,7 @@ import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.util.BeanCopyUtil;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
-import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
+import com.mcf.relationship.controller.exampaper.vo.ExamPaperVO;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.infra.model.ExamPaperDO;
 
@@ -46,10 +46,10 @@ public final class ExamPaperConverter {
         return examPaperDetailResponse;
     }
 
-    public static SimpleExamPaperVO bo2SimpleResp(ExamPaperBO response) {
+    public static ExamPaperVO bo2SimpleResp(ExamPaperBO response) {
         if (Objects.isNull(response)){
             return null;
         }
-        return BeanCopyUtil.copyForNew(response, new SimpleExamPaperVO());
+        return BeanCopyUtil.copyForNew(response, new ExamPaperVO());
     }
 }

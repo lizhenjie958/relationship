@@ -1,7 +1,7 @@
 package com.mcf.relationship.domain.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.enums.SysExceptionEnum;
 import com.mcf.relationship.common.exception.SysException;
 import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
@@ -39,7 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public void updateUser(UpdateUserRequest request) {
         if(StringUtils.isBlank(request.getAvatar()) && StringUtils.isBlank(request.getUsername())){
-            throw new SysException(SystemExceptionEnum.PARAM_EMPTY,"有效");
+            throw new SysException(SysExceptionEnum.PARAM_EMPTY,"有效");
         }
         UserBO userBO = new UserBO();
         userBO.setId(UserLoginContextUtil.getUserId());

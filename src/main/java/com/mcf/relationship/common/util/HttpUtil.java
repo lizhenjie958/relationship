@@ -1,6 +1,6 @@
 package com.mcf.relationship.common.util;
 
-import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.enums.SysExceptionEnum;
 import com.mcf.relationship.common.exception.CommonException;
 import com.mcf.relationship.common.exception.SysException;
 import java.net.URI;
@@ -33,12 +33,12 @@ public final class HttpUtil {
             if (response.statusCode() == 200) {
                 return response.body();
             } else {
-                throw new SysException(SystemExceptionEnum.HTTP_REQUEST_ERROR);
+                throw new SysException(SysExceptionEnum.HTTP_REQUEST_ERROR);
             }
         } catch (CommonException commonException){
             throw commonException;
         } catch (Exception e) {
-            throw new SysException(SystemExceptionEnum.HTTP_REQUEST_UNKNOWN_ERROR, e.getMessage());
+            throw new SysException(SysExceptionEnum.HTTP_REQUEST_UNKNOWN_ERROR, e.getMessage());
         }
     }
 
@@ -60,12 +60,12 @@ public final class HttpUtil {
             if (response.statusCode() == 200) {
                 return response.body();
             } else {
-                throw new SysException(SystemExceptionEnum.HTTP_REQUEST_ERROR);
+                throw new SysException(SysExceptionEnum.HTTP_REQUEST_ERROR);
             }
         } catch (CommonException commonException){
             throw commonException;
         } catch (Exception e) {
-            throw new SysException(SystemExceptionEnum.HTTP_REQUEST_UNKNOWN_ERROR, e.getMessage());
+            throw new SysException(SysExceptionEnum.HTTP_REQUEST_UNKNOWN_ERROR, e.getMessage());
         }
     }
 }

@@ -9,14 +9,18 @@ import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.io.IOException;
 
 /**
+ * 不想删除这些代码，有不上使用它，暂时以配置类保留
  * @Author ZhuPo
  * @date 2026/1/31 13:35
  */
 @Configuration
+@Profile("other")
+@Deprecated
 public class XMemcachedConfig {
 
     @Value("${memcached.servers}")

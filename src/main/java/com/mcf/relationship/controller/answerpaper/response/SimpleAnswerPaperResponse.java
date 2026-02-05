@@ -1,20 +1,22 @@
-package com.mcf.relationship.controller.answerpaper.vo;
+package com.mcf.relationship.controller.answerpaper.response;
 
 import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
+import com.mcf.relationship.common.protocol.BaseResponse;
 import lombok.Data;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author ZhuPo
- * @date 2026/2/4 15:06
+ * @date 2026/2/5 9:22
  */
 @Data
-public class SimpleAnswerPaperVO implements Serializable {
+public class SimpleAnswerPaperResponse extends BaseResponse {
+
     @Serial
-    private static final long serialVersionUID = 6295029487959331264L;
+    private static final long serialVersionUID = -8995829619795478066L;
+
     /**
      * 主键
      */
@@ -51,12 +53,4 @@ public class SimpleAnswerPaperVO implements Serializable {
      * 超时时间
      */
     private LocalDateTime timeoutTime;
-    /**
-     * 完成时间
-     */
-    private LocalDateTime completeTime;
-    /**
-     * 放弃时间
-     */
-    private LocalDateTime giveUpTime;
 }

@@ -4,14 +4,18 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.rubyeye.xmemcached.MemcachedClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 /**
+ * 不想删除这些代码，有不上使用它，暂时以配置类保留
  * @Author ZhuPo
  * @date 2026/1/31 13:38
  */
 @Slf4j
 @Repository
+@Profile("other")
+@Deprecated
 public class MemcachedManager {
     @Resource
     private MemcachedClient memcachedClient;

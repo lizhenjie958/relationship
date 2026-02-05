@@ -40,6 +40,16 @@ public class AnswerPaperDO implements Serializable {
     private Long examPaperId;
 
     /**
+     * 考试人ID
+     */
+    private Long examinerId;
+
+    /**
+     * 答题人名称
+     */
+    private String examinerName;
+
+    /**
      * 试卷名称
      */
     private String examPaperName;

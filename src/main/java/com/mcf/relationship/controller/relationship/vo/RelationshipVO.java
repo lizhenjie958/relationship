@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2026/1/24 19:11
  */
 @Data
-public class SimpleRelationshipVO implements Serializable {
+public class RelationshipVO implements Serializable {
     @Serial
     private static final long serialVersionUID = -3991640086906832721L;
     private Long id;

@@ -6,7 +6,7 @@ import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.controller.relationship.request.RelationshipQueryRequest;
 import com.mcf.relationship.controller.relationship.request.RelationshipUpdateRequest;
 import com.mcf.relationship.controller.relationship.response.RelationshipDetailResponse;
-import com.mcf.relationship.controller.relationship.vo.SimpleRelationshipVO;
+import com.mcf.relationship.controller.relationship.vo.RelationshipVO;
 import com.mcf.relationship.domain.service.RelationshipService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +24,8 @@ public class RelationshipController {
     private RelationshipService relationshipService;
 
     @PostMapping("queryList")
-    public McfResult<PageResponse<SimpleRelationshipVO>> queryList(@RequestBody RelationshipQueryRequest request){
-        PageResponse<SimpleRelationshipVO> response = relationshipService.queryList(request);
+    public McfResult<PageResponse<RelationshipVO>> queryList(@RequestBody RelationshipQueryRequest request){
+        PageResponse<RelationshipVO> response = relationshipService.queryList(request);
         return McfResult.success(response);
     }
 

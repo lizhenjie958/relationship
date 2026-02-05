@@ -1,6 +1,6 @@
 package com.mcf.relationship.common.util;
 
-import com.mcf.relationship.common.enums.SystemExceptionEnum;
+import com.mcf.relationship.common.enums.SysExceptionEnum;
 import com.mcf.relationship.common.exception.SysException;
 import io.micrometer.common.util.StringUtils;
 import java.util.Collection;
@@ -20,7 +20,7 @@ public class AssertUtil {
      */
     public static void checkObjectNotNull(Object obj, String msg) {
         if (Objects.isNull(obj)) {
-            throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
+            throw new SysException(SysExceptionEnum.PARAM_EMPTY, msg);
         }
     }
 
@@ -32,7 +32,7 @@ public class AssertUtil {
      */
     public static void checkCollectionNotEmpty(Collection<?> coll, String msg) {
         if (coll == null || coll.isEmpty()) {
-            throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
+            throw new SysException(SysExceptionEnum.PARAM_EMPTY, msg);
         }
     }
 
@@ -44,7 +44,7 @@ public class AssertUtil {
      */
     public static void checkMapNotEmpty(Map<?, ?> coll, String msg) {
         if (coll == null || coll.isEmpty()) {
-            throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
+            throw new SysException(SysExceptionEnum.PARAM_EMPTY, msg);
         }
     }
 
@@ -56,7 +56,7 @@ public class AssertUtil {
      */
     public static void checkDataExist(Object obj, String msg) {
         if (Objects.isNull(obj)) {
-            throw new SysException(SystemExceptionEnum.DATA_NOT_EXIST, msg);
+            throw new SysException(SysExceptionEnum.DATA_NOT_EXIST, msg);
         }
     }
 
@@ -68,7 +68,7 @@ public class AssertUtil {
      */
     public static void checkDataNotExist(Object obj, String msg) {
         if (Objects.nonNull(obj)) {
-            throw new SysException(SystemExceptionEnum.DATA_EXIST, msg);
+            throw new SysException(SysExceptionEnum.DATA_EXIST, msg);
         }
     }
 
@@ -80,7 +80,7 @@ public class AssertUtil {
      */
     public static void checkStringNotBlank(String str, String msg) {
         if (StringUtils.isBlank(str)) {
-            throw new SysException(SystemExceptionEnum.PARAM_EMPTY, msg);
+            throw new SysException(SysExceptionEnum.PARAM_EMPTY, msg);
         }
     }
 
@@ -93,7 +93,7 @@ public class AssertUtil {
     public static void checkStringMinSize(String str, String msg, int min) {
         checkStringNotBlank(str, msg);
         if (str.length() < min) {
-            throw new SysException(SystemExceptionEnum.PARAM_LESS_THAN_MIX_VALUE, msg, min);
+            throw new SysException(SysExceptionEnum.PARAM_LESS_THAN_MIX_VALUE, msg, min);
         }
     }
 
@@ -106,7 +106,7 @@ public class AssertUtil {
     public static void checkStringMaxSize(String str, String msg, int max) {
         checkStringNotBlank(str, msg);
         if (str.length() > max) {
-            throw new SysException(SystemExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
+            throw new SysException(SysExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
         }
     }
 
@@ -119,7 +119,7 @@ public class AssertUtil {
     public static void checkCollectionMinSize(Collection<?> collection, String msg, int min) {
         checkCollectionNotEmpty(collection, msg);
         if (collection.size() < min) {
-            throw new SysException(SystemExceptionEnum.PARAM_LESS_THAN_MIX_VALUE, msg, min);
+            throw new SysException(SysExceptionEnum.PARAM_LESS_THAN_MIX_VALUE, msg, min);
         }
     }
 
@@ -132,7 +132,7 @@ public class AssertUtil {
     public static void checkCollectionMaxSize(Collection<?> collection, String msg, int max) {
         checkCollectionNotEmpty(collection, msg);
         if (collection.size() > max) {
-            throw new SysException(SystemExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
+            throw new SysException(SysExceptionEnum.PARAM_GREATER_THAN_MAX_VALUE, msg, max);
         }
     }
 }

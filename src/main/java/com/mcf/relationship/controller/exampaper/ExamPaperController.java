@@ -7,7 +7,7 @@ import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
 import com.mcf.relationship.controller.exampaper.response.GenerateExamPaperResponse;
-import com.mcf.relationship.controller.exampaper.vo.SimpleExamPaperVO;
+import com.mcf.relationship.controller.exampaper.vo.ExamPaperVO;
 import com.mcf.relationship.domain.service.ExamPaperService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,8 +30,8 @@ public class ExamPaperController {
     }
 
     @PostMapping("queryList")
-    public McfResult<PageResponse<SimpleExamPaperVO>> queryList(@RequestBody ExamPaperQueryRequest request){
-        PageResponse<SimpleExamPaperVO> response = examPaperService.queryList(request);
+    public McfResult<PageResponse<ExamPaperVO>> queryList(@RequestBody ExamPaperQueryRequest request){
+        PageResponse<ExamPaperVO> response = examPaperService.queryList(request);
         return McfResult.success(response);
     }
 

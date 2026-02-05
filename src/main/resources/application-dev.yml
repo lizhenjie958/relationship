@@ -10,6 +10,26 @@ spring:
         min-idle: 10
         max-active: 50
         max-wait: 60000
+    # Redis 核心配置
+  data:
+    redis:
+      host: 121.43.102.232            # Redis 服务器地址
+      port: 6379                 # Redis 端口
+      password: mcf-0825-lzj     # 密码（若无密码，可删除此行或设为 ''）
+      database: 0                # 数据库索引 (0-15)
+      timeout: 2000ms            # 连接超时时间
+      connect-timeout: 2000ms    # 连接建立超时
+      client-type: lettuce       # 明确指定客户端（可省略，默认即 lettuce）
+
+      # Lettuce 特定配置
+      lettuce:
+        pool:
+          enabled: true          # 启用连接池（必须为 true）
+          max-active: 16         # 最大连接数（根据并发量调整）
+          max-idle: 8            # 最大空闲连接数
+          min-idle: 4            # 最小空闲连接数（保持预热连接）
+          max-wait: 5000ms       # 获取连接最大等待时间（负值表示无限等待）
+          time-between-eviction-runs: 120s  # 空闲连接检测周期
 
 mybatis-plus:
   mapper-locations: mapper/*.xml

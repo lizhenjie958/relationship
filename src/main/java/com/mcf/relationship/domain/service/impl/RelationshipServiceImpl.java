@@ -11,7 +11,7 @@ import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.relationship.request.RelationshipQueryRequest;
 import com.mcf.relationship.controller.relationship.request.RelationshipUpdateRequest;
 import com.mcf.relationship.controller.relationship.response.RelationshipDetailResponse;
-import com.mcf.relationship.controller.relationship.vo.SimpleRelationshipVO;
+import com.mcf.relationship.controller.relationship.vo.RelationshipVO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
 import com.mcf.relationship.domain.service.RelationshipService;
 import com.mcf.relationship.infra.manager.RelationshipManager;
@@ -38,15 +38,15 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
     private RelationshipManager relationshipManager;
 
     @Override
-    public PageResponse<SimpleRelationshipVO> queryList(RelationshipQueryRequest request) {
+    public PageResponse<RelationshipVO> queryList(RelationshipQueryRequest request) {
         PageResponse<RelationshipBO> relationshipPage = relationshipManager.queryList(request);
         return PageConvertUtil.convertResponse(relationshipPage, relationshipBO -> {
-            SimpleRelationshipVO simpleRelationshipVO = new SimpleRelationshipVO();
-            simpleRelationshipVO.setId(relationshipBO.getId());
-            simpleRelationshipVO.setProtagonist(relationshipBO.getProtagonist());
-            simpleRelationshipVO.setPicUrl(relationshipBO.getPicUrl());
-            simpleRelationshipVO.setRemark(relationshipBO.getRemark());
-            return simpleRelationshipVO;
+            RelationshipVO relationshipVO = new RelationshipVO();
+            relationshipVO.setId(relationshipBO.getId());
+            relationshipVO.setProtagonist(relationshipBO.getProtagonist());
+            relationshipVO.setPicUrl(relationshipBO.getPicUrl());
+            relationshipVO.setRemark(relationshipBO.getRemark());
+            return relationshipVO;
         });
     }
 

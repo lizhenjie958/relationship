@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mcf.relationship.infra.mapper.AnswerPaperMapper">
+    <select id="statisticsByAnswer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
+        SELECT
+            answer_id AS userId,
+            COUNT(*) AS answerCnt,
+            MAX(id) AS maxScoreAnswerPaperId,
+            MAX(score) AS answerMaxScore,
+            RANK() OVER (ORDER BY MAX(score) DESC) AS answerMaxScoreRank
+        FROM r_answer_paper
+        WHERE answer_status = 2  -- 只统计已完成状态
+          AND complete_time between #｛startTime｝ and #｛endTime｝
+        GROUP BY answer_id
+        ORDER BY answerMaxScore DESC
+    </select>
 
+    <select id="statisticsByExaminer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
+        SELECT
+            examiner_id AS userId,
+            COUNT(*) AS examCnt,
+            RANK() OVER (ORDER BY COUNT(*) DESC) AS examCntRank,
+            exam_paper_id AS hotExamPaperId
+        FROM r_answer_paper
+        WHERE answer_status = 2  -- 只统计已完成状态
+          AND complete_time between #｛startTime｝ and #｛endTime｝
+        GROUP BY examiner_id
+        ORDER BY examCnt DESC
+    </select>
 </mapper>

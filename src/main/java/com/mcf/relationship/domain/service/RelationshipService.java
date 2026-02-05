@@ -5,7 +5,7 @@ import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.controller.relationship.request.RelationshipQueryRequest;
 import com.mcf.relationship.controller.relationship.request.RelationshipUpdateRequest;
 import com.mcf.relationship.controller.relationship.response.RelationshipDetailResponse;
-import com.mcf.relationship.controller.relationship.vo.SimpleRelationshipVO;
+import com.mcf.relationship.controller.relationship.vo.RelationshipVO;
 import com.mcf.relationship.infra.model.RelationshipDO;
 
 /**
@@ -24,7 +24,7 @@ public interface RelationshipService extends IService<RelationshipDO> {
      * @param request
      * @return
      */
-    PageResponse<SimpleRelationshipVO> queryList(RelationshipQueryRequest request);
+    PageResponse<RelationshipVO> queryList(RelationshipQueryRequest request);
 
     /**
      * 添加
