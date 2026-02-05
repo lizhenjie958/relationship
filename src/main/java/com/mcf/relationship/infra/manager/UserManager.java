@@ -9,7 +9,7 @@ import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
 import com.mcf.relationship.common.util.UserLoginContextUtil;
-import com.mcf.relationship.controller.statistics.request.UserQueryRequest;
+import com.mcf.relationship.controller.user.request.UserQueryRequest;
 import com.mcf.relationship.domain.convert.UserConverter;
 import com.mcf.relationship.domain.entity.UserBO;
 import com.mcf.relationship.infra.mapper.UserMapper;

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -28,31 +28,17 @@ public class AnswerStatisticsManager {
     @Resource
     private AnswerPaperMapper answerPaperMapper;
 
-    /**
-     * 插入数据
-     *
-     * @param answerStatisticsBO 实体对象
-     */
-    public void insert(AnswerStatisticsBO answerStatisticsBO) {
-        answerStatisticsMapper.insert(answerStatisticsBO);
-    }
-
-    /**
-     * 更新数据
-     *
-     * @param answerStatisticsBO 实体对象
-     */
-    public void update(AnswerStatisticsBO answerStatisticsBO) {
-        answerStatisticsMapper.updateById(answerStatisticsBO);
-    }
-
-
     public AnswerStatisticsBO queryOne(Long userId, LocalDate statisticsDate){
+        AnswerStatisticsDO statisticsDO = this.getOne(userId, statisticsDate);
+        return AnswerStatisticsConverter.do2bo(statisticsDO);
+    }
+
+
+    private AnswerStatisticsDO getOne(Long userId, LocalDate statisticsDate){
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(statisticsDate, "统计时间");
         LambdaQueryWrapper<AnswerStatisticsDO> queryWrapper = buildUniqueQuery(userId, statisticsDate);
-        AnswerStatisticsDO answerStatisticsDO = answerStatisticsMapper.selectOne(queryWrapper, false);
-        return AnswerStatisticsConverter.convert(answerStatisticsDO);
+        return answerStatisticsMapper.selectOne(queryWrapper, false);
     }
 
     /**
@@ -76,67 +62,76 @@ public class AnswerStatisticsManager {
      * @param endTime 结束时间
      * @return 答题统计结果
      */
-    public List<AnswerStatisticsBO> answerStatistics(LocalDateTime startTime, LocalDateTime endTime){
+    public void answerStatistics(final LocalDateTime startTime, final LocalDateTime endTime){
         AssertUtil.checkObjectNotNull(startTime, "开始时间");
         AssertUtil.checkObjectNotNull(endTime, "结束时间");
         // 查询答题人和出题人的统计数据
         List<AnswerStatisticsDO> answerList = answerPaperMapper.statisticsByAnswer(startTime, endTime);
         List<AnswerStatisticsDO> examinerList = answerPaperMapper.statisticsByExaminer(startTime, endTime);
 
-        // 转换为 Map，以 userId 为 key
-        Map<Long, AnswerStatisticsDO> answerMap = answerList.stream()
-                .collect(Collectors.toMap(AnswerStatisticsDO::getUserId, statistics -> statistics));
-        Map<Long, AnswerStatisticsDO> examinerMap = examinerList.stream()
-                .collect(Collectors.toMap(AnswerStatisticsDO::getUserId, statistics -> statistics));
+        ArrayList<AnswerStatisticsDO> allList = new ArrayList<>(answerList);
+        allList.addAll(examinerList);
 
-        // 合并两个 Map 的数据
-        List<AnswerStatisticsBO> result = answerMap.entrySet().stream()
-                .map(entry -> {
-                    Long userId = entry.getKey();
-                    AnswerStatisticsDO answerData = entry.getValue();
-                    AnswerStatisticsDO examinerData = examinerMap.get(userId);
-
-                    // 如果 examinerMap 中存在对应数据，则合并；否则直接使用 answerData
-                    if (examinerData != null) {
-                        AnswerStatisticsDO mergedData = mergeStatistics(answerData, examinerData,startTime);
-                        return AnswerStatisticsConverter.convert(mergedData);
-                    } else {
-                        return AnswerStatisticsConverter.convert(answerData);
+        allList.stream()
+                .collect(Collectors.groupingBy(
+                        AnswerStatisticsDO::getUserId,
+                        Collectors.reducing(
+                                (s1, s2) -> mergeStatistics(s1, s2, startTime)
+                        )
+                )).forEach((userId, statistics) -> {
+                    AnswerStatisticsDO statisticsDO = statistics.orElseGet(null);
+                    if(statisticsDO != null){
+                        AnswerStatisticsDO answerStatistics4DB = getOne(userId, startTime.toLocalDate());
+                        if(answerStatistics4DB == null){
+                            answerStatisticsMapper.insert(statisticsDO);
+                        }else{
+                            statisticsDO.setId(answerStatistics4DB.getId());
+                            answerStatisticsMapper.updateById(statisticsDO);
+                        }
                     }
-                })
-                .collect(Collectors.toList());
-
-        // 处理 examinerMap 中独有的数据
-        examinerMap.entrySet().stream()
-                .filter(entry -> !answerMap.containsKey(entry.getKey())) // 过滤掉已处理的 userId
-                .forEach(entry -> result.add(AnswerStatisticsConverter.convert(entry.getValue())));
-
-        return result;
-
+                });
     }
+
 
     /**
      * 合并两个 AnswerStatisticsDO 对象的数据
-     *
-     * @param answerData   答题人数据
-     * @param examinerData 出题人数据
-     * @return 合并后的数据
+     * @param statisticsOne
+     * @param statisticsTwo
+     * @param statisticsDate
+     * @return
      */
-    private AnswerStatisticsDO mergeStatistics(AnswerStatisticsDO answerData, AnswerStatisticsDO examinerData, LocalDateTime statisticsDate) {
+    private AnswerStatisticsDO mergeStatistics(AnswerStatisticsDO statisticsOne, AnswerStatisticsDO statisticsTwo, LocalDateTime statisticsDate) {
         AnswerStatisticsDO mergedData = new AnswerStatisticsDO();
-        mergedData.setUserId(answerData.getUserId());
+        mergedData.setUserId(statisticsOne.getUserId());
         mergedData.setStatisticsDate(statisticsDate.toLocalDate());
-
-        // 示例：合并答题次数和出题次数
-        mergedData.setAnswerCnt(answerData.getAnswerCnt());
-        mergedData.setAnswerMaxScoreRank(answerData.getAnswerMaxScoreRank());
-        mergedData.setAnswerMaxScore(answerData.getAnswerMaxScore());
-        mergedData.setMaxScoreAnswerPaperId(answerData.getMaxScoreAnswerPaperId());
-
-        mergedData.setExamCnt(examinerData.getExamCnt());
-        mergedData.setExamCntRank(examinerData.getExamCntRank());
-        mergedData.setHotExamPaperId(examinerData.getHotExamPaperId());
-
+        mergeStatistics(mergedData,statisticsOne);
+        mergeStatistics(mergedData,statisticsTwo);
         return mergedData;
+    }
+
+
+    private void mergeStatistics(AnswerStatisticsDO mergedData, AnswerStatisticsDO data) {
+        // 示例：合并答题次数和出题次数
+        if(data.getAnswerCnt() != null){
+            mergedData.setAnswerCnt(data.getAnswerCnt());
+        }
+        if(data.getAnswerMaxScoreRank() != null){
+            mergedData.setAnswerMaxScoreRank(data.getAnswerMaxScoreRank());
+        }
+        if(data.getAnswerMaxScore() != null){
+            mergedData.setAnswerMaxScore(data.getAnswerMaxScore());
+        }
+        if(data.getMaxScoreAnswerPaperId() != null){
+            mergedData.setMaxScoreAnswerPaperId(data.getMaxScoreAnswerPaperId());
+        }
+        if(data.getExamCnt() != null){
+            mergedData.setExamCnt(data.getExamCnt());
+        }
+        if(data.getExamCntRank() != null){
+            mergedData.setExamCntRank(data.getExamCntRank());
+        }
+        if(data.getHotExamPaperId() != null){
+            mergedData.setHotExamPaperId(data.getHotExamPaperId());
+        }
     }
 }

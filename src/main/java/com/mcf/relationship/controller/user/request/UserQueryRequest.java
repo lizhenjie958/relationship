@@ -1,4 +1,4 @@
-package com.mcf.relationship.controller.statistics.request;
+package com.mcf.relationship.controller.user.request;
 
 import com.mcf.relationship.common.protocol.PageRequest;
 import lombok.Data;

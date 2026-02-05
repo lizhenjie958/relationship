@@ -3,28 +3,52 @@
 <mapper namespace="com.mcf.relationship.infra.mapper.AnswerPaperMapper">
     <select id="statisticsByAnswer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
         SELECT
-            answer_id AS userId,
-            COUNT(*) AS answerCnt,
-            MAX(id) AS maxScoreAnswerPaperId,
-            MAX(score) AS answerMaxScore,
-            RANK() OVER (ORDER BY MAX(score) DESC) AS answerMaxScoreRank
-        FROM r_answer_paper
-        WHERE answer_status = 2  -- 只统计已完成状态
-          AND complete_time between #｛startTime｝ and #｛endTime｝
-        GROUP BY answer_id
-        ORDER BY answerMaxScore DESC
+            userId,
+            answerCnt,
+            maxScoreAnswerPaperId,
+            answerMaxScore,
+            answerMaxScoreRank
+        FROM (
+                 SELECT
+                     answer_id AS userId,
+                     COUNT(*) AS answerCnt,
+                     MAX(id) AS maxScoreAnswerPaperId,
+                     MAX(score) AS answerMaxScore,
+                     @rank := @rank + 1 AS answerMaxScoreRank
+                 FROM r_answer_paper, (SELECT @rank := 0) r
+                 WHERE answer_status = 2
+                   AND complete_time BETWEEN #{startTime} AND #{endTime}
+                 GROUP BY answer_id
+                 ORDER BY MAX(score) DESC
+             ) temp
     </select>
 
     <select id="statisticsByExaminer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
         SELECT
-            examiner_id AS userId,
-            COUNT(*) AS examCnt,
-            RANK() OVER (ORDER BY COUNT(*) DESC) AS examCntRank,
-            exam_paper_id AS hotExamPaperId
-        FROM r_answer_paper
-        WHERE answer_status = 2  -- 只统计已完成状态
-          AND complete_time between #｛startTime｝ and #｛endTime｝
-        GROUP BY examiner_id
-        ORDER BY examCnt DESC
+            t.examinerId as userId,
+            t.examCnt,
+            t.examCntRank,
+            t.hotExamPaperId
+        FROM (
+                 SELECT
+                     examiner_id AS examinerId,
+                     COUNT(*) AS examCnt,
+                     @rank := @rank + 1 AS examCntRank,
+            (
+                SELECT exam_paper_id
+                FROM r_answer_paper t2
+                WHERE t2.examiner_id = r_answer_paper.examiner_id
+                    AND t2.answer_status = 2
+                    AND t2.complete_time BETWEEN #{startTime} AND #{endTime}
+                         GROUP BY t2.exam_paper_id
+                         ORDER BY COUNT(*) DESC
+                         LIMIT 1
+                         ) AS hotExamPaperId
+                 FROM r_answer_paper, (SELECT @rank := 0) r
+                 WHERE answer_status = 2
+                   AND complete_time BETWEEN #{startTime} AND #{endTime}
+                 GROUP BY examiner_id
+                 ORDER BY COUNT(*) DESC
+             ) t
     </select>
 </mapper>

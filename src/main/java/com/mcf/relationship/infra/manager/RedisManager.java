@@ -1,9 +1,9 @@
 package com.mcf.relationship.infra.manager;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisManager {
-    @Autowired
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     // 存储字符串值

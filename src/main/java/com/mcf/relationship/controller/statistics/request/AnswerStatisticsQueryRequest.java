@@ -1,5 +1,6 @@
 package com.mcf.relationship.controller.statistics.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mcf.relationship.common.protocol.BaseRequest;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class AnswerStatisticsQueryRequest extends BaseRequest {
     /**
      * 统计时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime statisticsTime;
 }

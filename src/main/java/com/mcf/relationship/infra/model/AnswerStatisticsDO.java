@@ -1,5 +1,7 @@
 package com.mcf.relationship.infra.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +32,7 @@ public class AnswerStatisticsDO implements Serializable {
     /**
      * 主键
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
