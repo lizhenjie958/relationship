@@ -2,6 +2,8 @@ package com.mcf.relationship.infra.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mcf.relationship.common.consts.CommonConst;
+import com.mcf.relationship.common.consts.NumberConst;
 import com.mcf.relationship.common.enums.AnswerStatusEnum;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
@@ -11,10 +13,12 @@ import com.mcf.relationship.domain.convert.AnswerPaperConverter;
 import com.mcf.relationship.domain.entity.AnswerPaperBO;
 import com.mcf.relationship.infra.mapper.AnswerPaperMapper;
 import com.mcf.relationship.infra.model.AnswerPaperDO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhuPo
@@ -60,6 +64,29 @@ public class AnswerPaperManager {
     }
 
     /**
+     * 修改为超时
+     */
+    public void changeToTimeout(){
+        for (int i = 0; i < NumberConst.HUNDRED; i++) {
+            LambdaQueryWrapper<AnswerPaperDO> updateWrapper = new LambdaQueryWrapper<AnswerPaperDO>()
+                    .eq(AnswerPaperDO::getAnswerStatus, AnswerStatusEnum.ANSWERING.getStatus())
+                    .le(AnswerPaperDO::getTimeoutTime, LocalDateTime.now())
+                    .last(CommonConst.DEFAULT_BATCH);
+            Long count = answerPaperMapper.selectCount(updateWrapper);
+            if(count <= 0){
+                return;
+            }
+            AnswerPaperDO updateDO = new AnswerPaperDO().setAnswerStatus(AnswerStatusEnum.TIMED_OUT.getStatus());
+            answerPaperMapper.update(updateDO, updateWrapper);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
      * 修改
      * @param answerPaperBO
      */
@@ -97,6 +124,8 @@ public class AnswerPaperManager {
         }
         if (request.getAnswerStatus() != null){
             queryWrapper.eq(AnswerPaperDO::getAnswerStatus, request.getAnswerStatus());
+        }else if(CollectionUtils.isNotEmpty(request.getAnswerStatusList())){
+            queryWrapper.in(AnswerPaperDO::getAnswerStatus, request.getAnswerStatusList());
         }
         if(request.getStartTime() != null){
             queryWrapper.ge(AnswerPaperDO::getCreateTime, request.getStartTime());

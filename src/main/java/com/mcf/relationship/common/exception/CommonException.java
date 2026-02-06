@@ -44,5 +44,4 @@ public class CommonException extends RuntimeException {
         return th instanceof BizException;
     }
 
-
 }

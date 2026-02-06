@@ -22,7 +22,7 @@ public class AnswerStatisticsSchedule {
     @Scheduled(cron = "1 * * * * ?")
     @DistributedTask(name = "answerStatisticsSchedule")
     public void process() {
-        LocalDateTime startTime = LocalDate.now().minusDays(1).atStartOfDay();
+        LocalDateTime startTime = LocalDate.now().atStartOfDay();
         answerStatisticsManager.answerStatistics(startTime, startTime.plusDays(1).minusSeconds(1));
     }
 }

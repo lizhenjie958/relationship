@@ -39,7 +39,7 @@ public class AnswerPaperDetailResponse extends BaseResponse {
      * 答题状态
      * @see com.mcf.relationship.common.enums.AnswerStatusEnum
      */
-    private String answerStatus;
+    private Integer answerStatus;
 
     /**
      * 分数

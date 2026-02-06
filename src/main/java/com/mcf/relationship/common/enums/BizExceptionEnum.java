@@ -50,7 +50,7 @@ public enum BizExceptionEnum implements ExceptionInterface {
      * 答题相关异常
      * 1501-1600
      */
-    ANSWER_PAPER_STATUS_ERROR(1501, "答卷当前处于｛0｝状态，｛1｝"),
+    ANSWER_PAPER_STATUS_ERROR(1501, "答卷当前处于{0}状态，{1}"),
     ;
 
     private final Integer code;

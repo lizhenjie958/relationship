@@ -52,6 +52,9 @@ public class AnswerPaperBO extends AnswerPaperDO {
 
         answerPaperBO.setAnswerId(UserLoginContextUtil.getUserId());
 
+        answerPaperBO.setExaminerId(examPaperBO.getExaminerId());
+        answerPaperBO.setExaminerName(examPaperBO.getExaminerName());
+
         answerPaperBO.setClaimTime(claimTime);
         answerPaperBO.setTimeoutTime(claimTime.plusDays(1));
         return answerPaperBO;
