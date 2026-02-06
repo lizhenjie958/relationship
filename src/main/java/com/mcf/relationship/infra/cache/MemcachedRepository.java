@@ -1,4 +1,4 @@
-package com.mcf.relationship.infra.manager;
+package com.mcf.relationship.infra.cache;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 /**
- * 不想删除这些代码，有不上使用它，暂时以配置类保留
+ * todo 将用户登录相关的缓存逻辑移动到Memcached中
+ *
  * @Author ZhuPo
  * @date 2026/1/31 13:38
  */
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile("other")
 @Deprecated
-public class MemcachedManager {
+public class MemcachedRepository {
     @Resource
     private MemcachedClient memcachedClient;
 

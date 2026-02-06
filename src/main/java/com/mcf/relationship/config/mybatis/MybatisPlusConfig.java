@@ -20,9 +20,7 @@ public class MybatisPlusConfig {
         // 分页插件
         PaginationInnerInterceptor paginationInterceptor = new PaginationInnerInterceptor();
         paginationInterceptor.setDbType(DbType.MYSQL);
-        paginationInterceptor.setOverflow(true); // 超过总页数后回到第一页
         paginationInterceptor.setMaxLimit(100L); // 单页最大记录数
-
         interceptor.addInnerInterceptor(paginationInterceptor);
         return interceptor;
     }

@@ -44,5 +44,4 @@ public interface NumberConst {
     int TWO_HUNDRED = 200;
     int FIVE_HUNDRED = 500;
     int THOUSAND = 1000;
-
 }

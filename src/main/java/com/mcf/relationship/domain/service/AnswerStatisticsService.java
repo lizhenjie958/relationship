@@ -2,6 +2,7 @@ package com.mcf.relationship.domain.service;
 
 import com.mcf.relationship.controller.statistics.request.AnswerCalendarQueryRequest;
 import com.mcf.relationship.controller.statistics.request.AnswerStatisticsQueryRequest;
+import com.mcf.relationship.controller.statistics.response.AnswerCalendarResponse;
 import com.mcf.relationship.controller.statistics.response.AnswerStatisticsDetailResponse;
 import com.mcf.relationship.infra.model.AnswerStatisticsDO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -30,5 +31,5 @@ public interface AnswerStatisticsService extends IService<AnswerStatisticsDO> {
      * @param request 查询参数
      * @return 用户答题日历数据
      */
-    AnswerStatisticsDetailResponse answerCalendar(AnswerCalendarQueryRequest request);
+    AnswerCalendarResponse answerCalendar(AnswerCalendarQueryRequest request);
 }

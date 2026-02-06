@@ -3,12 +3,13 @@ package com.mcf.relationship.infra.manager;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Redisson分布式锁管理器
+ *
  * @author ZhuPo
  * @date 2026/2/5 15:50
  */
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class RedissonManager {
 
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**

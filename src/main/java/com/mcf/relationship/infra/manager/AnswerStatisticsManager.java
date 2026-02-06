@@ -1,14 +1,17 @@
 package com.mcf.relationship.infra.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
+import com.mcf.relationship.common.util.PageConvertUtil;
+import com.mcf.relationship.controller.statistics.request.AnswerStatisticsQueryRequest;
 import com.mcf.relationship.domain.convert.AnswerStatisticsConverter;
 import com.mcf.relationship.domain.entity.AnswerStatisticsBO;
 import com.mcf.relationship.infra.mapper.AnswerPaperMapper;
 import com.mcf.relationship.infra.mapper.AnswerStatisticsMapper;
 import com.mcf.relationship.infra.model.AnswerStatisticsDO;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,17 +31,50 @@ public class AnswerStatisticsManager {
     @Resource
     private AnswerPaperMapper answerPaperMapper;
 
+    /**
+     * 查询列表
+     * @param request
+     * @return
+     */
+    public PageResponse<AnswerStatisticsBO> queryList(AnswerStatisticsQueryRequest request){
+        LambdaQueryWrapper<AnswerStatisticsDO> queryWrapper = this.buildQuery(request);
+        Page<AnswerStatisticsDO> response = answerStatisticsMapper.selectPage(request.page(), queryWrapper);
+        return PageConvertUtil.convertPage(response, AnswerStatisticsConverter::do2bo);
+    }
+
     public AnswerStatisticsBO queryOne(Long userId, LocalDate statisticsDate){
         AnswerStatisticsDO statisticsDO = this.getOne(userId, statisticsDate);
         return AnswerStatisticsConverter.do2bo(statisticsDO);
     }
-
 
     private AnswerStatisticsDO getOne(Long userId, LocalDate statisticsDate){
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(statisticsDate, "统计时间");
         LambdaQueryWrapper<AnswerStatisticsDO> queryWrapper = buildUniqueQuery(userId, statisticsDate);
         return answerStatisticsMapper.selectOne(queryWrapper, false);
+    }
+
+    /**
+     * 构建查询条件
+     *
+     * @param request 查询参数
+     * @return 查询条件
+     */
+    private LambdaQueryWrapper<AnswerStatisticsDO> buildQuery(AnswerStatisticsQueryRequest request){
+        LambdaQueryWrapper<AnswerStatisticsDO> queryWrapper = new LambdaQueryWrapper<>();
+        if(request.getStatisticsDate() != null){
+            queryWrapper.eq(AnswerStatisticsDO::getStatisticsDate, request.getStatisticsDate());
+        }
+        if(request.getMinAnswerCnt() != null){
+            queryWrapper.ge(AnswerStatisticsDO::getAnswerCnt, request.getMinAnswerCnt());
+        }
+        if (request.getStartDate() != null){
+            queryWrapper.ge(AnswerStatisticsDO::getStatisticsDate, request.getStartDate());
+        }
+        if (request.getEndDate() != null){
+            queryWrapper.le(AnswerStatisticsDO::getStatisticsDate, request.getEndDate());
+        }
+        return queryWrapper;
     }
 
     /**
@@ -79,8 +115,8 @@ public class AnswerStatisticsManager {
                                 (s1, s2) -> mergeStatistics(s1, s2, startTime)
                         )
                 )).forEach((userId, statistics) -> {
-                    AnswerStatisticsDO statisticsDO = statistics.orElseGet(null);
-                    if(statisticsDO != null){
+                    if (statistics.isPresent()) {
+                        AnswerStatisticsDO statisticsDO = statistics.get();
                         AnswerStatisticsDO answerStatistics4DB = getOne(userId, startTime.toLocalDate());
                         if(answerStatistics4DB == null){
                             answerStatisticsMapper.insert(statisticsDO);

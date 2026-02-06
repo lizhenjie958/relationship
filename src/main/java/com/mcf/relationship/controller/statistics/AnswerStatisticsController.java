@@ -3,6 +3,7 @@ package com.mcf.relationship.controller.statistics;
 import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.controller.statistics.request.AnswerCalendarQueryRequest;
 import com.mcf.relationship.controller.statistics.request.AnswerStatisticsQueryRequest;
+import com.mcf.relationship.controller.statistics.response.AnswerCalendarResponse;
 import com.mcf.relationship.controller.statistics.response.AnswerStatisticsDetailResponse;
 import com.mcf.relationship.domain.service.AnswerStatisticsService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +30,9 @@ public class AnswerStatisticsController {
         return McfResult.success(response);
     }
 
-    @PostMapping("/answerCalendar")
-    public McfResult<AnswerStatisticsDetailResponse> answerCalendar(@RequestBody AnswerCalendarQueryRequest request){
-        AnswerStatisticsDetailResponse response = answerStatisticsService.answerCalendar(request);
+    @PostMapping("/checkinCalendar")
+    public McfResult<AnswerCalendarResponse> checkinCalendar(@RequestBody AnswerCalendarQueryRequest request){
+        AnswerCalendarResponse response = answerStatisticsService.answerCalendar(request);
         return McfResult.success(response);
     }
 }

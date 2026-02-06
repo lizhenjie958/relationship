@@ -33,6 +33,7 @@ public final class UserConverter {
         currentUser.setUsername(userBO.getUsername());
         currentUser.setUserType(userBO.getUserType());
         currentUser.setUserId(userBO.getId());
+        currentUser.setAvatar(userBO.getAvatar());
         return currentUser;
     }
 }

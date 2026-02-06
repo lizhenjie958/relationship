@@ -2,7 +2,7 @@ package com.mcf.relationship;
 
 import com.mcf.relationship.domain.service.UserService;
 import com.mcf.relationship.infra.model.UserDO;
-import com.mcf.relationship.infra.manager.MemcachedManager;
+import com.mcf.relationship.infra.cache.MemcachedRepository;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,15 +15,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class RepositoryTest {
 
     @Resource
-    private MemcachedManager memcachedManager;
+    private MemcachedRepository memcachedRepository;
 
     @Resource
     private UserService userService;
 
     @Test
     public void testUseMemcached() {
-        memcachedManager.set("test", "test", 600);
-        String o = memcachedManager.get("test");
+        memcachedRepository.set("test", "test", 600);
+        String o = memcachedRepository.get("test");
         System.err.println(o);
     }
 
