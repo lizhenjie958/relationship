@@ -34,6 +34,10 @@ public final class UserConverter {
         currentUser.setUserType(userBO.getUserType());
         currentUser.setUserId(userBO.getId());
         currentUser.setAvatar(userBO.getAvatar());
+        if(userBO.getInviterId() != null && userBO.getInviterId() > 0){
+            currentUser.setInviterId(userBO.getInviterId());
+        }
+        currentUser.setInviteCode(userBO.getInviteCode());
         return currentUser;
     }
 }

@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * 统计用户答题签到
+ *
  * @author ZhuPo
  * @date 2026/2/5 10:27
  */
@@ -30,7 +32,8 @@ public class AnswerCheckinStatisticsSchedule {
     @Resource
     private AnswerStatisticsCacheManager answerStatisticsCacheManager;
 
-    @Scheduled(cron = "0 0 1,3,5 * * ?")
+    @Scheduled(cron = "1 0 1,3,5 * * ?")
+//    @Scheduled(cron = "1 * * * * ?")
     @DistributedTask(name = "answerStatisticsSchedule#processHistory")
     public void processHistory() {
         LocalDate now = LocalDate.now();
@@ -61,7 +64,8 @@ public class AnswerCheckinStatisticsSchedule {
     }
 
 
-    @Scheduled(cron = "1 * 6-23 * * ?")
+//    @Scheduled(cron = "1 * 6-23 * * ?")
+    @Scheduled(cron = "10 * * * * ?")
     @DistributedTask(name = "answerStatisticsSchedule#processNow")
     public void processNow() {
         LocalDate now = LocalDate.now();

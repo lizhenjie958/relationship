@@ -42,6 +42,14 @@ public class ExamPaperManager {
         return ExamPaperConverter.do2bo(examPaperDO);
     }
 
+    /**
+     * 修改
+     */
+    public void updateById(ExamPaperBO examPaperBO){
+        AssertUtil.checkObjectNotNull(examPaperBO.getId(),"出题人ID");
+        examPaperMapper.updateById(examPaperBO);
+    }
+
     public PageResponse<ExamPaperBO> queryList(ExamPaperQueryRequest request) {
         LambdaQueryWrapper<ExamPaperDO> queryWrapper = new LambdaQueryWrapper<>();
         if(request.getExaminerId() != null){

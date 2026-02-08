@@ -67,6 +67,9 @@ public class AnswerPaperBO extends AnswerPaperDO {
      * @return
      */
     public Integer calculateScore(ExamPaperBO examPaperBO){
+        if(CollectionUtils.isEmpty(this.getAnswerQuestionDTOList())){
+            return NumberConst.ZERO;
+        }
         Map<Integer, List<String>> answerMap = this.getAnswerQuestionDTOList().stream().collect(Collectors.toMap(AnswerQuestionDTO::getQuestionNo, AnswerQuestionDTO::getAnswerOptionList));
         List<QuestionDTO> questionDTOList = examPaperBO.getQuestionDTOList();
         int correctCount = 0;
@@ -108,6 +111,7 @@ public class AnswerPaperBO extends AnswerPaperDO {
         answerPaperBO.setAnswerStatus(AnswerStatusEnum.COMPLETED.getStatus());
         answerPaperBO.setScore(this.calculateScore(examPaperBO));
         answerPaperBO.setCompleteTime(LocalDateTime.now());
+        answerPaperBO.setAnswerQuestionDTOList(this.getAnswerQuestionDTOList());
         return answerPaperBO;
     }
 

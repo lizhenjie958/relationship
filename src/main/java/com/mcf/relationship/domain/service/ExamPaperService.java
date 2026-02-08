@@ -57,4 +57,11 @@ public interface ExamPaperService extends IService<ExamPaperDO> {
      * @param id
      */
     Long claim(Long id);
+
+    /**
+     * 修改认领状态
+     *
+     * @param id
+     */
+    void changeClaimStatus(Long id, Integer claimStatus);
 }

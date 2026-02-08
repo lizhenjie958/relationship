@@ -37,4 +37,10 @@ public interface ShareRecordService extends IService<ShareRecordDO> {
      * @return
      */
     String queryTargetPath(String shareCode);
+
+    /**
+     * 停用分享
+     * @param id
+     */
+    void stopShare(Long id);
 }

@@ -28,4 +28,13 @@ public class CurrentUserResponse extends BaseResponse {
      * 用户类型
      */
     private Integer userType;
+    /**
+     * 我的邀请码
+     */
+    private String inviteCode;
+
+    /**
+     * 邀请人ID
+     */
+    private Long inviterId;
 }

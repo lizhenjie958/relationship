@@ -157,9 +157,6 @@ public class AnswerStatisticsManager {
         if(data.getAnswerMaxScore() != null){
             mergedData.setAnswerMaxScore(data.getAnswerMaxScore());
         }
-        if(data.getMaxScoreAnswerPaperId() != null){
-            mergedData.setMaxScoreAnswerPaperId(data.getMaxScoreAnswerPaperId());
-        }
         if(data.getExamCnt() != null){
             mergedData.setExamCnt(data.getExamCnt());
         }

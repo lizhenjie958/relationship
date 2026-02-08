@@ -1,5 +1,6 @@
 package com.mcf.relationship.controller.sharerecord.vo;
 
+import com.mcf.relationship.common.enums.ShareStatusEnum;
 import lombok.Data;
 
 import java.io.Serial;
@@ -22,45 +23,20 @@ public class ShareRecordVO implements Serializable {
     private Long id;
 
     /**
-     * 分享码
-     */
-    private String shareCode;
-
-    /**
-     * 分享来源类型
-     */
-    private Integer sourceType;
-
-    /**
-     * 来源ID
-     */
-    private Long sourceId;
-
-    /**
      * 来源名称
      */
     private String sourceName;
 
     /**
-     * 目标路径
-     */
-    private String targetPath;
-
-    /**
-     * 是否启用
-     */
-    private Integer enableStatus;
-
-    /**
      * 分享状态
+     * @see ShareStatusEnum
      */
     private Integer shareStatus;
 
     /**
-     * 分享完成时间
+     * 停止时间
      */
-    private LocalDateTime shareCompleteTime;
-
+    private LocalDateTime stopTime;
 
     /**
      * 过期时间
@@ -68,12 +44,7 @@ public class ShareRecordVO implements Serializable {
     private LocalDateTime expireTime;
 
     /**
-     * 分享用户ID
+     * 分享时间
      */
-    private Long shareUserId;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+    private LocalDateTime shareTime;
 }

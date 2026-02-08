@@ -5,6 +5,7 @@ import com.mcf.relationship.common.protocol.BaseRequest;
 import lombok.Data;
 
 import java.io.Serial;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,5 +23,5 @@ public class CompleteAnswerPaperRequest extends BaseRequest {
     /**
      * 用户答案
      */
-    private List<AnswerQuestionDTO> answerQuestionDTOList;
+    private List<AnswerQuestionDTO> answerQuestionDTOList = new ArrayList<>();
 }

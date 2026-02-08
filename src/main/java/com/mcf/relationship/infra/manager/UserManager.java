@@ -73,6 +73,14 @@ public class UserManager {
         return userBO;
     }
 
+    public UserBO getUserByInviteCode(String inviteCode) {
+        AssertUtil.checkStringNotBlank(inviteCode, "邀请码");
+        LambdaQueryWrapper<UserDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserDO::getInviteCode, inviteCode);
+        UserDO userDO = userMapper.selectOne(queryWrapper, false);
+        return UserConverter.do2bo(userDO);
+    }
+
 
     public void updateUser(UserBO userBO) {
         AssertUtil.checkObjectNotNull(userBO.getId(), "用户ID");

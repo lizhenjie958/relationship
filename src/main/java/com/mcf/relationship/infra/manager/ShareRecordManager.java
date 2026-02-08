@@ -44,6 +44,20 @@ public class ShareRecordManager {
     }
 
     /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
+    public ShareRecordBO queryById(Long id){
+        AssertUtil.checkObjectNotNull(id,"分享ID");
+        ShareRecordDO shareRecordDO = shareRecordMapper.selectById(id);
+        if (shareRecordDO == null){
+            throw new BizException(BizExceptionEnum.SHARE_NOT_EXIST);
+        }
+        return ShareRecordConverter.do2bo(shareRecordDO);
+    }
+
+    /**
      * 查询列表
      * @param request
      * @return
@@ -56,6 +70,10 @@ public class ShareRecordManager {
         if(Objects.nonNull(request.getShareCode())){
             queryWrapper.eq(ShareRecordDO::getShareCode, request.getShareCode());
         }
+        if(Objects.nonNull(request.getSourceId())){
+            queryWrapper.eq(ShareRecordDO::getSourceId, request.getSourceId());
+        }
+        queryWrapper.orderByDesc(ShareRecordDO::getCreateTime);
         Page<ShareRecordDO> shareRecordDOPage = shareRecordMapper.selectPage(request.page(), queryWrapper);
         return PageConvertUtil.convertPage(shareRecordDOPage, ShareRecordConverter::do2bo);
     }
@@ -65,5 +83,14 @@ public class ShareRecordManager {
         LambdaQueryWrapper<ShareRecordDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShareRecordDO::getShareCode, shareCode);
         return queryWrapper;
+    }
+
+    /**
+     * 更新
+     * @param shareRecordDO
+     */
+    public void updateById(ShareRecordDO shareRecordDO) {
+        AssertUtil.checkObjectNotNull(shareRecordDO.getId(), "ID");
+        shareRecordMapper.updateById(shareRecordDO);
     }
 }

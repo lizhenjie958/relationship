@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author ZhuPo
- * @date 2026/2/3 16:13
+ * @Author ZhuPo
+ * @date 2026/2/8 18:24
  */
 @AllArgsConstructor
 @Getter
 public enum EnableStatusEnum {
-    ENABLE(1,"启用"),
-    DISABLE(2,"停用"),
-            ;
+    ENABLE(1,"生效"),
+    DISABLE(2,"失效"),
+    ;
     private final Integer status;
     private final String desc;
 }

@@ -51,11 +51,6 @@ public class AnswerStatisticsDO implements Serializable {
     private Long answerCnt;
 
     /**
-     * 最高得分的答卷ID
-     */
-    private Long maxScoreAnswerPaperId;
-
-    /**
      * 答卷最高得分
      */
     private Integer answerMaxScore;

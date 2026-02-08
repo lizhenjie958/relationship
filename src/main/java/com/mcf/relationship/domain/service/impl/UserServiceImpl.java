@@ -1,9 +1,14 @@
 package com.mcf.relationship.domain.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mcf.relationship.common.consts.NumberConst;
+import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.enums.SysExceptionEnum;
+import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.exception.SysException;
+import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.UserLoginContextUtil;
+import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
 import com.mcf.relationship.domain.convert.UserConverter;
@@ -14,7 +19,9 @@ import com.mcf.relationship.infra.mapper.UserMapper;
 import com.mcf.relationship.infra.model.UserDO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
+import java.util.Objects;
 
 /**
  * <p>
@@ -50,5 +57,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             userBO.setAvatar(request.getAvatar());
         }
         userManager.updateUser(userBO);
+    }
+
+    @Override
+    public void maintainInviter(MaintainInviterRequest request) {
+        AssertUtil.checkStringNotBlank(request.getInviteCode(),"邀请码");
+        if (StringUtils.length(request.getInviteCode()) != NumberConst.EIGHT) {
+            throw new BizException(BizExceptionEnum.INVITER_NOT_EXIST);
+        }
+        UserBO userBO = userManager.getUserByInviteCode(request.getInviteCode());
+        if(Objects.isNull(userBO)){
+            throw new BizException(BizExceptionEnum.INVITER_NOT_EXIST);
+        }
+        if(userBO.judgeHasInviter()){
+            throw new BizException(BizExceptionEnum.USER_HAS_INVITER);
+        }
+        UserBO updateUser = new UserBO();
+        updateUser.setId(UserLoginContextUtil.getUserId());
+        updateUser.setInviterId(userBO.getId());
+        userManager.updateUser(updateUser);
     }
 }

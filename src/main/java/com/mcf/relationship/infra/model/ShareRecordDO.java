@@ -61,17 +61,17 @@ public class ShareRecordDO implements Serializable {
     /**
      * 是否启用
      */
-    private Integer enableStatus;
+    private Integer shareStatus;
 
     /**
-     * 启用时间
+     * 分享时间
      */
-    private LocalDateTime enableTime;
+    private LocalDateTime shareTime;
 
     /**
      * 停用时间
      */
-    private LocalDateTime disableTime;
+    private LocalDateTime stopTime;
 
     /**
      * 过期时间

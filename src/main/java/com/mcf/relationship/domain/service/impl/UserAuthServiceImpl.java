@@ -12,9 +12,11 @@ import com.mcf.relationship.infra.manager.UserManager;
 import com.mcf.relationship.infra.mapper.UserMapper;
 import com.mcf.relationship.infra.model.UserDO;
 import com.mcf.relationship.intergration.wx.WxAccreditManager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @Author ZhuPo
@@ -35,7 +37,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserMapper, UserDO> impleme
         UserBO user4DB = userManager.getUserByOpenId(openId);
         UserBO loginUser = user4DB;
         if (Objects.isNull(user4DB)){
-            loginUser = rollUp(openId, request.getInviterId());
+            loginUser = rollUp(openId, request.getInviteCode());
         }
         return new LoginResponse(loginUser.getId(), loginUser.generateToken());
     }
@@ -45,11 +47,16 @@ public class UserAuthServiceImpl extends ServiceImpl<UserMapper, UserDO> impleme
      * 注册
      *
      * @param openId
-     * @param inviterId
+     * @param inviteCode
      * @return
      */
-    public UserBO rollUp(String openId, Long inviterId) {
+    public UserBO rollUp(String openId, String inviteCode) {
         AssertUtil.checkStringNotBlank(openId, "微信OpenId");
+        Long inviterId = null;
+        if(StringUtils.isNotBlank(inviteCode)){
+            UserBO inviterBO = userManager.getUserByInviteCode(inviteCode);
+            inviterId = Optional.ofNullable(inviterBO).map(UserBO::getId).orElse( null);
+        }
         UserBO user4Save = new UserBO(openId, inviterId);
         UserBO userBO = userManager.saveUser(user4Save);
         if(Objects.isNull(userBO) || Objects.isNull(userBO.getId())){

@@ -5,14 +5,12 @@
         SELECT
             userId,
             answerCnt,
-            maxScoreAnswerPaperId,
             answerMaxScore,
             answerMaxScoreRank
         FROM (
                  SELECT
                      answer_id AS userId,
                      COUNT(*) AS answerCnt,
-                     MAX(id) AS maxScoreAnswerPaperId,
                      MAX(score) AS answerMaxScore,
                      @rank := @rank + 1 AS answerMaxScoreRank
                  FROM r_answer_paper, (SELECT @rank := 0) r

@@ -110,6 +110,13 @@ public class AssertUtil {
         }
     }
 
+    public static void checkStringSize(String str, String msg, int length) {
+        checkStringNotBlank(str, msg);
+        if (str.length() != length) {
+            throw new SysException(SysExceptionEnum.PARAM_NOT_MATCH_PATTERN);
+        }
+    }
+
     /**
      * 断言集合最小长度
      *

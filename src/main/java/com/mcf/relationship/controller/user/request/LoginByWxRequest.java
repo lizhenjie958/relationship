@@ -16,7 +16,7 @@ public class LoginByWxRequest extends BaseRequest {
     /**
      * 邀请人id
      */
-    private Long inviterId;
+    private String inviteCode;
     /**
      * 微信授权码
      */

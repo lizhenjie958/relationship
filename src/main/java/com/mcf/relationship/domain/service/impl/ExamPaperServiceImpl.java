@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mcf.relationship.common.dto.ProtagonistInfoDTO;
 import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
+import com.mcf.relationship.common.enums.ClaimStatusEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
@@ -93,8 +94,26 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
     public Long claim(Long id) {
         AssertUtil.checkObjectNotNull(id,"试卷ID");
         ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
+        if (!ClaimStatusEnum.CLAIM_ALLOWED.getStatus().equals(examPaperBO.getClaimStatus())) {
+            throw new BizException(BizExceptionEnum.EXAM_PAPER_NOT_CLAIMABLE);
+        }
         AnswerPaperBO answerPaperBO = AnswerPaperBO.init(examPaperBO);
         return answerPaperManager.save(answerPaperBO);
+    }
+
+    @Override
+    public void changeClaimStatus(Long id, Integer claimStatus) {
+        AssertUtil.checkObjectNotNull(id,"试卷ID");
+        ClaimStatusEnum claimEnum = ClaimStatusEnum.getClaimStatus(claimStatus);
+        AssertUtil.checkObjectNotNull(claimEnum,"认领状态");
+        ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
+        if (!ClaimStatusEnum.CLAIM_ALLOWED.getStatus().equals(examPaperBO.getClaimStatus())) {
+            return;
+        }
+        ExamPaperBO updatePaperBO = new ExamPaperBO();
+        updatePaperBO.setId(id);
+        updatePaperBO.setClaimStatus(claimStatus);
+        examPaperManager.updateById(updatePaperBO);
     }
 
     private ExamPaperBO buildExamPaperDO(GenerateExamPaperRequest request, RelationshipBO relationshipBO) {
@@ -108,7 +127,7 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
         examPaperBO.setExaminerId(relationshipBO.getUserId());
         examPaperBO.setExaminerName(relationshipBO.getUsername());
         examPaperBO.setQuestionDTOList(questionDTOS);
+        examPaperBO.setClaimStatus(ClaimStatusEnum.CLAIM_ALLOWED.getStatus());
         return examPaperBO;
     }
-
 }

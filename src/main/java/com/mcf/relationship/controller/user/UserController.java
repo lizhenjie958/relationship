@@ -2,6 +2,7 @@ package com.mcf.relationship.controller.user;
 
 import com.mcf.relationship.common.protocol.BaseRequest;
 import com.mcf.relationship.common.protocol.McfResult;
+import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
 import com.mcf.relationship.domain.service.UserService;
@@ -32,6 +33,17 @@ public class UserController {
     @PostMapping("updateUser")
     public McfResult<Void> updateUser(@RequestBody UpdateUserRequest request) {
         userService.updateUser(request);
+        return McfResult.success();
+    }
+
+    /**
+     * 维护邀请人
+     * @param request
+     * @return
+     */
+    @PostMapping("maintainInviter")
+    public McfResult<Void> maintainInviter(@RequestBody MaintainInviterRequest request){
+        userService.maintainInviter(request);
         return McfResult.success();
     }
 }

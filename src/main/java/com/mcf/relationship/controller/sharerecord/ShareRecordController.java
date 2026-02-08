@@ -1,5 +1,6 @@
 package com.mcf.relationship.controller.sharerecord;
 
+import com.mcf.relationship.common.protocol.IdRequest;
 import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.controller.sharerecord.request.ShareRecordQueryRequest;
@@ -38,6 +39,12 @@ public class ShareRecordController {
     public McfResult<PageResponse<ShareRecordVO>> queryList(@RequestBody ShareRecordQueryRequest request){
         PageResponse<ShareRecordVO> response = shareRecordService.queryList(request);
         return McfResult.success(response);
+    }
+
+    @PostMapping("/stopShare")
+    public McfResult<Void> stopShare(@RequestBody IdRequest request){
+        shareRecordService.stopShare(request.getId());
+        return McfResult.success();
     }
 
     @PostMapping("/queryTargetPath")

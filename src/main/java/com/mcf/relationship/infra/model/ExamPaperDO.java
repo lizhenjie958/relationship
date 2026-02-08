@@ -64,6 +64,11 @@ public class ExamPaperDO implements Serializable {
     private String questions;
 
     /**
+     * 是否可认领标识
+     */
+    private Integer claimStatus;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

@@ -3,6 +3,7 @@ package com.mcf.relationship.controller.exampaper;
 import com.mcf.relationship.common.protocol.IdRequest;
 import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.protocol.PageResponse;
+import com.mcf.relationship.controller.exampaper.request.ChangeClaimStatusRequest;
 import com.mcf.relationship.controller.exampaper.request.ExamPaperQueryRequest;
 import com.mcf.relationship.controller.exampaper.request.GenerateExamPaperRequest;
 import com.mcf.relationship.controller.exampaper.response.ExamPaperDetailResponse;
@@ -51,5 +52,11 @@ public class ExamPaperController {
     public McfResult<Long> claim(@RequestBody IdRequest request) {
         Long answerPaperId = examPaperService.claim(request.getId());
         return McfResult.success(answerPaperId);
+    }
+
+    @PostMapping("changeClaimStatus")
+    public McfResult<Void> changeClaimStatus(@RequestBody ChangeClaimStatusRequest request) {
+        examPaperService.changeClaimStatus(request.getId(), request.getClaimStatus());
+        return McfResult.success();
     }
 }

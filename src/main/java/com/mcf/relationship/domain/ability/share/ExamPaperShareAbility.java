@@ -1,6 +1,7 @@
 package com.mcf.relationship.domain.ability.share;
 
 import com.mcf.relationship.common.enums.ShareSourceTypeEnum;
+import com.mcf.relationship.common.util.RandomUtil;
 import com.mcf.relationship.controller.sharerecord.request.ShareRequest;
 import com.mcf.relationship.domain.entity.ExamPaperBO;
 import com.mcf.relationship.domain.entity.ShareRecordBO;
@@ -24,7 +25,7 @@ public class ExamPaperShareAbility extends ShareAbility{
     public void buildShareRecordBO(ShareRequest shareRequest, ShareRecordBO shareRecordBO) {
         ExamPaperBO examPaperBO = examPaperManager.queryDetail(shareRequest.getSourceId());
         shareRecordBO.setTargetPath(PATH_PREFIX + shareRequest.getSourceId());
-        shareRecordBO.setSourceName(examPaperBO.getName());
+        shareRecordBO.setSourceName(examPaperBO.getName() + "-" + RandomUtil.generateStr(2));
     }
 
     @Override

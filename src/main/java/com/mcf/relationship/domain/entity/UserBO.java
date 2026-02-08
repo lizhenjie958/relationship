@@ -29,11 +29,13 @@ public class UserBO extends UserDO {
      * @return
      */
     public UserBO (String openId, Long inviterId){
+        String userName = RandomUtil.generateStr(8);
         this.setRegisterTime(LocalDateTime.now());
         this.setInviterId(inviterId);
         this.setWxOpenId(openId);
         this.setUserType(UserTypeEnum.USER.getType());
-        this.setUsername(RandomUtil.generateStr(6));
+        this.setUsername(userName);
+        this.setInviteCode(userName);
     }
 
     /**
@@ -44,5 +46,9 @@ public class UserBO extends UserDO {
     public String generateToken(){
         UserTokenBO userTokenBO = new UserTokenBO(System.currentTimeMillis(), this.getId(), this.getWxOpenId());
         return UserTokenUtil.encrypt(userTokenBO);
+    }
+
+    public boolean judgeHasInviter(){
+        return this.getInviterId() != null && this.getInviterId() > 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.mcf.relationship.domain.ability.share;
 
-import com.mcf.relationship.common.enums.EnableStatusEnum;
+import com.mcf.relationship.common.enums.ShareStatusEnum;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.controller.sharerecord.request.ShareRequest;
 import com.mcf.relationship.domain.entity.ShareRecordBO;
@@ -37,8 +37,8 @@ public abstract class ShareAbility {
         shareRecordBO.setSourceId(request.getSourceId());
         shareRecordBO.setSourceType(request.getSourceType());
         shareRecordBO.setShareUserId(request.getUserId());
-        shareRecordBO.setEnableStatus(EnableStatusEnum.ENABLE.getStatus());
-        shareRecordBO.setEnableTime(now);
+        shareRecordBO.setShareStatus(ShareStatusEnum.SHARING.getStatus());
+        shareRecordBO.setShareTime(now);
         shareRecordBO.setExpireTime(now.plusDays(7));
         shareRecordBO.setShareCode(request.getShareCode());
         return shareRecordBO;

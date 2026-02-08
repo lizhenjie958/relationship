@@ -1,5 +1,6 @@
 package com.mcf.relationship.domain.service;
 
+import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
 import com.mcf.relationship.infra.model.UserDO;
@@ -17,4 +18,6 @@ public interface UserService extends IService<UserDO> {
     CurrentUserResponse currentUser();
 
     void updateUser(UpdateUserRequest request);
+
+    void maintainInviter(MaintainInviterRequest request);
 }

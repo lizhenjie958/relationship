@@ -2,7 +2,7 @@ package com.mcf.relationship.domain.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
-import com.mcf.relationship.common.enums.EnableStatusEnum;
+import com.mcf.relationship.common.enums.ShareStatusEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
@@ -60,12 +60,33 @@ public class ShareRecordServiceImpl extends ServiceImpl<ShareRecordMapper, Share
     @Override
     public String queryTargetPath(String shareCode) {
         ShareRecordBO shareRecordBO = shareRecordManager.queryDetail(shareCode);
-        if (!EnableStatusEnum.ENABLE.getStatus().equals(shareRecordBO.getEnableStatus())) {
-            throw new BizException(BizExceptionEnum.SHARE_DISABLED);
+        if (!ShareStatusEnum.SHARING.getStatus().equals(shareRecordBO.getShareStatus())) {
+            throw new BizException(BizExceptionEnum.SHARE_STOPPED);
         }
         if(shareRecordBO.getExpireTime().isBefore(LocalDateTime.now())){
             throw new BizException(BizExceptionEnum.SHARE_EXPIRED);
         }
         return shareRecordBO.getTargetPath();
+    }
+
+    @Override
+    public void stopShare(Long id) {
+        AssertUtil.checkObjectNotNull(id,"分享ID");
+        ShareRecordBO shareRecordBO = shareRecordManager.queryById(id);
+        if(!ShareStatusEnum.SHARING.getStatus().equals(shareRecordBO.getShareStatus())){
+            throw new BizException(BizExceptionEnum.SHARE_STATUS_ERROR, ShareStatusEnum.getDesc(shareRecordBO.getShareStatus()));
+        }
+        if(shareRecordBO.getExpireTime().isBefore(LocalDateTime.now())){
+            ShareRecordDO shareExpire = new ShareRecordBO()
+                    .setId(id)
+                    .setShareStatus(ShareStatusEnum.EXPIRED.getStatus());
+            shareRecordManager.updateById(shareExpire);
+        }else {
+            ShareRecordDO shareStop = new ShareRecordBO()
+                    .setId(id)
+                    .setShareStatus(ShareStatusEnum.STOPPED.getStatus())
+                    .setStopTime(LocalDateTime.now());
+            shareRecordManager.updateById(shareStop);
+        }
     }
 }

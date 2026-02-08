@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
+ * 答题超时状态同步
+ *
  * @Author ZhuPo
  * @date 2026/2/6 20:36
  */

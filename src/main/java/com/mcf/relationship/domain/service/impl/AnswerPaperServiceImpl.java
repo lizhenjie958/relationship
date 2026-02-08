@@ -60,7 +60,6 @@ public class AnswerPaperServiceImpl extends ServiceImpl<AnswerPaperMapper, Answe
     @Override
     public Integer completeAnswer(CompleteAnswerPaperRequest request) {
         AssertUtil.checkObjectNotNull(request.getId(),"答卷ID");
-        AssertUtil.checkCollectionNotEmpty(request.getAnswerQuestionDTOList(), "用户答案");
         AnswerPaperBO answerPaperBO = answerPaperManager.queryDetail(request.getId());
 
         if(!AnswerStatusEnum.ANSWERING.getStatus().equals(answerPaperBO.getAnswerStatus())){

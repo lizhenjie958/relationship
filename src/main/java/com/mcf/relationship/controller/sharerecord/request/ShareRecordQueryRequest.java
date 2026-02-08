@@ -23,4 +23,9 @@ public class ShareRecordQueryRequest extends PageRequest {
      * 分享码
      */
     private String shareCode;
+
+    /**
+     * 来源ID
+     */
+    private String sourceId;
 }
