@@ -15,7 +15,7 @@ import lombok.Getter;
 public enum MemberAccessChannelEnum {
     INVITE_USER_ROLLUP("c8z85k","邀请好友注册"),
     CUMULATE_ANSWER_CHECKIN("jm6nm2","累计答题签到"),
-    REDEEM_MEMBER("e6hn9u","兑换会员"),
+    REDEEM_MEMBER("e6hn9u","兑换码兑换"),
             ;
     private final String code;
     private final String desc;

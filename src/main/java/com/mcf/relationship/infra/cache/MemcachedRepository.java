@@ -4,19 +4,18 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.rubyeye.xmemcached.MemcachedClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 /**
- * todo 将用户登录相关的缓存逻辑移动到Memcached中
+ * 内部基础缓存使用Memcache来做
+ * Redis只使用其高级特性：使用Redisson和BitMap
+ * 项目高QPS的请求缓存需要搭配CaffeineUtil使用，根据业务组合使用
  *
  * @Author ZhuPo
  * @date 2026/1/31 13:38
  */
 @Slf4j
 @Repository
-@Profile("other")
-@Deprecated
 public class MemcachedRepository {
     @Resource
     private MemcachedClient memcachedClient;

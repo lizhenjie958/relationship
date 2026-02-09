@@ -31,14 +31,11 @@ import java.util.Map;
 @Component
 @WebFilter
 public class SignCheckFilter implements Filter {
-    private static final long MAX_REQUEST_DELAY_TIME = 1000 * 60 * 60 * 24;
+    private static final long MAX_REQUEST_DELAY_TIME = 1000 * 60 * 1;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         if(!(servletRequest instanceof HttpServletRequest) || !(servletResponse instanceof HttpServletResponse)){
-            chain.doFilter(servletRequest, servletResponse);
-            return;
-        }else if(true){
             chain.doFilter(servletRequest, servletResponse);
             return;
         }

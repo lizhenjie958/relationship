@@ -35,7 +35,7 @@ public class MemberManager {
         MemberBO member = this.queryMember(userId);
 
         LocalDate now = LocalDate.now();
-        ChronoUnit chronoUnit = TimeUnitEnum.getTimeUnit(timeUnitType).toChronoUnit();
+        ChronoUnit chronoUnit = TimeUnitEnum.getChronoUnitByUnit(timeUnitType);
 
         if(member == null){
             MemberDO saveMemberDO = new MemberDO();

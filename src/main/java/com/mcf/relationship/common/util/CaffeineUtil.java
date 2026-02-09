@@ -9,8 +9,12 @@ import java.util.concurrent.TimeUnit;
  * @Author ZhuPo
  * @date 2026/1/31 16:35
  */
-
 public final class CaffeineUtil<T> {
+
+    private CaffeineUtil(){
+
+    }
+
     public final Cache<String, T> EXPIRE_ACCESS =
             Caffeine.newBuilder()
                     .expireAfterAccess(5, TimeUnit.MINUTES)
