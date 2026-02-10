@@ -56,4 +56,10 @@ public interface RelationshipService extends IService<RelationshipDO> {
      * @param request
      */
     void copy(IdRequest request);
+
+    /**
+     * 删除关系
+     * @param id
+     */
+    void delete(Long id);
 }

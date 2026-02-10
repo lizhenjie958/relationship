@@ -122,4 +122,9 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
         RelationshipBO copyRelation = relation4DB.copy(userBO.getUsername());
         relationshipManager.add(copyRelation);
     }
+
+    @Override
+    public void delete(Long id) {
+        relationshipManager.delete(id, UserLoginContextUtil.getUserId());
+    }
 }

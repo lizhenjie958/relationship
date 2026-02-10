@@ -30,6 +30,10 @@ public class ExamPaperDetailResponse extends BaseResponse {
      */
     private Long examinerId;
     /**
+     * 出题人姓名
+     */
+    private String examinerName;
+    /**
      * 问题列表
      */
     private List<QuestionDTO> questionDTOList;

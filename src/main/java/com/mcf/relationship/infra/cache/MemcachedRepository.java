@@ -6,6 +6,9 @@ import net.rubyeye.xmemcached.MemcachedClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 /**
  * 内部基础缓存使用Memcache来做
  * Redis只使用其高级特性：使用Redisson和BitMap
@@ -98,5 +101,29 @@ public class MemcachedRepository {
             log.error("Memcached exists error, key: {}", key, e);
             return false;
         }
+    }
+
+    /**
+     * 设置缓存过期时间
+     */
+    public boolean setExpire(String key, int expire) {
+        try {
+            return memcachedClient.touch(key, expire);
+        } catch (Exception e) {
+            log.error("Memcached setExpire error, key: {}", key, e);
+            return false;
+        }
+    }
+
+    /**
+     * 设置缓存过期时间
+     * @param key
+     * @param expireTime
+     * @return
+     */
+    public boolean setExpireUntil(String key, LocalDateTime expireTime){
+        LocalDateTime now = LocalDateTime.now();
+        int expire = (int)now.until(expireTime, ChronoUnit.SECONDS);
+        return this.setExpire(key, expire);
     }
 }

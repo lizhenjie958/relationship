@@ -30,6 +30,12 @@ public class AnswerPaperDetailResponse extends BaseResponse {
      * 试卷名称
      */
     private String examPaperName;
+
+    /**
+     * 出题人姓名
+     */
+    private String examinerName;
+
     /**
      * 主角信息
      */

@@ -13,11 +13,15 @@ import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.user.request.UserQueryRequest;
 import com.mcf.relationship.domain.convert.UserConverter;
 import com.mcf.relationship.domain.entity.UserBO;
+import com.mcf.relationship.infra.cache.MemcachedRepository;
 import com.mcf.relationship.infra.mapper.UserMapper;
 import com.mcf.relationship.infra.model.UserDO;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -27,11 +31,16 @@ import java.util.Objects;
 @Component
 public class UserManager {
 
+    private static final String USER_UPDATE_TIMES_PREFIX = "user:updateTimes:";
+
     @Resource
     private UserMapper userMapper;
 
     @Resource
     private SecondaryCacheManager secondaryCacheManager;
+
+    @Resource
+    private MemcachedRepository memcachedRepository;
 
     /**
      * 查询用户列表
@@ -95,5 +104,21 @@ public class UserManager {
         AssertUtil.checkObjectNotNull(userBO.getId(), "用户ID");
         UserDO userDO = UserConverter.bo2do(userBO);
         secondaryCacheManager.delCache(CacheEnum.CURRENT_USER, userBO.getId() + "", () -> userMapper.updateById(userDO) > 0);
+        String key = USER_UPDATE_TIMES_PREFIX + userBO.getId();
+        memcachedRepository.incr(key, 1, 1);
+        LocalDateTime localDateTime = LocalDate.now().atStartOfDay().plusDays(1);
+        memcachedRepository.setExpireUntil(key, localDateTime);
+    }
+
+    /**
+     * 获取更新次数
+     * @param userId
+     * @return
+     */
+    public Integer getUpdateTimes(Long userId) {
+        AssertUtil.checkObjectNotNull(userId, "用户ID");
+        String key = USER_UPDATE_TIMES_PREFIX + userId;
+        String o = memcachedRepository.get(key);
+        return NumberUtils.toInt(o);
     }
 }

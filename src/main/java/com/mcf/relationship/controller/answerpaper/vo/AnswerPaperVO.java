@@ -36,6 +36,11 @@ public class AnswerPaperVO implements Serializable {
     private Integer score;
 
     /**
+     * 出题人名称
+     */
+    private String examinerName;
+
+    /**
      * 试卷名称
      */
     private String examPaperName;

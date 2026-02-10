@@ -45,6 +45,15 @@ public class RelationshipManager {
         return PageConvertUtil.convertPage(relationshipPage, RelationshipConverter::do2bo);
     }
 
+    public void delete(Long id, Long userId){
+        AssertUtil.checkObjectNotNull(id, "ID");
+        AssertUtil.checkObjectNotNull(userId, "用户ID");
+        LambdaUpdateWrapper<RelationshipDO> queryMapper = new LambdaUpdateWrapper<>();
+        queryMapper.eq(RelationshipDO::getId, id);
+        queryMapper.eq(RelationshipDO::getUserId, userId);
+        relationshipMapper.update(new RelationshipDO().setDeleted(YNTypeEnum.YES.getCode()), queryMapper);
+    }
+
     public Boolean add(RelationshipBO relationshipBO) {
         AssertUtil.checkStringNotBlank(relationshipBO.getProtagonist(), "请输入主角名称");
         AssertUtil.checkStringNotBlank(relationshipBO.getPicUrl(), "请上传图片");

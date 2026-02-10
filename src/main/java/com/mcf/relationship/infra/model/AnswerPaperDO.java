@@ -45,7 +45,7 @@ public class AnswerPaperDO implements Serializable {
     private Long examinerId;
 
     /**
-     * 答题人名称
+     * 出题人名称
      */
     private String examinerName;
 

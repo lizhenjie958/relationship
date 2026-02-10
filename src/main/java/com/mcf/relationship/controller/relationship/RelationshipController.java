@@ -52,4 +52,10 @@ public class RelationshipController {
         relationshipService.copy(request);
         return McfResult.success();
     }
+
+    @PostMapping("delete")
+    public McfResult<Void> delete(@RequestBody IdRequest request){
+        relationshipService.delete(request.getId());
+        return McfResult.success();
+    }
 }

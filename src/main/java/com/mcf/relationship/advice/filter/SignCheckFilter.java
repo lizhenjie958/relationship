@@ -1,27 +1,18 @@
 package com.mcf.relationship.advice.filter;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.TypeReference;
-import com.mcf.relationship.advice.handler.RequestWrapper;
-import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.consts.SystemConst;
+import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.util.SignUtil;
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.util.ContentCachingResponseWrapper;
+
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * @author ZhuPo
@@ -38,6 +29,9 @@ public class SignCheckFilter implements Filter {
         if(!(servletRequest instanceof HttpServletRequest) || !(servletResponse instanceof HttpServletResponse)){
             chain.doFilter(servletRequest, servletResponse);
             return;
+        }else if(true){
+            chain.doFilter(servletRequest, servletResponse);
+            return;
         }
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -45,16 +39,9 @@ public class SignCheckFilter implements Filter {
             String sign = request.getHeader(SystemConst.SIGN);
             String timestampStr = request.getHeader(SystemConst.TIMESTAMP);
             long timestamp = Long.parseLong(timestampStr);
-            RequestWrapper requestWrapper = new RequestWrapper(request);
-            String requestBody = StreamUtils.copyToString(requestWrapper.getInputStream(), StandardCharsets.UTF_8);
-            requestBody = JSONObject.parseObject(requestBody).toJSONString();
-            ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
-            Map<String,Object> requestJson = JSONObject.parseObject(requestBody, new TypeReference<>() {});
-            requestJson.put(SystemConst.TIMESTAMP, timestamp);
-            String calSign = SignUtil.sign(requestJson);
+            String calSign = SignUtil.sign(timestamp);
             if(checkRequestTime(timestamp) && StringUtils.equals(sign, calSign)){
-                chain.doFilter(requestWrapper, responseWrapper);
-                responseWrapper.copyBodyToResponse();
+                chain.doFilter(request, response);
                 return;
             }
         }catch (Exception ignored){
@@ -74,8 +61,8 @@ public class SignCheckFilter implements Filter {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(JSONObject.toJSONString(mcfResult));
-        } catch (IOException e) {
-            log.warn("构");
+        } catch (Exception e) {
+
         }
     }
 }

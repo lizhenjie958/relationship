@@ -77,7 +77,7 @@ public class RelationshipDO implements Serializable {
     /**
      * 是否已删除
      */
-    private Long deleted;
+    private Integer deleted;
 
     /**
      * 创建时间

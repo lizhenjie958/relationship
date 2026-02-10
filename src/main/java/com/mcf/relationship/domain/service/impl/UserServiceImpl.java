@@ -11,6 +11,7 @@ import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
+import com.mcf.relationship.controller.user.response.UserInfoUpdateCheckResponse;
 import com.mcf.relationship.domain.convert.UserConverter;
 import com.mcf.relationship.domain.entity.UserBO;
 import com.mcf.relationship.domain.service.UserService;
@@ -76,5 +77,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         updateUser.setId(UserLoginContextUtil.getUserId());
         updateUser.setInviterId(userBO.getId());
         userManager.updateUser(updateUser);
+    }
+
+    @Override
+    public UserInfoUpdateCheckResponse getUpdateTimes() {
+        Integer updateTimes = userManager.getUpdateTimes(UserLoginContextUtil.getUserId());
+        UserInfoUpdateCheckResponse userInfoUpdateCheckResponse = new UserInfoUpdateCheckResponse();
+        if(updateTimes != null){
+            userInfoUpdateCheckResponse.setUpdateTimes(updateTimes);
+        }
+        return userInfoUpdateCheckResponse;
     }
 }
