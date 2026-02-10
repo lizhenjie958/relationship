@@ -32,6 +32,7 @@ public enum BizExceptionEnum implements ExceptionInterface {
      * 1201-1300
      */
     PROTAGONIST_EXIST(1201, "该主角已存在"),
+    HASH_SAME_COPY(1202,"存在相同的拷贝"),
 
     /**
      * 试卷相关异常

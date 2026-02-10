@@ -1,6 +1,7 @@
 package com.mcf.relationship.domain.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mcf.relationship.common.protocol.IdRequest;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.controller.relationship.request.RelationshipQueryRequest;
 import com.mcf.relationship.controller.relationship.request.RelationshipUpdateRequest;
@@ -49,4 +50,10 @@ public interface RelationshipService extends IService<RelationshipDO> {
      * @return
      */
     RelationshipDetailResponse queryDetail(Long id);
+
+    /**
+     * 拷贝关系
+     * @param request
+     */
+    void copy(IdRequest request);
 }

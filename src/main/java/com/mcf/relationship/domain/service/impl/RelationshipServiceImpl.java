@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.exception.BizException;
+import com.mcf.relationship.common.protocol.IdRequest;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
@@ -13,8 +14,10 @@ import com.mcf.relationship.controller.relationship.request.RelationshipUpdateRe
 import com.mcf.relationship.controller.relationship.response.RelationshipDetailResponse;
 import com.mcf.relationship.controller.relationship.vo.RelationshipVO;
 import com.mcf.relationship.domain.entity.RelationshipBO;
+import com.mcf.relationship.domain.entity.UserBO;
 import com.mcf.relationship.domain.service.RelationshipService;
 import com.mcf.relationship.infra.manager.RelationshipManager;
+import com.mcf.relationship.infra.manager.UserManager;
 import com.mcf.relationship.infra.mapper.RelationshipMapper;
 import com.mcf.relationship.infra.model.RelationshipDO;
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +40,12 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
     @Resource
     private RelationshipManager relationshipManager;
 
+    @Resource
+    private UserManager userManager;
+
     @Override
     public PageResponse<RelationshipVO> queryList(RelationshipQueryRequest request) {
+        AssertUtil.checkObjectNotNull(request.getType(), "关系类型");
         PageResponse<RelationshipBO> relationshipPage = relationshipManager.queryList(request);
         return PageConvertUtil.convertResponse(relationshipPage, relationshipBO -> {
             RelationshipVO relationshipVO = new RelationshipVO();
@@ -101,5 +108,18 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
         response.setRemark(relation4DB.getRemark());
         response.setRelationList(relation4DB.getRelationDTOList());
         return response;
+    }
+
+    @Override
+    public void copy(IdRequest request) {
+        AssertUtil.checkObjectNotNull(request.getId(), "关系ID");
+        RelationshipBO relation4DB = relationshipManager.queryDetail(request.getId());
+        Boolean hasCopy = relationshipManager.judgeUserCopy(UserLoginContextUtil.getUserId(), request.getId());
+        if(hasCopy){
+            throw new BizException(BizExceptionEnum.HASH_SAME_COPY);
+        }
+        UserBO userBO = userManager.currentUser();
+        RelationshipBO copyRelation = relation4DB.copy(userBO.getUsername());
+        relationshipManager.add(copyRelation);
     }
 }

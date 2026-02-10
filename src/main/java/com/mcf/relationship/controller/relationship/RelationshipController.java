@@ -46,4 +46,10 @@ public class RelationshipController {
         relationshipService.update(request);
         return McfResult.success();
     }
+
+    @PostMapping("copy")
+    public McfResult<Void> copy(@RequestBody IdRequest request){
+        relationshipService.copy(request);
+        return McfResult.success();
+    }
 }

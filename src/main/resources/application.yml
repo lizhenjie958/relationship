@@ -15,7 +15,7 @@ memcached:
   servers: ${MEMCACHED_SERVERS:127.0.0.1:11211}  # 支持多个服务器
   pool-size: 10            # 连接池大小
   op-timeout: 3000         # 操作超时(ms)
-  expire-time: 3600        # 默认过期时间(秒)
+  expire-time: 7200        # 默认过期时间(秒)
   enable-heartbeat: true   # 心跳检测
 
 

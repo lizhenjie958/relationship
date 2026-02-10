@@ -4,6 +4,8 @@ import com.mcf.relationship.common.dto.OptionDTO;
 import com.mcf.relationship.common.dto.QuestionDTO;
 import com.mcf.relationship.common.dto.RelationDTO;
 import com.mcf.relationship.common.enums.QuestionTemplateEnum;
+import com.mcf.relationship.common.enums.RelationshipTypeEnum;
+import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.infra.model.RelationshipDO;
 import lombok.Data;
 import java.io.Serial;
@@ -94,5 +96,22 @@ public class RelationshipBO extends RelationshipDO {
             resultList.add(new OptionDTO(String.valueOf(c), optionNameList.get(i - 1)));
         }
         return resultList;
+    }
+
+    /**
+     * 信息copy
+     * @return
+     */
+    public RelationshipBO copy(String userName){
+        RelationshipBO relationshipBO = new RelationshipBO();
+        relationshipBO.setProtagonist(this.getProtagonist());
+        relationshipBO.setRemark(this.getRemark());
+        relationshipBO.setUsername(userName);
+        relationshipBO.setUserId(UserLoginContextUtil.getUserId());
+        relationshipBO.setRelationDTOList(this.getRelationDTOList());
+        relationshipBO.setPicUrl(this.getPicUrl());
+        relationshipBO.setType(RelationshipTypeEnum.USER.getType());
+        relationshipBO.setCopyId(this.getId());
+        return relationshipBO;
     }
 }

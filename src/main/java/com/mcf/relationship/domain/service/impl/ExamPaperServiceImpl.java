@@ -107,7 +107,8 @@ public class ExamPaperServiceImpl extends ServiceImpl<ExamPaperMapper, ExamPaper
         ClaimStatusEnum claimEnum = ClaimStatusEnum.getClaimStatus(claimStatus);
         AssertUtil.checkObjectNotNull(claimEnum,"认领状态");
         ExamPaperBO examPaperBO = examPaperManager.queryDetail(id);
-        if (!ClaimStatusEnum.CLAIM_ALLOWED.getStatus().equals(examPaperBO.getClaimStatus())) {
+        AssertUtil.checkDataExist(examPaperBO,"试卷");
+        if(claimStatus.equals(examPaperBO.getClaimStatus())){
             return;
         }
         ExamPaperBO updatePaperBO = new ExamPaperBO();

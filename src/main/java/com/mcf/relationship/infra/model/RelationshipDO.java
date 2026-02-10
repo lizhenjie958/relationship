@@ -34,6 +34,12 @@ public class RelationshipDO implements Serializable {
     private Long id;
 
     /**
+     * 类型
+     * @see com.mcf.relationship.common.enums.RelationshipTypeEnum
+     */
+    private Integer type;
+
+    /**
      * 用户ID
      */
     private Long userId;
@@ -62,6 +68,16 @@ public class RelationshipDO implements Serializable {
      * 关系列表
      */
     private String relations;
+
+    /**
+     * 拷贝的关系ID
+     */
+    private Long copyId;
+
+    /**
+     * 是否已删除
+     */
+    private Long deleted;
 
     /**
      * 创建时间

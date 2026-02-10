@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
+import com.mcf.relationship.common.enums.CacheEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
@@ -29,6 +30,9 @@ public class UserManager {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private SecondaryCacheManager secondaryCacheManager;
+
     /**
      * 查询用户列表
      * @return
@@ -49,10 +53,15 @@ public class UserManager {
 
     public UserBO currentUser(){
         Long userId = UserLoginContextUtil.getUserId();
-        if(Objects.isNull(userId)){
-            throw new BizException(BizExceptionEnum.LOGIN_EXPIRED);
+        UserBO userWithCache = getUserWithCache(userId);
+        if(userWithCache == null){
+            throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
         }
-        UserBO userBO = this.getUserByUserId(userId);
+        return userWithCache;
+    }
+
+    public UserBO getUserWithCache(Long userId){
+        UserBO userBO = secondaryCacheManager.getByCache(CacheEnum.CURRENT_USER, userId + "", () -> this.getUserByUserId(userId));
         if(Objects.isNull(userBO)){
             throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
         }
@@ -85,6 +94,6 @@ public class UserManager {
     public void updateUser(UserBO userBO) {
         AssertUtil.checkObjectNotNull(userBO.getId(), "用户ID");
         UserDO userDO = UserConverter.bo2do(userBO);
-        userMapper.updateById(userDO);
+        secondaryCacheManager.delCache(CacheEnum.CURRENT_USER, userBO.getId() + "", () -> userMapper.updateById(userDO) > 0);
     }
 }

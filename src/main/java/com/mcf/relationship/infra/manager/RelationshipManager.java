@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mcf.relationship.common.consts.CharConst;
+import com.mcf.relationship.common.enums.RelationshipTypeEnum;
+import com.mcf.relationship.common.enums.YNTypeEnum;
 import com.mcf.relationship.common.protocol.PageResponse;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.util.PageConvertUtil;
@@ -27,11 +29,18 @@ public class RelationshipManager {
     private RelationshipMapper relationshipMapper;
 
     public PageResponse<RelationshipBO> queryList(RelationshipQueryRequest request) {
+        AssertUtil.checkObjectNotNull(request.getType(), "关系类型");
         LambdaUpdateWrapper<RelationshipDO> queryMapper = new LambdaUpdateWrapper<>();
         if (StringUtils.isNoneBlank(request.getProtagonist())){
             queryMapper.like(RelationshipDO::getProtagonist, CharConst.PERCENT + request.getProtagonist() + CharConst.PERCENT);
         }
-        queryMapper.eq(RelationshipDO::getUserId, request.getUserId());
+        if(request.getType() != null){
+            queryMapper.eq(RelationshipDO :: getType, request.getType());
+        }
+        if (RelationshipTypeEnum.USER.getType().equals(request.getType())) {
+            queryMapper.eq(RelationshipDO::getUserId, request.getUserId());
+        }
+        queryMapper.eq(RelationshipDO::getDeleted, YNTypeEnum.NO.getCode());
         Page<RelationshipDO> relationshipPage = relationshipMapper.selectPage(request.page(), queryMapper);
         return PageConvertUtil.convertPage(relationshipPage, RelationshipConverter::do2bo);
     }
@@ -44,6 +53,22 @@ public class RelationshipManager {
         RelationshipDO relationshipDO = RelationshipConverter.bo2do(relationshipBO);
         relationshipMapper.insert(relationshipDO);
         return Boolean.TRUE;
+    }
+
+    /**
+     * 判断是否拷贝过
+     * @param userId
+     * @param copyId
+     * @return
+     */
+    public Boolean judgeUserCopy(Long userId, Long copyId){
+        AssertUtil.checkObjectNotNull(userId, "用户ID");
+        AssertUtil.checkObjectNotNull(copyId, "关系ID");
+        LambdaUpdateWrapper<RelationshipDO> queryMapper = new LambdaUpdateWrapper<>();
+        queryMapper.eq(RelationshipDO::getUserId, userId);
+        queryMapper.eq(RelationshipDO :: getCopyId, copyId);
+        queryMapper.eq(RelationshipDO :: getDeleted, YNTypeEnum.NO.getCode());
+        return relationshipMapper.selectCount(queryMapper) > 0;
     }
 
     public void update(RelationshipBO relationshipBO) {

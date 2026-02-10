@@ -17,4 +17,10 @@ public class RelationshipQueryRequest extends PageRequest {
      * 主角
      */
     private String protagonist;
+
+    /**
+     * 关系类型
+     * @see com.mcf.relationship.common.enums.RelationshipTypeEnum
+     */
+    private Integer type = 1;
 }

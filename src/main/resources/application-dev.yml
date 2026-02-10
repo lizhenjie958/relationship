@@ -13,9 +13,9 @@ spring:
     # Redis 核心配置
   data:
     redis:
-      host: 121.43.102.232            # Redis 服务器地址
+      host: 127.0.0.1            # Redis 服务器地址
       port: 6379                 # Redis 端口
-      password: mcf-0825-lzj     # 密码（若无密码，可删除此行或设为 ''）
+      password: ''     # 密码（若无密码，可删除此行或设为 ''）
       database: 0                # 数据库索引 (0-15)
       timeout: 2000ms            # 连接超时时间
       connect-timeout: 2000ms    # 连接建立超时
