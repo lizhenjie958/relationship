@@ -64,7 +64,6 @@ public class AnswerCheckinStatisticsSchedule {
     }
 
 
-//    @Scheduled(cron = "1 * 6-23 * * ?")
     @Scheduled(cron = "10 * * * * ?")
     @DistributedTask(name = "answerStatisticsSchedule#processNow")
     public void processNow() {

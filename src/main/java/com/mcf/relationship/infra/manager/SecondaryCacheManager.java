@@ -30,7 +30,7 @@ public class SecondaryCacheManager {
     public <T> T getByCache(CacheEnum cacheEnum, String key, DBQuery<T> dbQuery){
         Cache<String, T> cache = CaffeineUtil.getCache(cacheEnum);
         return cache.get(key, s -> {
-            String memcachedKey = cacheEnum.getPrefix() + key;
+            String memcachedKey = cacheEnum.buildKey(key);
             T redisValue = memcachedRepository.get(memcachedKey);
             if (redisValue != null) {
                 return redisValue;
@@ -53,7 +53,7 @@ public class SecondaryCacheManager {
         boolean update = dbUpdate.update();
         if (update) {
             Cache<String, T> cache = CaffeineUtil.getCache(cacheEnum);
-            String memcachedKey = cacheEnum.getPrefix() + key;
+            String memcachedKey = cacheEnum.buildKey(key);
             memcachedRepository.delete(memcachedKey);
             cache.invalidate(key);
         }

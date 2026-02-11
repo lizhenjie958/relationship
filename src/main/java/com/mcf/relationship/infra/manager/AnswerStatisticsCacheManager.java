@@ -1,5 +1,7 @@
 package com.mcf.relationship.infra.manager;
 
+import com.mcf.relationship.common.consts.CharConst;
+import com.mcf.relationship.common.enums.CacheEnum;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.domain.entity.AnswerStatisticsHistoryBO;
 import com.mcf.relationship.infra.cache.RedisRepository;
@@ -11,25 +13,23 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 签到缓存管理
- * 使用二级缓存才处理
+ * 三层缓存处理：1级本地，2级Memcached, 3级Redis
  *
  * @author ZhuPo
  * @date 2026/2/6 13:02
  */
 @Repository
 public class AnswerStatisticsCacheManager {
-    /**
-     * 缓存前缀
-     *
-     */
-    private static final String HISTORY_KEY_PREFIX = "answer:checkin:history:%s:%s";
-    private static final String NOW_KEY_PREFIX = "answer:checkin:now:%s:%s";
 
     @Resource
     private RedisRepository redisRepository;
 
+    @Resource
+    private SecondaryCacheManager secondaryCacheManager;
+
     /**
      * 保存签到
+     * 签到数据仅保留90天
      *
      * @param userId
      * @param
@@ -38,8 +38,14 @@ public class AnswerStatisticsCacheManager {
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(checkinMonth, "签到时间");
         AssertUtil.checkObjectNotNull(statisticsHistoryBO, "签到数据");
-        String key = this.formatHistoryKey(userId, checkinMonth);
-        redisRepository.setObject(key, statisticsHistoryBO, 62, TimeUnit.DAYS);
+        String key = this.formatKey(userId, checkinMonth);
+        secondaryCacheManager.delCache(CacheEnum.ANSWER_CHECK_IN_HISTORY,
+                key,
+                () -> {
+                    redisRepository.setObject(key, statisticsHistoryBO, 90, TimeUnit.DAYS);
+                    return true;
+                }
+        );
     }
 
 
@@ -52,8 +58,11 @@ public class AnswerStatisticsCacheManager {
     public AnswerStatisticsHistoryBO getHistoryCheckin(Long userId, LocalDate checkinMonth){
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(checkinMonth, "签到时间");
-        String key = this.formatHistoryKey(userId, checkinMonth);
-        AnswerStatisticsHistoryBO historyBO = redisRepository.get(key, AnswerStatisticsHistoryBO.class);
+        String key = this.formatKey(userId, checkinMonth);
+        AnswerStatisticsHistoryBO historyBO = secondaryCacheManager.getByCache(
+                CacheEnum.ANSWER_CHECK_IN_HISTORY, key,
+                () -> redisRepository.get(key, AnswerStatisticsHistoryBO.class)
+        );
         if (historyBO == null || historyBO.getCheckinDates() == null){
             return new AnswerStatisticsHistoryBO();
         }
@@ -71,8 +80,14 @@ public class AnswerStatisticsCacheManager {
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(checkinDate, "签到时间");
         AssertUtil.checkObjectNotNull(checkin, "签到状态");
-        String key = this.formatNowKey(userId, checkinDate);
-        redisRepository.setObject(key, checkin, 1, TimeUnit.DAYS);
+        String key = this.formatKey(userId, checkinDate);
+        secondaryCacheManager.delCache(CacheEnum.ANSWER_CHECK_IN_HISTORY,
+                key,
+                () -> {
+                    redisRepository.setObject(key, checkin, 1, TimeUnit.DAYS);
+                    return true;
+                }
+        );
     }
 
     /**
@@ -84,8 +99,12 @@ public class AnswerStatisticsCacheManager {
     public Integer getNowCheckIn(Long userId, LocalDate checkinDate){
         AssertUtil.checkObjectNotNull(userId, "用户ID");
         AssertUtil.checkObjectNotNull(checkinDate, "签到时间");
-        String key = this.formatNowKey(userId, checkinDate);
-        return redisRepository.get(key, Integer.class);
+        String key = this.formatKey(userId, checkinDate);
+
+        return secondaryCacheManager.getByCache(
+                CacheEnum.ANSWER_CHECK_IN_HISTORY, key,
+                () -> redisRepository.get(key, Integer.class)
+        );
     }
 
     /**
@@ -94,17 +113,7 @@ public class AnswerStatisticsCacheManager {
      * @param checkinMonth
      * @return
      */
-    private String formatHistoryKey(Long userId, LocalDate checkinMonth){
-        return String.format(HISTORY_KEY_PREFIX, userId, checkinMonth);
-    }
-
-    /**
-     * 格式化缓存key
-     * @param userId
-     * @param checkinMonth
-     * @return
-     */
-    private String formatNowKey(Long userId, LocalDate checkinMonth){
-        return String.format(HISTORY_KEY_PREFIX, userId, checkinMonth);
+    private String formatKey(Long userId, LocalDate checkinMonth){
+        return userId + CharConst.COLON + checkinMonth;
     }
 }

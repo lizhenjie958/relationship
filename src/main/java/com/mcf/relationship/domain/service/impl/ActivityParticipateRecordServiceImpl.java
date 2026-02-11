@@ -15,6 +15,7 @@ import com.mcf.relationship.domain.entity.ActivityBO;
 import com.mcf.relationship.domain.entity.ActivityParticipateRecordBO;
 import com.mcf.relationship.domain.service.ActivityParticipateRecordService;
 import com.mcf.relationship.infra.manager.ActivityManager;
+import com.mcf.relationship.infra.manager.ActivityParticipateRecordManager;
 import com.mcf.relationship.infra.mapper.ActivityParticipateRecordMapper;
 import com.mcf.relationship.infra.model.ActivityParticipateRecordDO;
 import org.springframework.stereotype.Service;
@@ -36,17 +37,20 @@ public class ActivityParticipateRecordServiceImpl extends ServiceImpl<ActivityPa
     @Resource
     private ActivityManager activityManager;
 
+    @Resource
+    private ActivityParticipateRecordManager activityParticipateRecordManager;
+
     @Override
     public ParticipateRecordResponse queryParticipateRecord(ParticipateRecordQueryRequest request) {
         AssertUtil.checkObjectNotNull(request.getActivityId(), "活动ID");
-        ActivityParticipateRecordBO participateRecordBO = activityManager.queryActivityParticipateRecord(request.getActivityId(), UserLoginContextUtil.getUserId());
+        ActivityParticipateRecordBO participateRecordBO = activityParticipateRecordManager.queryActivityParticipateRecord(request.getActivityId(), UserLoginContextUtil.getUserId());
         ParticipateRecordResponse response =  ActivityParticipateRecordConverter.bo2response(participateRecordBO);
         return response;
     }
 
     @Override
     public void participate(ParticipateActivityRequest request) {
-        ActivityParticipateRecordBO participateRecordBO = activityManager.queryActivityParticipateRecord(request.getActivityId(), UserLoginContextUtil.getUserId());
+        ActivityParticipateRecordBO participateRecordBO = activityParticipateRecordManager.queryActivityParticipateRecord(request.getActivityId(), UserLoginContextUtil.getUserId());
         if(participateRecordBO != null){
             throw new BizException(BizExceptionEnum.HAS_PARTICIPATE_ACTIVITY);
         }
@@ -62,6 +66,6 @@ public class ActivityParticipateRecordServiceImpl extends ServiceImpl<ActivityPa
         participateRecord.setParticipateTime(LocalDateTime.now());
         participateRecord.setActivityId(request.getActivityId());
         participateRecord.setUserId(UserLoginContextUtil.getUserId());
-        activityManager.participateActivity(participateRecord);
+        activityParticipateRecordManager.participateActivity(participateRecord);
     }
 }

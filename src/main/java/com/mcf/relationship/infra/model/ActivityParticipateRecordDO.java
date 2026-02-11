@@ -3,11 +3,12 @@ package com.mcf.relationship.infra.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -55,6 +56,16 @@ public class ActivityParticipateRecordDO implements Serializable {
      * 完成时间
      */
     private LocalDateTime completeTime;
+
+    /**
+     * 作废时间
+     */
+    private LocalDateTime invalidTime;
+
+    /**
+     * 发放时间
+     */
+    private LocalDateTime settleTime;
 
     /**
      * 当前指标

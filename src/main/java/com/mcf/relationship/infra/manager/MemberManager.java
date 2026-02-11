@@ -1,14 +1,19 @@
 package com.mcf.relationship.infra.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.mcf.relationship.common.enums.ActivityStatusEnum;
 import com.mcf.relationship.common.enums.EnableStatusEnum;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.common.enums.TimeUnitEnum;
 import com.mcf.relationship.domain.convert.MemberConverter;
+import com.mcf.relationship.domain.entity.ActivityBO;
+import com.mcf.relationship.domain.entity.MemberAccessRecordBO;
 import com.mcf.relationship.domain.entity.MemberBO;
 import com.mcf.relationship.infra.mapper.MemberMapper;
 import com.mcf.relationship.infra.model.MemberDO;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -22,18 +27,36 @@ public class MemberManager {
     @Resource
     private MemberMapper memberMapper;
 
+    @Resource
+    private ActivityManager activityManager;
+
+    @Resource
+    private MemberAccessRecordManager memberAccessRecordManager;
+
     /**
      * 充值
      * @param userId
-     * @param timeUnitType
-     * @param amount
+     * @param activityId
+     * @param accessReceipt
      */
-    public void recharge(Long userId, Integer timeUnitType, Integer amount){
+    @Transactional(rollbackFor = Exception.class)
+    public void recharge(Long userId, Long activityId, String accessReceipt){
+
+
         AssertUtil.checkObjectNotNull(userId, "用户ID");
-        AssertUtil.checkObjectNotNull(timeUnitType, "时间单位");
-        AssertUtil.checkObjectNotNull(amount, "充值时间");
+        AssertUtil.checkObjectNotNull(activityId, "活动ID");
+        AssertUtil.checkObjectNotNull(accessReceipt, "兑换凭证");
+
+        ActivityBO activityBO = activityManager.getActivity(activityId);
+        if(activityBO == null || !ActivityStatusEnum.START.getStatus().equals(activityBO.getActivityStatus())){
+            return;
+        }
+
         MemberBO member = this.queryMember(userId);
 
+        Integer timeUnitType = activityBO.getRewardUnitType();
+        Integer amount = activityBO.getReward();
+        String channelCode = activityBO.getChannelCode();
         LocalDate now = LocalDate.now();
         ChronoUnit chronoUnit = TimeUnitEnum.getChronoUnitByUnit(timeUnitType);
 
@@ -57,6 +80,16 @@ public class MemberManager {
             }
             memberMapper.updateById(memberDO);
         }
+
+        // 兑换记录
+        MemberAccessRecordBO memberRecordBO = new MemberAccessRecordBO();
+        memberRecordBO.setUserId(userId);
+        memberRecordBO.setAccessChannelCode(channelCode);
+        memberRecordBO.setAccessReceipt(accessReceipt);
+        memberRecordBO.setAccessUnitType(timeUnitType);
+        memberRecordBO.setAccessValue(amount);
+
+        memberAccessRecordManager.addRecord(memberRecordBO);
     }
 
 

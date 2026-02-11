@@ -5,6 +5,7 @@ import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
+import com.mcf.relationship.controller.user.response.UserInviterInfoResponse;
 import com.mcf.relationship.controller.user.response.UserInfoUpdateCheckResponse;
 import com.mcf.relationship.domain.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,12 @@ public class UserController {
     public McfResult<Void> updateUser(@RequestBody UpdateUserRequest request) {
         userService.updateUser(request);
         return McfResult.success();
+    }
+
+    @PostMapping("queryInviter")
+    public McfResult<UserInviterInfoResponse> queryInviter(@RequestBody BaseRequest request){
+        UserInviterInfoResponse inviterResponse =  userService.queryInviter();
+        return McfResult.success(inviterResponse);
     }
 
     @PostMapping("getUpdateTimes")

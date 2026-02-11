@@ -121,4 +121,16 @@ public class UserManager {
         String o = memcachedRepository.get(key);
         return NumberUtils.toInt(o);
     }
+
+    /**
+     * 统计邀请数量
+     * @param userId
+     * @return
+     */
+    public int statisticsCount(Long userId, LocalDateTime startTime, LocalDateTime endTime){
+        LambdaQueryWrapper<UserDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserDO :: getId, userId);
+        queryWrapper.between(UserDO :: getRegisterTime, startTime, endTime);
+        return userMapper.selectCount(queryWrapper).intValue();
+    }
 }

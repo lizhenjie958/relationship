@@ -48,7 +48,6 @@ public class MemberRedeemServiceImpl extends ServiceImpl<MemberRedeemMapper, Mem
         redeemMemberActivity.checkActivity( context);
         redeemMemberActivity.useRedeem(context);
         redeemMemberActivity.rechargeMember(context);
-        redeemMemberActivity.addRecord(context);
     }
 
     /**

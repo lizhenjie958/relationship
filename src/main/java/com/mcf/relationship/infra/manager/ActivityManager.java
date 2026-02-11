@@ -4,13 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.mcf.relationship.common.enums.ActivityStatusEnum;
 import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.domain.convert.ActivityConverter;
-import com.mcf.relationship.domain.convert.ActivityParticipateRecordConverter;
 import com.mcf.relationship.domain.entity.ActivityBO;
-import com.mcf.relationship.domain.entity.ActivityParticipateRecordBO;
 import com.mcf.relationship.infra.mapper.ActivityMapper;
-import com.mcf.relationship.infra.mapper.ActivityParticipateRecordMapper;
 import com.mcf.relationship.infra.model.ActivityDO;
-import com.mcf.relationship.infra.model.ActivityParticipateRecordDO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -26,9 +22,6 @@ public class ActivityManager {
     @Resource
     private ActivityMapper activityMapper;
 
-    @Resource
-    private ActivityParticipateRecordMapper activityParticipateRecordMapper;
-
     public ActivityBO getActivity(Long activityId){
         AssertUtil.checkObjectNotNull(activityId, "活动id");
         ActivityDO activityDO = activityMapper.selectById(activityId);
@@ -41,7 +34,48 @@ public class ActivityManager {
      * @return
      */
     public ActivityBO queryCurrentActivity(String channelCode){
+        return queryActivity(channelCode, LocalDate.now());
+    }
+
+    /**
+     * 查询指定时间的活动
+     * @param channelCode
+     * @return
+     */
+    public ActivityBO queryActivityOnDate(String channelCode,LocalDate localDate){
+        AssertUtil.checkObjectNotNull(localDate, "指定时间");
+        return queryActivity(channelCode, localDate);
+    }
+
+    /**
+     * 变更活动状态
+     */
+    public void changeStatus(){
         LocalDate now = LocalDate.now();
+        LambdaUpdateWrapper<ActivityDO> changeStart = new LambdaUpdateWrapper<ActivityDO>()
+                .le(ActivityDO::getStartDate, now)
+                .ge(ActivityDO::getEndDate, now)
+                .eq(ActivityDO::getActivityStatus, ActivityStatusEnum.NOT_STARTED.getStatus())
+                .set(ActivityDO::getActivityStatus, ActivityStatusEnum.START.getStatus());
+        activityMapper.update(null,changeStart);
+
+        LambdaUpdateWrapper<ActivityDO> changeEnd = new LambdaUpdateWrapper<ActivityDO>()
+                .le(ActivityDO::getEndDate, now)
+                .eq(ActivityDO::getActivityStatus, ActivityStatusEnum.START.getStatus())
+                .set(ActivityDO::getActivityStatus, ActivityStatusEnum.END.getStatus());
+        activityMapper.update(null,changeEnd);
+    }
+
+    /**
+     * 查询活动
+     * @param channelCode
+     * @param now
+     * @return
+     */
+    public ActivityBO queryActivity(String channelCode, LocalDate now){
+        if(now == null){
+            now = LocalDate.now();
+        }
         AssertUtil.checkStringNotBlank(channelCode, "活动类型");
         LambdaUpdateWrapper<ActivityDO> queryWrapper = new LambdaUpdateWrapper<>();
         queryWrapper.eq(ActivityDO::getChannelCode, channelCode)
@@ -53,31 +87,4 @@ public class ActivityManager {
         return ActivityConverter.do2bo(activityDO);
     }
 
-    /**
-     * 查询活动参与记录
-     * @param activityId
-     * @param userId
-     * @return
-     */
-    public ActivityParticipateRecordBO queryActivityParticipateRecord(Long activityId, Long userId){
-        AssertUtil.checkObjectNotNull(activityId, "活动id");
-        AssertUtil.checkObjectNotNull(userId, "用户id");
-        LambdaUpdateWrapper<ActivityParticipateRecordDO> queryWrapper = new LambdaUpdateWrapper<>();
-        queryWrapper.eq(ActivityParticipateRecordDO::getActivityId, activityId)
-                .eq(ActivityParticipateRecordDO::getUserId, userId)
-        ;
-        ActivityParticipateRecordDO participateRecordDO = activityParticipateRecordMapper.selectOne(queryWrapper, false);
-        return ActivityParticipateRecordConverter.do2bo(participateRecordDO);
-    }
-
-    /**
-     * 参加活动
-     * @param participateRecord
-     */
-    public void participateActivity(ActivityParticipateRecordBO participateRecord) {
-        AssertUtil.checkObjectNotNull(participateRecord, "活动参与记录");
-        AssertUtil.checkObjectNotNull(participateRecord.getActivityId(), "活动id");
-        AssertUtil.checkObjectNotNull(participateRecord.getUserId(), "用户id");
-        activityParticipateRecordMapper.insert(participateRecord);
-    }
 }

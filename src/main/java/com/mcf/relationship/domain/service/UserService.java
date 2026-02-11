@@ -1,11 +1,12 @@
 package com.mcf.relationship.domain.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
 import com.mcf.relationship.controller.user.response.UserInfoUpdateCheckResponse;
+import com.mcf.relationship.controller.user.response.UserInviterInfoResponse;
 import com.mcf.relationship.infra.model.UserDO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -23,4 +24,6 @@ public interface UserService extends IService<UserDO> {
     void maintainInviter(MaintainInviterRequest request);
 
     UserInfoUpdateCheckResponse getUpdateTimes();
+
+    UserInviterInfoResponse queryInviter();
 }

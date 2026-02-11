@@ -1,7 +1,6 @@
 package com.mcf.relationship.domain.activity;
 
 import com.mcf.relationship.common.enums.BizExceptionEnum;
-import com.mcf.relationship.common.enums.MemberAccessChannelEnum;
 import com.mcf.relationship.common.enums.RedeemStatusEnum;
 import com.mcf.relationship.common.exception.BizException;
 import com.mcf.relationship.common.util.AssertUtil;
@@ -9,13 +8,13 @@ import com.mcf.relationship.common.util.CheckSumUtil;
 import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.domain.context.RedeemMemberRequestContext;
 import com.mcf.relationship.domain.entity.ActivityBO;
-import com.mcf.relationship.domain.entity.MemberAccessRecordBO;
 import com.mcf.relationship.domain.entity.MemberRedeemBO;
 import com.mcf.relationship.infra.manager.ActivityManager;
 import com.mcf.relationship.infra.manager.MemberAccessRecordManager;
 import com.mcf.relationship.infra.manager.MemberManager;
 import com.mcf.relationship.infra.manager.MemberRedeemManager;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.Resource;
 import java.time.LocalDate;
 
@@ -98,25 +97,7 @@ public class RedeemMemberActivity {
      */
     public void rechargeMember(RedeemMemberRequestContext context) {
         ActivityBO activityBO = context.getActivityBO();
-        memberManager.recharge(UserLoginContextUtil.getUserId(), activityBO.getRewardUnitType(), activityBO.getReward());
+        memberManager.recharge(UserLoginContextUtil.getUserId(), activityBO.getId(), context.getRedeemCode() );
     }
-
-    /**
-     * 新增充值记录
-     * @param context
-     */
-    public void addRecord(RedeemMemberRequestContext context) {
-        ActivityBO activityBO = context.getActivityBO();
-
-        MemberAccessRecordBO recordBO = new MemberAccessRecordBO();
-        recordBO.setUserId(UserLoginContextUtil.getUserId());
-        recordBO.setAccessChannelCode(MemberAccessChannelEnum.REDEEM_MEMBER.getCode());
-        recordBO.setAccessReceipt(context.getRedeemCode());
-        recordBO.setAccessUnitType(activityBO.getRewardUnitType());
-        recordBO.setAccessValue(activityBO.getReward());
-
-        memberAccessRecordManager.addRecord(recordBO);
-    }
-
 
 }

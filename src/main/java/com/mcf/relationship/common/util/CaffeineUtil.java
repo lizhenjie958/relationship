@@ -25,12 +25,7 @@ public final class CaffeineUtil {
         return (Cache<String, T>) CACHE_MAP.computeIfAbsent(cacheEnum.getType(), key -> {
             Caffeine<Object, Object> builder = Caffeine.newBuilder()
                     .maximumSize(1000);
-
-            if (cacheEnum.getWay() == 1) {
-                builder.expireAfterWrite(5, TimeUnit.MINUTES);
-            } else {
-                builder.expireAfterAccess(5, TimeUnit.MINUTES);
-            }
+            builder.expireAfterWrite(5, TimeUnit.MINUTES);
             return builder.build();
         });
     }

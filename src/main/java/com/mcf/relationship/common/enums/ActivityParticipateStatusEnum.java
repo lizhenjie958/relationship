@@ -11,7 +11,9 @@ import lombok.Getter;
 @Getter
 public enum ActivityParticipateStatusEnum {
     ONGOING(1,"进行中"),
-    COMPLETED(2,"已完成")
+    COMPLETED(2,"已完成"),
+    SETTLE(3,"已结算"),
+    INVALID(4,"已作废"),
     ;
     private final Integer status;
     private final String desc;

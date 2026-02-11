@@ -42,6 +42,11 @@ public class AnswerStatisticsManager {
         return PageConvertUtil.convertPage(response, AnswerStatisticsConverter::do2bo);
     }
 
+    public Long count(AnswerStatisticsQueryRequest request){
+        LambdaQueryWrapper<AnswerStatisticsDO> queryWrapper = buildQuery(request);
+        return answerStatisticsMapper.selectCount(queryWrapper);
+    }
+
     public AnswerStatisticsBO queryOne(Long userId, LocalDate statisticsDate){
         AnswerStatisticsDO statisticsDO = this.getOne(userId, statisticsDate);
         return AnswerStatisticsConverter.do2bo(statisticsDO);
@@ -73,6 +78,9 @@ public class AnswerStatisticsManager {
         }
         if (request.getEndDate() != null){
             queryWrapper.le(AnswerStatisticsDO::getStatisticsDate, request.getEndDate());
+        }
+        if(request.getUserId() != null){
+            queryWrapper.eq(AnswerStatisticsDO :: getUserId, request.getUserId());
         }
         return queryWrapper;
     }

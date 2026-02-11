@@ -11,6 +11,7 @@ import com.mcf.relationship.common.util.UserLoginContextUtil;
 import com.mcf.relationship.controller.user.request.MaintainInviterRequest;
 import com.mcf.relationship.controller.user.request.UpdateUserRequest;
 import com.mcf.relationship.controller.user.response.CurrentUserResponse;
+import com.mcf.relationship.controller.user.response.UserInviterInfoResponse;
 import com.mcf.relationship.controller.user.response.UserInfoUpdateCheckResponse;
 import com.mcf.relationship.domain.convert.UserConverter;
 import com.mcf.relationship.domain.entity.UserBO;
@@ -87,5 +88,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             userInfoUpdateCheckResponse.setUpdateTimes(updateTimes);
         }
         return userInfoUpdateCheckResponse;
+    }
+
+    @Override
+    public UserInviterInfoResponse queryInviter() {
+        UserBO userBO = userManager.currentUser();
+        if(userBO.getInviterId() == null || userBO.getInviterId() <= 0){
+            return null;
+        }
+        UserBO inviterUser = userManager.getUserByUserId(userBO.getInviterId());
+        if(inviterUser == null){
+            return null;
+        }
+        UserInviterInfoResponse response = new UserInviterInfoResponse();
+        response.setInviterId(inviterUser.getInviterId());
+        response.setInviterName(inviterUser.getUsername());
+        response.setInviteCode(inviterUser.getInviteCode());
+        return response;
     }
 }
