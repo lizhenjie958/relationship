@@ -12,27 +12,10 @@
         </encoder>
     </appender>
 
-    <appender name="file_application" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/application.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>${log.path}/application/application.%i.log</fileNamePattern>
-            <minIndex>1</minIndex>
-            <maxIndex>1</maxIndex>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>200MB</maxFileSize>
-        </triggeringPolicy>
-        <encoder>
-            <pattern>${file.log.pattern}</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-    </appender>
-
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/info/info.log.%d{yyyy-MM-dd-HH}</fileNamePattern>
-            <maxFileSize>5GB</maxFileSize>
             <maxHistory>36</maxHistory>
             <totalSizeCap>100GB</totalSizeCap>
         </rollingPolicy>
@@ -52,7 +35,6 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 修正日期格式，确保 %d 使用正确的格式 -->
             <fileNamePattern>${log.path}/error/error.log.%d{yyyy-MM-dd}</fileNamePattern>
-            <maxFileSize>2GB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>100GB</totalSizeCap>
         </rollingPolicy>
@@ -76,7 +58,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="test|pre|prod">
+    <springProfile name="test|prod">
         <root level="info">
             <appender-ref ref="file_info"/>
             <appender-ref ref="file_error"/>

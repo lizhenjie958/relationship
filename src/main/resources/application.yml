@@ -7,10 +7,6 @@ spring:
   application:
     name: relationship
 
-logging:
-  level:
-    root: info
-
 memcached:
   servers: ${MEMCACHED_SERVERS:127.0.0.1:11211}  # 支持多个服务器
   pool-size: 10            # 连接池大小
