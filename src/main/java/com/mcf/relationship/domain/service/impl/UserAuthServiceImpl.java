@@ -14,6 +14,7 @@ import com.mcf.relationship.infra.model.UserDO;
 import com.mcf.relationship.intergration.wx.WxAccreditManager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.Objects;
 import java.util.Optional;

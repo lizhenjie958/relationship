@@ -18,7 +18,6 @@ import com.mcf.relationship.infra.mapper.UserMapper;
 import com.mcf.relationship.infra.model.UserDO;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -9,6 +9,7 @@ import com.mcf.relationship.config.wx.WxProperties;
 import com.mcf.relationship.intergration.entity.WxAccreditBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,9 @@ public class WxAccreditManager {
     @Resource
     private WxProperties wxProperties;
 
+    @Value("${spring.active.profile:dev}")
+    private String activeProfile;
+
 
     /**
      * 0d32bf2w3jU5Y13uVH2w3Lbxa442bf2I
@@ -42,6 +46,9 @@ public class WxAccreditManager {
      */
     public String getOpenId(String openIdAuthCode) {
         AssertUtil.checkStringNotBlank(openIdAuthCode, "微信OpenId授权Code");
+        if("dev".equals(activeProfile) && "the code is a mock one".equals(openIdAuthCode)){
+            return "o7i5g3e9snDwrlGDxLAs7bIbOVqw";
+        }
         String url = String.format(SESSION_USER_INFO, wxProperties.getAppId(), wxProperties.getAppSecret(), openIdAuthCode);
         String result = HttpUtil.doGet(url);
         WxAccreditBO wxAccreditBO = JSONObject.parseObject(result, WxAccreditBO.class);
