@@ -13,7 +13,6 @@ import com.mcf.relationship.infra.mapper.MemberMapper;
 import com.mcf.relationship.infra.model.MemberDO;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

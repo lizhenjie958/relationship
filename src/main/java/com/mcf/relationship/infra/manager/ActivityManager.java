@@ -8,7 +8,6 @@ import com.mcf.relationship.domain.entity.ActivityBO;
 import com.mcf.relationship.infra.mapper.ActivityMapper;
 import com.mcf.relationship.infra.model.ActivityDO;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDate;
 

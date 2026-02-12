@@ -15,7 +15,6 @@ import com.mcf.relationship.infra.mapper.AnswerPaperMapper;
 import com.mcf.relationship.infra.model.AnswerPaperDO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;

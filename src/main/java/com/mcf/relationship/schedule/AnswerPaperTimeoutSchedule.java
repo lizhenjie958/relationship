@@ -4,7 +4,6 @@ import com.mcf.relationship.common.annotations.DistributedTask;
 import com.mcf.relationship.infra.manager.AnswerPaperManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 
 /**

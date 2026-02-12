@@ -9,7 +9,6 @@ import com.mcf.relationship.domain.entity.MemberRedeemBO;
 import com.mcf.relationship.infra.mapper.MemberRedeemMapper;
 import com.mcf.relationship.infra.model.MemberRedeemDO;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 

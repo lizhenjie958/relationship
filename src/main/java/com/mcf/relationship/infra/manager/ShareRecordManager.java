@@ -13,7 +13,6 @@ import com.mcf.relationship.domain.entity.ShareRecordBO;
 import com.mcf.relationship.infra.mapper.ShareRecordMapper;
 import com.mcf.relationship.infra.model.ShareRecordDO;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.util.Objects;
 

@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="系统整理完成">
+    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="mapper配置修改">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/AnswerPaperMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/AnswerPaperMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/MemcachedRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/MemcachedRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/RedisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/RedisRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityParticipateRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityParticipateRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerPaperManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerPaperManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerStatisticsCacheManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerStatisticsCacheManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberRedeemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberRedeemManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/RelationshipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/RelationshipManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ShareRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ShareRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/model/ActivityDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/model/ActivityDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/intergration/entity/WxAccreditBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/intergration/entity/WxAccreditBO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerPaperTimeoutSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerPaperTimeoutSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerStatisticsSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerStatisticsSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/InviteActivitySyncSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/InviteActivitySyncSchedule.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +54,7 @@
     "RequestMappingsPanelWidth1": "75",
     "Spring Boot.Application.executor": "Debug",
     "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "editor.preferences.import"
+    "settings.editor.selected.configurable": "Errors"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -109,11 +123,33 @@
       <option name="project" value="LOCAL" />
       <updated>1770882103602</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修改统计时间">
+      <option name="closed" value="true" />
+      <created>1770883075903</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1770883075903</updated>
+    </task>
+    <task id="LOCAL-00003" summary="mapper配置修改">
+      <option name="closed" value="true" />
+      <created>1770883293983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1770883293983</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="系统整理完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="系统整理完成" />
+    <MESSAGE value="修改统计时间" />
+    <MESSAGE value="mapper配置修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="mapper配置修改" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

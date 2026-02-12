@@ -16,7 +16,6 @@ import com.mcf.relationship.infra.mapper.RelationshipMapper;
 import com.mcf.relationship.infra.model.RelationshipDO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 
 /**

@@ -6,7 +6,6 @@ import com.mcf.relationship.common.util.AssertUtil;
 import com.mcf.relationship.domain.entity.AnswerStatisticsHistoryBO;
 import com.mcf.relationship.infra.cache.RedisRepository;
 import org.springframework.stereotype.Repository;
-
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;

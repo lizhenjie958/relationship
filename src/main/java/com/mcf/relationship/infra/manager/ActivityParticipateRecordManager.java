@@ -12,7 +12,6 @@ import com.mcf.relationship.domain.entity.ActivityParticipateRecordBO;
 import com.mcf.relationship.infra.mapper.ActivityParticipateRecordMapper;
 import com.mcf.relationship.infra.model.ActivityParticipateRecordDO;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 

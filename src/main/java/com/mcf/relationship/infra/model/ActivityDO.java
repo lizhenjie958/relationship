@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 @TableName("r_activity")
 public class ActivityDO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
