@@ -32,8 +32,7 @@ spring:
           time-between-eviction-runs: 120s  # 空闲连接检测周期
 
 mybatis-plus:
-  mapper-locations: classpath*:com/data/mapper/**/*Mapper.xml
-  type-aliases-package: com.data.entity
+  mapper-locations: classpath*:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
