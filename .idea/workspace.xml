@@ -4,23 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="mapper配置修改">
+    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="移除无效导包">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/MemcachedRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/MemcachedRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/RedisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/cache/RedisRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityParticipateRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ActivityParticipateRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerPaperManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerPaperManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerStatisticsCacheManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/AnswerStatisticsCacheManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberRedeemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/MemberRedeemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/RelationshipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/RelationshipManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ShareRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/ShareRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/model/ActivityDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/model/ActivityDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/intergration/entity/WxAccreditBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/intergration/entity/WxAccreditBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerPaperTimeoutSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerPaperTimeoutSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerStatisticsSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/AnswerStatisticsSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/InviteActivitySyncSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/schedule/InviteActivitySyncSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/RequestLoggingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/RequestLoggingFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/config/web/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/config/web/WebMvcConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,14 +127,23 @@
       <option name="project" value="LOCAL" />
       <updated>1770883293983</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="移除无效导包">
+      <option name="closed" value="true" />
+      <created>1770884070479</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1770884070479</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="系统整理完成" />
     <MESSAGE value="修改统计时间" />
     <MESSAGE value="mapper配置修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="mapper配置修改" />
+    <MESSAGE value="移除无效导包" />
+    <option name="LAST_COMMIT_MESSAGE" value="移除无效导包" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

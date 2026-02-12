@@ -27,7 +27,7 @@ public class SignCheckFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return SystemConst.HEALTH_PATH.equals(request.getRequestURI());
+        return SystemConst.HEALTH_PATH.equals(request.getRequestURI()) || "/".equals(request.getRequestURI());
     }
 
     @Override
