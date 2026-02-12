@@ -21,5 +21,4 @@ public class UserTokenBO implements Serializable {
     private static final long serialVersionUID = -8437642959473868731L;
     private Long loginTime;
     private Long userId;
-    private String openId;
 }

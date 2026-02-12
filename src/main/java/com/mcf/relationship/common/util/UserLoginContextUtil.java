@@ -1,6 +1,7 @@
 package com.mcf.relationship.common.util;
 
 
+import com.mcf.relationship.common.consts.NumberConst;
 import com.mcf.relationship.domain.entity.UserTokenBO;
 
 import java.util.Optional;
@@ -25,13 +26,13 @@ public final class UserLoginContextUtil {
         return USER_TOKEN_CONTEXT_THREAD_LOCAL.get();
     }
 
+    public static long getOrDefaultId(){
+        Long userId = getUserId();
+        return userId == null ? NumberConst.ZERO : userId;
+    }
 
     public static Long getUserId() {
         return getUserTokenField(UserTokenBO::getUserId);
-    }
-
-    public static String getOpenId() {
-        return getUserTokenField(UserTokenBO::getOpenId);
     }
 
     private static <U> U getUserTokenField(Function<? super UserTokenBO, U> mapper) {

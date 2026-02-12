@@ -1,13 +1,12 @@
 package com.mcf.relationship.advice.handler;
 
 import com.mcf.relationship.common.protocol.BaseRequest;
+import com.mcf.relationship.common.util.UserLoginContextUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
-
-import java.io.IOException;
+import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 import java.lang.reflect.Type;
 
 /**
@@ -16,7 +15,7 @@ import java.lang.reflect.Type;
  * @date 2026/2/2 23:20
  */
 @ControllerAdvice
-public class UserIdSettingAdvice implements RequestBodyAdvice {
+public class UserIdSettingAdvice extends RequestBodyAdviceAdapter {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType,
@@ -26,26 +25,13 @@ public class UserIdSettingAdvice implements RequestBodyAdvice {
     }
 
     @Override
-    public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter,
-                                           Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
-        return inputMessage;
-    }
-
-    @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter,
                                 Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         // 在这里设置 userId
-        if (body instanceof BaseRequest) {
-            BaseRequest baseRequest = (BaseRequest) body;
-//            Long userId = UserLoginContextUtil.getUserToken().getUserId();
-            baseRequest.setUserId(1L);
+        if (body instanceof BaseRequest baseRequest) {
+            Long userId = UserLoginContextUtil.getUserId();
+            baseRequest.setUserId(userId);
         }
-        return body;
-    }
-
-    @Override
-    public Object handleEmptyBody(Object body, HttpInputMessage message, MethodParameter parameter,
-                                  Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         return body;
     }
 }

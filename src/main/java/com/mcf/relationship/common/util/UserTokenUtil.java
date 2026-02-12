@@ -32,7 +32,6 @@ public class UserTokenUtil {
         AssertUtil.checkObjectNotNull(userToken, "用户登录信息");
         AssertUtil.checkObjectNotNull(userToken.getLoginTime(),"登录时间");
         AssertUtil.checkObjectNotNull(userToken.getUserId(), "用户ID");
-        AssertUtil.checkObjectNotNull(userToken.getOpenId(), "微信用户ID");
         String userTokenJson = JSONObject.toJSONString(userToken);
         return EncryptUtil.encrypt(userTokenJson,"token");
     }

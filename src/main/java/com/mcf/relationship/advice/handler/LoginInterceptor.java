@@ -19,17 +19,22 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String token = request.getHeader(SystemConst.TOKEN);
+        if (StringUtils.isBlank(token)) {
+            throw new BizException(BizExceptionEnum.NEED_LOGIN);
+        }
         try {
-            String token = request.getHeader(SystemConst.TOKEN);
-            if(StringUtils.isBlank(token)){
-                throw new BizException(BizExceptionEnum.NEED_LOGIN);
-            }
             UserTokenBO userTokenBO = UserTokenUtil.decrypt(token);
-            if(userTokenBO == null || userTokenBO.getUserId() == null){
+            if (userTokenBO == null || userTokenBO.getUserId() == null) {
                 throw new BizException(BizExceptionEnum.NEED_LOGIN);
             }
             UserLoginContextUtil.setUserToken(userTokenBO);
-        }catch (Exception ignored){
+        } catch (BizException e) {
+            // 如果解密过程中抛出了具体的业务异常（如Token过期），直接向上抛出，保留原始错误码
+            throw e;
+        } catch (Exception e) {
+            // 记录异常日志，便于排查（如解密失败、JSON格式错误等）
+            log.warn("token#check#fail#token:{},error:{}", token, e.getMessage());
             throw new BizException(BizExceptionEnum.NEED_LOGIN);
         }
         return true;

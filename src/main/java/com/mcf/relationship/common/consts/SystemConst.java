@@ -8,4 +8,6 @@ public interface SystemConst {
     String TOKEN = "token";
     String SIGN = "sign";
     String TIMESTAMP = "timestamp";
+    String TRACE_ID = "traceid";
+    String HEALTH_PATH = "/health/status";
 }

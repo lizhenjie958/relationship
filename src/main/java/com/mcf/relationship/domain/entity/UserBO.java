@@ -44,7 +44,7 @@ public class UserBO extends UserDO {
      * @return
      */
     public String generateToken(){
-        UserTokenBO userTokenBO = new UserTokenBO(System.currentTimeMillis(), this.getId(), this.getWxOpenId());
+        UserTokenBO userTokenBO = new UserTokenBO(System.currentTimeMillis(), this.getId());
         return UserTokenUtil.encrypt(userTokenBO);
     }
 

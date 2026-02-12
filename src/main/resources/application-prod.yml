@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: platform
-    password: FYTIUfuytftyu5r4R^
-    url: jdbc:mysql://mysql81c187e1e9a8.rds.ivolces.com/zz-mxj-material-cloud?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: mxj-root
+    password: 890y7YJGuyigfiYUK
+    url: jdbc:mysql://115.190.96.254:3306/config?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
