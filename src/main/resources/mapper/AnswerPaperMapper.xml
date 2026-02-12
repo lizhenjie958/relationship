@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mcf.relationship.infra.mapper.AnswerPaperMapper">
-    <select id="statisticsByAnswer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
+    <select id="statisticsByAnswer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO">
         SELECT
             userId,
             answerCnt,
@@ -21,7 +21,7 @@
              ) temp
     </select>
 
-    <select id="statisticsByExaminer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO" parameterType="java.util.Map">
+    <select id="statisticsByExaminer" resultType="com.mcf.relationship.infra.model.AnswerStatisticsDO">
         SELECT
             t.examinerId as userId,
             t.examCnt,

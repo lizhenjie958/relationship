@@ -21,7 +21,7 @@ public class AnswerStatisticsSchedule {
     @Resource
     private AnswerStatisticsManager answerStatisticsManager;
 
-    @Scheduled(cron = "1 * * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     @DistributedTask(name = "answerStatisticsSchedule")
     public void process() {
         LocalDateTime startTime = LocalDate.now().atStartOfDay();

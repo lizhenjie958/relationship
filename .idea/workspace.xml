@@ -4,27 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="登录限制排除服务监控端点">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/RequestLoggingFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/TraceIdUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/aspect/DistributedTaskAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/aspect/DistributedTaskAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/handler/LoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/handler/LoginInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/handler/UserIdSettingAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/handler/UserIdSettingAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/consts/SystemConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/consts/SystemConst.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/SignUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/SignUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/UserLoginContextUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/UserLoginContextUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/UserTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/UserTokenUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/UserBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/UserBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/UserTokenBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/UserTokenBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
+    <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="系统整理完成">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/AnswerPaperMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/AnswerPaperMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +32,7 @@
   "keyToString": {
     "Application.UserLoginContextUtil.executor": "Debug",
     "JUnit.MemberRedeemTest.generateRedeemCode.executor": "Debug",
+    "Maven.relationship [clean].executor": "Run",
     "Maven.relationship [package].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -118,6 +101,19 @@
     </recent_temporary>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="系统整理完成">
+      <option name="closed" value="true" />
+      <created>1770882103602</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770882103602</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="系统整理完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="系统整理完成" />
   </component>
 </project>
