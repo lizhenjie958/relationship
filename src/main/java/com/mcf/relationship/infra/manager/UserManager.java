@@ -128,7 +128,7 @@ public class UserManager {
      */
     public int statisticsCount(Long userId, LocalDateTime startTime, LocalDateTime endTime){
         LambdaQueryWrapper<UserDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserDO :: getId, userId);
+        queryWrapper.eq(UserDO :: getInviterId, userId);
         queryWrapper.between(UserDO :: getRegisterTime, startTime, endTime);
         return userMapper.selectCount(queryWrapper).intValue();
     }
