@@ -1,5 +1,7 @@
 package com.mcf.relationship.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author ZhuPo
  * @date 2026/1/30 14:22
@@ -11,8 +13,10 @@ public final class SignUtil {
      * @param signTimestamp
      * @return
      */
-    public static String sign(long signTimestamp, String traceId) {
-        AssertUtil.checkObjectNotNull(signTimestamp, "时间戳");
+    public static String sign(Long signTimestamp, String traceId) {
+        if(signTimestamp == null || StringUtils.isBlank(traceId) || traceId.length() != 32){
+            return null;
+        }
         String signRaw = SING_FORMAT.formatted(signTimestamp,traceId);
         String sign = MD5Util.md5(signRaw);
         return sign;
