@@ -68,10 +68,11 @@ public class InviteActivitySyncSchedule {
     private void syncProgress(ActivityBO activityBO, ActivityParticipateRecordBO recordBO){
         LocalDateTime startTime = activityBO.getStartDate().atStartOfDay();
         LocalDateTime endTime = activityBO.getEndDate().atStartOfDay().plusDays(1);
+        Integer threshold = activityBO.getThreshold();
         int count = userManager.statisticsCount(recordBO.getUserId(),startTime,endTime);
         if(recordBO.getCurrentIndicator() != count){
             activityParticipateRecordManager.updateCurrentIndicator(recordBO.getId(), count);
-            if(count >= recordBO.getCurrentIndicator() && ActivityParticipateStatusEnum.ONGOING.getStatus().equals(recordBO.getParticipateStatus())){
+            if(count >= threshold && ActivityParticipateStatusEnum.ONGOING.getStatus().equals(recordBO.getParticipateStatus())){
                 activityParticipateRecordManager.changeToComplete(recordBO.getId());
             }
         }

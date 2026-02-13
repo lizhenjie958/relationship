@@ -74,8 +74,9 @@ public class AnswerActivitySyncSchedule {
         queryRequest.setUserId(recordBO.getUserId());
         int count = answerStatisticsManager.count(queryRequest).intValue();
         if(recordBO.getCurrentIndicator() != count){
+            Integer threshold = activityBO.getThreshold();
             activityParticipateRecordManager.updateCurrentIndicator(recordBO.getId(), count);
-            if(count >= recordBO.getCurrentIndicator() && ActivityParticipateStatusEnum.ONGOING.getStatus().equals(recordBO.getParticipateStatus())){
+            if(count >= threshold && ActivityParticipateStatusEnum.ONGOING.getStatus().equals(recordBO.getParticipateStatus())){
                 activityParticipateRecordManager.changeToComplete(recordBO.getId());
             }
         }
