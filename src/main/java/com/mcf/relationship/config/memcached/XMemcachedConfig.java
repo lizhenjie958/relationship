@@ -29,7 +29,7 @@ public class XMemcachedConfig {
     @Value("${memcached.op-timeout:3000}")
     private int opTimeout;
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     public MemcachedClient memcachedClient() throws IOException {
         MemcachedClientBuilder builder = new XMemcachedClientBuilder(
                 AddrUtil.getAddresses(servers)

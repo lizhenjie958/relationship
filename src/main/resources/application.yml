@@ -1,11 +1,19 @@
 server:
   port: 8888
+  # 优雅停机配置
+  shutdown: graceful
+  # 优雅停机超时时间（秒）
+  tomcat:
+    shutdown: graceful
 
 spring:
   profiles:
     active: dev
   application:
     name: relationship
+  # 优雅停机超时配置
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
 
 memcached:
   servers: ${MEMCACHED_SERVERS:127.0.0.1:11211}  # 支持多个服务器
