@@ -16,8 +16,10 @@ import com.mcf.relationship.domain.service.MemberRedeemService;
 import com.mcf.relationship.infra.manager.ActivityManager;
 import com.mcf.relationship.infra.mapper.MemberRedeemMapper;
 import com.mcf.relationship.infra.model.MemberRedeemDO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import java.util.List;
  * @since 2026-02-08
  */
 @Service
+@Slf4j
 public class MemberRedeemServiceImpl extends ServiceImpl<MemberRedeemMapper, MemberRedeemDO> implements MemberRedeemService {
 
     @Resource
@@ -40,12 +43,21 @@ public class MemberRedeemServiceImpl extends ServiceImpl<MemberRedeemMapper, Mem
     @Resource
     private ActivityManager activityManager;
 
+    /**
+     * 兑换会员
+     * 使用事务保证兑换码使用和会员充值的原子性
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void redeemMember(RedeemMemberRequest request) {
         RedeemMemberRequestContext context = BeanCopyUtil.copyForNew(request, new RedeemMemberRequestContext());
+
+        // 前置检查（不在事务中）
         redeemMemberActivity.checkRedeemCode(context);
-        redeemMemberActivity.checkRedeemStatus( context);
-        redeemMemberActivity.checkActivity( context);
+        redeemMemberActivity.checkRedeemStatus(context);
+        redeemMemberActivity.checkActivity(context);
+
+        // 在事务中执行核心操作
         redeemMemberActivity.useRedeem(context);
         redeemMemberActivity.rechargeMember(context);
     }

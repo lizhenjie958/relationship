@@ -1,6 +1,5 @@
 package com.mcf.relationship.domain.service.impl;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mcf.relationship.common.enums.BizExceptionEnum;
 import com.mcf.relationship.common.exception.BizException;
@@ -59,6 +58,7 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
 
     @Override
     public Boolean add(RelationshipUpdateRequest request) {
+        UserBO userBo = userManager.getUserWithCache(UserLoginContextUtil.getUserId());
         AssertUtil.checkStringNotBlank(request.getProtagonist(), "请输入主角名称");
         AssertUtil.checkStringNotBlank(request.getPicUrl(), "请上传图片");
         AssertUtil.checkStringNotBlank(request.getRemark(), "请输入主角描述");
@@ -69,12 +69,11 @@ public class RelationshipServiceImpl extends ServiceImpl<RelationshipMapper, Rel
         }
         RelationshipBO relationshipBO = new RelationshipBO();
         relationshipBO.setUserId(UserLoginContextUtil.getUserId());
-        // todo 从用户信息中获取用户名称
-        relationshipBO.setUsername("系统用户");
+        relationshipBO.setUsername(userBo.getUsername());
         relationshipBO.setProtagonist(request.getProtagonist());
         relationshipBO.setPicUrl(request.getPicUrl());
         relationshipBO.setRemark(request.getRemark());
-        relationshipBO.setRelations(JSONObject.toJSONString(request.getRelationList()));
+        relationshipBO.setRelationDTOList(request.getRelationList());
         relationshipManager.add(relationshipBO);
         return Boolean.TRUE;
     }

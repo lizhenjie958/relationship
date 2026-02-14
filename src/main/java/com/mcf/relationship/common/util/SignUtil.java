@@ -5,7 +5,7 @@ package com.mcf.relationship.common.util;
  * @date 2026/1/30 14:22
  */
 public final class SignUtil {
-    private static final String SING_FORMAT = "relationship=8905e6ee&timestamp=%s&traceid=%s";
+    private static final String SING_FORMAT = "relationship=y6y4a9xx&timestamp=%s&traceid=%s";
     /**
      * 签名
      * @param signTimestamp

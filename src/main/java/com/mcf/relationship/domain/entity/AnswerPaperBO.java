@@ -45,7 +45,7 @@ public class AnswerPaperBO extends AnswerPaperDO {
     public static AnswerPaperBO init(ExamPaperBO examPaperBO){
         AnswerPaperBO answerPaperBO = new AnswerPaperBO();
         LocalDateTime claimTime = LocalDateTime.now();
-        answerPaperBO.setExamPaperId(examPaperBO.getExaminerId());
+        answerPaperBO.setExamPaperId(examPaperBO.getId());
         answerPaperBO.setExamPaperName(examPaperBO.getName());
         answerPaperBO.setProtagonistInfo(examPaperBO.getProtagonistInfo());
         answerPaperBO.setAnswerStatus(AnswerStatusEnum.ANSWERING.getStatus());
