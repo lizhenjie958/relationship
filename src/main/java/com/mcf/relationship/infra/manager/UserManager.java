@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -104,9 +105,9 @@ public class UserManager {
         UserDO userDO = UserConverter.bo2do(userBO);
         secondaryCacheManager.delCache(CacheEnum.CURRENT_USER, userBO.getId() + "", () -> userMapper.updateById(userDO) > 0);
         String key = USER_UPDATE_TIMES_PREFIX + userBO.getId();
-        memcachedRepository.incr(key, 1, 1);
         LocalDateTime localDateTime = LocalDate.now().atStartOfDay().plusDays(1);
-        memcachedRepository.setExpireUntil(key, localDateTime);
+        int expireSeconds = (int) LocalDateTime.now().until(localDateTime, ChronoUnit.SECONDS);
+        memcachedRepository.incr(key, 1, 1, expireSeconds);
     }
 
     /**

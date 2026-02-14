@@ -78,6 +78,23 @@ public class MemcachedRepository {
     }
 
     /**
+     * 原子递增（支持过期时间）
+     * @param key 键
+     * @param delta 递增量
+     * @param initValue 初始值（当key不存在时）
+     * @param expire 过期时间（秒）
+     * @return 递增后的值
+     */
+    public long incr(String key, long delta, long initValue, int expire) {
+        try {
+            return memcachedClient.incr(key, delta, initValue, memcachedClient.getOpTimeout(), expire);
+        } catch (Exception e) {
+            log.error("Memcached incr error, key: {}", key, e);
+            return -1;
+        }
+    }
+
+    /**
      * 原子递减
      */
     public long decr(String key, long delta, long initValue) {

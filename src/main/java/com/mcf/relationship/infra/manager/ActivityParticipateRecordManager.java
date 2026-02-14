@@ -59,7 +59,6 @@ public class ActivityParticipateRecordManager {
      * @return
      */
     public PageResponse<ActivityParticipateRecordBO> queryList(ParticipateRecordQueryRequest request){
-        AssertUtil.checkObjectNotNull(request.getActivityId(), "活动ID");
         LambdaUpdateWrapper<ActivityParticipateRecordDO> queryWrapper = new LambdaUpdateWrapper<>();
         if(request.getActivityId() != null){
             queryWrapper.eq(ActivityParticipateRecordDO::getActivityId, request.getActivityId());
