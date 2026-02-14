@@ -125,6 +125,10 @@ public class AnswerStatisticsManager {
                 )).forEach((userId, statistics) -> {
                     if (statistics.isPresent()) {
                         AnswerStatisticsDO statisticsDO = statistics.get();
+                        // 确保设置 statisticsDate（针对只有1个元素，reducing不会调用mergeStatistics的情况）
+                        if (statisticsDO.getStatisticsDate() == null) {
+                            statisticsDO.setStatisticsDate(startTime.toLocalDate());
+                        }
                         AnswerStatisticsDO answerStatistics4DB = getOne(userId, startTime.toLocalDate());
                         if(answerStatistics4DB == null){
                             answerStatisticsMapper.insert(statisticsDO);
