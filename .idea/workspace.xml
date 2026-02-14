@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48393617-80d5-4e3a-a53a-b3bf1a7795c4" name="Changes" comment="处理邀请活动的bug">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/advice/filter/SignCheckFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/SignUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/common/util/SignUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/activity/RedeemMemberActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/activity/RedeemMemberActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/AnswerPaperBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/entity/AnswerPaperBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/ActivityParticipateRecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/ActivityParticipateRecordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/AnswerPaperServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/AnswerPaperServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/MemberRedeemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/MemberRedeemServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/RelationshipServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/RelationshipServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/SecondaryCacheManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mcf/relationship/infra/manager/SecondaryCacheManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +70,6 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.SecondaryCacheManager.executor": "Debug",
-    "Application.SignUtil.executor": "Debug",
     "Application.UserLoginContextUtil.executor": "Debug",
     "JUnit.MemberRedeemTest.generateRedeemCode.executor": "Debug",
     "Maven.relationship [clean].executor": "Run",
@@ -106,33 +97,7 @@
       <recent name="com.mcf.relationship.common.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
-    <configuration name="SecondaryCacheManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.mcf.relationship.infra.manager.SecondaryCacheManager" />
-      <module name="relationship" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mcf.relationship.infra.manager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SignUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.mcf.relationship.common.util.SignUtil" />
-      <module name="relationship" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mcf.relationship.common.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MemberRedeemTest.generateRedeemCode">
     <configuration name="MemberRedeemTest.generateRedeemCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="relationship" />
       <extension name="coverage">
@@ -150,7 +115,6 @@
       </method>
     </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <option name="ACTIVE_PROFILES" value="dev" />
       <envs>
         <env name="MEMCACHED_SERVERS" value="42.194.146.159:11211" />
       </envs>
@@ -161,15 +125,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.SecondaryCacheManager" />
-      <item itemvalue="Application.SignUtil" />
       <item itemvalue="JUnit.MemberRedeemTest.generateRedeemCode" />
       <item itemvalue="Spring Boot.Application" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SignUtil" />
-        <item itemvalue="Application.SecondaryCacheManager" />
         <item itemvalue="JUnit.MemberRedeemTest.generateRedeemCode" />
       </list>
     </recent_temporary>
@@ -234,7 +194,7 @@
       <workItem from="1770945584869" duration="5895000" />
       <workItem from="1770967316555" duration="65000" />
       <workItem from="1770967418142" duration="1595000" />
-      <workItem from="1770974773216" duration="12284000" />
+      <workItem from="1770974773216" duration="1063000" />
     </task>
     <task id="LOCAL-00006" summary="项目配置">
       <option name="closed" value="true" />
@@ -252,15 +212,7 @@
       <option name="project" value="LOCAL" />
       <updated>1770975006584</updated>
     </task>
-    <task id="LOCAL-00008" summary="处理邀请活动的bug">
-      <option name="closed" value="true" />
-      <created>1770975864854</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1770975864854</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,22 +227,6 @@
     <MESSAGE value="项目配置" />
     <MESSAGE value="处理邀请活动的bug" />
     <option name="LAST_COMMIT_MESSAGE" value="处理邀请活动的bug" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mcf/relationship/domain/service/impl/RelationshipServiceImpl.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="com.mcf.relationship.controller.relationship.request.RelationshipUpdateRequest" memberName="relationList" />
-      </pinned-members>
-    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

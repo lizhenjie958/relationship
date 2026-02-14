@@ -1,6 +1,7 @@
 package com.mcf.relationship.advice.filter;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.mcf.relationship.common.consts.NumberConst;
 import com.mcf.relationship.common.consts.SystemConst;
 import com.mcf.relationship.common.protocol.McfResult;
 import com.mcf.relationship.common.util.SignUtil;
@@ -23,7 +24,7 @@ import java.io.IOException;
 @Component
 @Order(2)
 public class SignCheckFilter extends OncePerRequestFilter {
-    private static final long MAX_REQUEST_DELAY_TIME = 1000 * 60 * 2;
+    private static final long MAX_REQUEST_DELAY_TIME = 1000 * 60;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -34,16 +35,24 @@ public class SignCheckFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
             String sign = request.getHeader(SystemConst.SIGN);
-            String timestampStr = request.getHeader(SystemConst.TIMESTAMP);
-            long timestamp = Long.parseLong(timestampStr);
-            String tarceId = request.getHeader(SystemConst.TRACE_ID);
-            String calSign = SignUtil.sign(timestamp,tarceId);
-            if(checkRequestTime(timestamp) && StringUtils.equals(sign, calSign)){
-                chain.doFilter(request, response);
-                return;
+            if(StringUtils.isNotBlank(sign)){
+
+                String timestampStr = request.getHeader(SystemConst.TIMESTAMP);
+                String tarceId = request.getHeader(SystemConst.TRACE_ID);
+
+                if(StringUtils.isNotBlank(timestampStr) && timestampStr.length() == NumberConst.THIRTEEN
+                        && StringUtils.isNotBlank(tarceId) && tarceId.length() == NumberConst.THIRTY_TWO){
+                    Long timestamp = Long.parseLong(timestampStr);
+                    String calSign = SignUtil.sign(timestamp,tarceId);
+                    if(checkRequestTime(timestamp) && StringUtils.equals(sign, calSign)){
+                        chain.doFilter(request, response);
+                        return;
+                    }
+                }
+
             }
-        }catch (Exception ignored){
-            log.warn("签名认证失败");
+        }catch (Exception e){
+            log.warn("sign#check#fail#error={}",e.getMessage());
         }
         buildSignFail(response);
     }
